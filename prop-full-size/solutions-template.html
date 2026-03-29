@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>REALMAN | SOLUTIONS</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          "headline": ["Inter", "sans-serif"],
+          "body": ["Inter", "sans-serif"],
+          "label": ["Inter", "sans-serif"],
+        },
+        borderRadius: {
+          "DEFAULT": "0.25rem",
+          "lg": "0.25rem",
+          "xl": "0.25rem",
+          "full": "9999px",
+        },
+      },
+    },
+  }
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .sol-section-title {
+      padding: 20px 20px 0 !important;
+      font-size: 28px !important;
+      margin-top: 56px !important;
+    }
+    @media (min-width: 768px) {
+      .sol-section-title {
+        padding: 32px 32px 0 32px !important;
+        font-size: 36px !important;
+        margin-top: 60px !important;
+      }
+    }
+
+    /* ---- Video in Hero ---- */
+    .vid-wrapper {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+      border-radius: 12px;
+      overflow: hidden;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .vid-wrapper video {
+      display: block;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .vid-wrapper.vid-portrait {
+      max-width: 480px;
+      align-self: center;
+    }
+  </style>
+</head>
+<body class="bg-white">
+
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full border-b border-[#DFDFDF] bg-[#F6F6F6]/80 backdrop-blur-xl z-[9999] grid items-center px-4 md:px-[32px] py-3 md:py-4" style="grid-template-columns:auto 1fr auto;">
+  <img src="../prop/logo.png" alt="REALMAN ROBOTICS" class="h-[20px] w-auto">
+  <button class="md:hidden justify-self-end text-[#1a1a1a]/70 hover:text-[#3B82F6]" onclick="document.getElementById('mobile-menu-sol').classList.toggle('hidden')">
+    <span class="material-symbols-outlined text-[20px]">menu</span>
+  </button>
+  <div class="hidden md:flex items-center justify-center space-x-4">
+    <span class="text-[#000] font-bold text-[12px] tracking-wider px-2 py-1 rounded-[0.25rem] cursor-default">Home</span>
+    <div class="relative group/cp flex items-center">
+      <span class="text-[#000] font-bold text-[12px] tracking-wider px-2 py-1 rounded-[0.25rem] cursor-default">Core Products</span>
+      <div class="absolute top-full left-0 pt-3 hidden group-hover/cp:block">
+        <div class="bg-white/95 backdrop-blur-xl border border-[#DFDFDF] shadow-2xl shadow-black/10 rounded-[0.25rem]">
+          <div class="grid grid-cols-3 divide-x divide-[#DFDFDF]" style="min-width:660px;">
+            <div class="py-5 px-5">
+              <span class="block text-[12px] text-[#000] tracking-wider mb-3 pb-2 border-b border-[#DFDFDF]">Joint Modules</span>
+              <span class="block py-1.5 text-[12px] text-[#000] tracking-wider">WHJ Series</span>
+              <span class="block py-1.5 text-[12px] text-[#000] tracking-wider">WHJ Torque Series</span>
+              <span class="block py-1.5 text-[12px] text-[#000] tracking-wider">WHG Series</span>
+            </div>
+            <div class="py-5 px-5">
+              <span class="block text-[12px] text-[#000] tracking-wider mb-3 pb-2 border-b border-[#DFDFDF]">Robotic Arms</span>
+              <span class="block text-[12px] text-[#000] tracking-wider mt-1 mb-1">RM Series</span>
+              <span class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider">RM65</span>
+              <span class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider">RM75</span>
+              <span class="block text-[12px] text-[#000] tracking-wider mt-3 mb-1">RML Series</span>
+              <span class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider">RML63</span>
+              <span class="block text-[12px] text-[#000] tracking-wider mt-3 mb-1">ECO Series</span>
+              <span class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider">ECO65</span>
+              <span class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider">ECO63</span>
+              <span class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider">ECO62</span>
+              <span class="block text-[12px] text-[#000] tracking-wider mt-3 mb-1">RX Series</span>
+              <span class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider">RX75</span>
+            </div>
+            <div class="py-5 px-5">
+              <span class="block text-[12px] text-[#000] tracking-wider mb-3 pb-2 border-b border-[#DFDFDF]">Wheeled Robots</span>
+              <span class="block py-1.5 text-[12px] text-[#000] tracking-wider">RealBot Humanoid</span>
+              <span class="block py-1.5 text-[12px] text-[#000] tracking-wider">Single-Arm Lift</span>
+              <span class="block py-1.5 text-[12px] text-[#000] tracking-wider">Dual-Arm Lift</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span class="text-[#000] font-bold text-[12px] tracking-wider px-2 py-1 rounded-[0.25rem] cursor-default">Teleoperation Network</span>
+    <span class="text-[#000] font-bold text-[12px] tracking-wider px-2 py-1 rounded-[0.25rem] cursor-default">Data Services</span>
+    <div class="relative group/sol flex items-center">
+      <span class="text-[#000] font-bold text-[12px] tracking-wider px-2 py-1 rounded-[0.25rem] cursor-default">Solutions</span>
+      <div class="absolute top-full left-0 pt-3 hidden group-hover/sol:block">
+        <div class="bg-white/95 backdrop-blur-xl border border-[#DFDFDF] shadow-2xl shadow-black/10 min-w-[240px] py-4 px-5 rounded-[0.25rem]">
+          <span class="block py-1.5 text-[12px] text-[#000] tracking-wider">Industry Solutions</span>
+          <span class="block py-1.5 text-[12px] text-[#000] tracking-wider">Ecosystem Solutions</span>
+          <span class="block py-1.5 text-[12px] text-[#000] tracking-wider">ODM Services</span>
+          <span class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider">Robotic Arm ODM</span>
+          <span class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider">Complete Robot ODM</span>
+          <span class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider">ODM Pipeline</span>
+        </div>
+      </div>
+    </div>
+    <div class="relative group/dev flex items-center">
+      <span class="text-[#000] font-bold text-[12px] tracking-wider px-2 py-1 rounded-[0.25rem] cursor-default">Developer Center</span>
+      <div class="absolute top-full left-0 pt-3 hidden group-hover/dev:block">
+        <div class="bg-white/95 backdrop-blur-xl border border-[#DFDFDF] shadow-2xl shadow-black/10 min-w-[220px] py-4 px-5 rounded-[0.25rem]">
+          <span class="block py-1.5 text-[12px] text-[#000] tracking-wider">Product Specs</span>
+          <span class="block py-1.5 text-[12px] text-[#000] tracking-wider">Technical Documentation</span>
+          <span class="block py-1.5 text-[12px] text-[#000] tracking-wider">FAQs</span>
+        </div>
+      </div>
+    </div>
+    <div class="relative group/about flex items-center">
+      <span class="text-[#000] font-bold text-[12px] tracking-wider px-2 py-1 rounded-[0.25rem] cursor-default">About Us</span>
+      <div class="absolute top-full left-0 pt-3 hidden group-hover/about:block">
+        <div class="bg-white/95 backdrop-blur-xl border border-[#DFDFDF] shadow-2xl shadow-black/10 min-w-[240px] py-4 px-5 rounded-[0.25rem]">
+          <span class="block py-1.5 text-[12px] text-[#000] tracking-wider">Company Overview</span>
+          <span class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider">Who We Are</span>
+          <span class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider">Milestones</span>
+          <span class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider">Certifications</span>
+          <span class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider">Partners</span>
+          <div class="border-t border-[#DFDFDF] my-2"></div>
+          <span class="block py-1.5 text-[12px] text-[#000] tracking-wider">News &amp; Events</span>
+          <span class="block py-1.5 text-[12px] text-[#000] tracking-wider">Careers</span>
+          <span class="block py-1.5 text-[12px] text-[#000] tracking-wider">Partnership</span>
+          <span class="block py-1.5 text-[12px] text-[#000] tracking-wider">Contact Us</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hidden md:block text-[12px] tracking-wider text-[#3B82F6] font-bold border border-[#3B82F6]/30 px-3 py-1 rounded-[0.25rem]">CN/EN</div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu-sol" class="hidden fixed top-[52px] left-0 w-full bg-white/98 backdrop-blur-xl z-[9998] border-b border-[#DFDFDF] md:hidden overflow-y-auto max-h-[calc(100vh-52px)]">
+  <div class="flex flex-col py-4 px-4 md:px-[32px] space-y-3">
+    <span class="text-[#000] font-bold text-[12px] tracking-wider py-2">Home</span>
+    <span class="text-[#000] font-bold text-[12px] tracking-wider py-2">Core Products</span>
+    <span class="text-[#000] font-bold text-[12px] tracking-wider py-2">Teleoperation Network</span>
+    <span class="text-[#000] font-bold text-[12px] tracking-wider py-2">Data Services</span>
+    <span class="text-[#000] font-bold text-[12px] tracking-wider py-2">Solutions</span>
+    <span class="text-[#000] font-bold text-[12px] tracking-wider py-2">Developer Center</span>
+    <span class="text-[#000] font-bold text-[12px] tracking-wider py-2">About Us</span>
+    <div class="text-[12px] tracking-wider text-[#3B82F6] font-bold border border-[#3B82F6]/30 px-3 py-1 w-fit rounded-[0.25rem]">CN/EN</div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- HERO SECTION (with video) -->
+<!-- ============================================================ -->
+<section class="w-full h-screen bg-[#FFFFFF] relative flex flex-col" style="font-family:'Inter',sans-serif;">
+  <h2 id="sol-title" class="sol-section-title" style="padding:32px 32px 0 32px; margin-top:60px; font-size:36px; font-weight:400; line-height:1; color:#000; letter-spacing:-0.05em; display:inline-block; overflow:hidden; white-space:nowrap; width:0; flex-shrink:0;">Solutions Title</h2>
+
+  <div style="flex:1; min-height:0; display:flex; justify-content:center; padding:24px 32px 32px;">
+    <div class="vid-wrapper">
+      <video controls playsinline preload="metadata" poster="">
+        <source src="" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</section>
+
+
+<script>
+function initTypewriter(id, text) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  let typed = false;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !typed) {
+        typed = true;
+        let i = 0;
+        el.style.width = 'auto';
+        el.textContent = '';
+        const type = () => {
+          if (i < text.length) {
+            el.textContent += text[i];
+            i++;
+            setTimeout(type, 80);
+          }
+        };
+        type();
+        obs.unobserve(el);
+      }
+    });
+  }, { threshold: 0.1 });
+  obs.observe(el);
+}
+
+initTypewriter('sol-title', 'Solutions Title');
+</script>
+
+</body>
+</html>
