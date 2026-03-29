@@ -36,7 +36,7 @@
     }
 
     try {
-      var res = await fetch(SUPABASE_URL + '/rest/v1/contact_submissions', {
+      var res = await fetch(SUPABASE_URL + '/rest/v1/contact_submissions_en', {
         method: 'POST',
         headers: {
           'apikey': SUPABASE_KEY,
