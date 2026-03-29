@@ -1,0 +1,835 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>REALMAN | DATA SERVICES</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          "headline": ["Inter", "sans-serif"],
+          "body": ["Inter", "sans-serif"],
+          "label": ["Inter", "sans-serif"],
+        },
+        borderRadius: {
+          "DEFAULT": "0.25rem",
+          "lg": "0.25rem",
+          "xl": "0.25rem",
+          "full": "9999px",
+        },
+      },
+    },
+  }
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow-x: hidden; font-family: 'Inter', sans-serif; }
+    html { scroll-behavior: smooth; }
+    .ds-fade { opacity:0; transform:translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .ds-fade.ds-visible { opacity:1; transform:translateY(0); }
+    .dao-card { cursor:pointer; }
+    .dao-card .dao-circle { transition: transform 0.6s cubic-bezier(0.22,1,0.36,1); }
+    .dao-card:hover .dao-circle { transform: scale(1.08); }
+    .dao-card .dao-circle svg { transition: transform 0.8s cubic-bezier(0.22,1,0.36,1); }
+    .dao-card:hover .dao-circle svg { transform: rotate(45deg); }
+    .dao-card .dao-cta { transition: color 0.3s ease, gap 0.3s ease; }
+    .dao-card:hover .dao-cta { color:#3B82F6; }
+    .dao-card:hover .dao-cta .material-symbols-outlined { transform:translate(2px,-2px); }
+    .dao-card .dao-cta .material-symbols-outlined { transition: transform 0.3s ease; }
+    .cdp-row { position:relative; transition: padding-left 0.3s ease; }
+    .cdp-row::before { content:''; position:absolute; top:0; bottom:0; left:-32px; right:0; background:transparent; transition:background 0.3s ease; pointer-events:none; border-radius:0.25rem; }
+    .cdp-row:hover { padding-left:12px; }
+    .cdp-row:hover::before { background:rgba(0,0,0,0.03); }
+    .cdp-row-last { transition: padding-left 0.3s ease, opacity 0.3s ease; }
+    .cdp-row-last:hover { padding-left:12px; opacity:0.9; }
+
+    /* ======== Responsive: mobile-first ======== */
+
+    /* --- Section titles --- */
+    .ds-title { padding: 20px 16px 0 !important; font-size: 28px !important; margin-top: 56px !important; }
+    @media (min-width: 768px) { .ds-title { padding: 32px 32px 0 32px !important; font-size: 36px !important; margin-top: 60px !important; } }
+    .ds-title-no-mt { margin-top: 0 !important; }
+
+    /* --- S1: Three Data Access Options --- */
+    .dao-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+    .dao-wrap { padding: 0 16px 20px !important; }
+    .dao-card h3 { font-size: 28px !important; }
+    .dao-circle { width: 140px !important; height: 140px !important; }
+    .dao-circle svg { width: 140px !important; height: 140px !important; }
+    @media (min-width: 768px) {
+      .dao-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 32px !important; }
+      .dao-wrap { padding: 0 32px 32px !important; }
+      .dao-card h3 { font-size: 36px !important; }
+      .dao-circle { width: 180px !important; height: 180px !important; }
+      .dao-circle svg { width: 180px !important; height: 180px !important; }
+    }
+
+    /* --- S2: Dataset Architecture --- */
+    .da-section { padding: 20px 16px !important; }
+    .da-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 16px !important; }
+    .da-title-wrap { flex-direction: column !important; gap: 12px !important; }
+    #s2-title { font-size: 28px !important; }
+    @media (min-width: 768px) {
+      .da-section { padding: 32px !important; }
+      .da-grid { grid-template-columns: repeat(9, 1fr) !important; gap: 24px !important; }
+      .da-title-wrap { flex-direction: row !important; gap: 48px !important; }
+      #s2-title { font-size: 36px !important; }
+    }
+
+    /* --- S3: Why RealSource (CRITICAL: desktop untouched!) --- */
+    .rs-grid {
+      grid-template-columns: 1fr !important;
+      grid-template-rows: auto !important;
+      height: auto !important;
+    }
+    .rs-card {
+      grid-column: auto !important;
+      grid-row: auto !important;
+      min-height: 200px;
+    }
+    .rs-wrap { padding: 16px 16px 20px !important; }
+    #s3-title { font-size: 28px !important; padding: 20px 16px 0 !important; }
+    @media (min-width: 1024px) {
+      .rs-grid {
+        grid-template-columns: 1fr 1.2fr 1fr 1fr !important;
+        grid-template-rows: 1fr 1fr !important;
+        height: calc(100% - 0px) !important;
+      }
+      .rs-card { min-height: 0; }
+      .rs-card-1 { grid-column: 1 !important; grid-row: 1 !important; }
+      .rs-card-2 { grid-column: 2 !important; grid-row: 1/3 !important; }
+      .rs-card-3 { grid-column: 3 !important; grid-row: 1 !important; }
+      .rs-card-4 { grid-column: 4 !important; grid-row: 1 !important; }
+      .rs-card-5 { grid-column: 1 !important; grid-row: 2 !important; }
+      .rs-card-6 { grid-column: 3/5 !important; grid-row: 2 !important; }
+      .rs-wrap { padding: 32px 32px 32px !important; }
+      #s3-title { font-size: 36px !important; padding: 32px 32px 0 32px !important; }
+    }
+
+    /* --- S4: Standards & Interoperability --- */
+    .si-section { padding: 20px 16px !important; }
+    .si-strip { flex-direction: column !important; }
+    .si-divider { width: 100% !important; height: 1px !important; margin: 0 !important; }
+    #s4-title { font-size: 28px !important; }
+    @media (min-width: 768px) {
+      .si-section { padding: 32px !important; }
+      .si-strip { flex-direction: row !important; }
+      .si-divider { width: 1px !important; height: auto !important; margin: 24px 0 !important; }
+      #s4-title { font-size: 36px !important; }
+    }
+
+    /* --- S5: Custom Data Pipeline (CRITICAL: desktop untouched!) --- */
+    .cdp-outer { flex-direction: column !important; padding: 0 16px !important; }
+    .cdp-left {
+      position: static !important;
+      width: 100% !important;
+      height: auto !important;
+      padding: 20px 0 0 0 !important;
+    }
+    .cdp-right { width: 100% !important; padding: 0 0 20px !important; }
+    .cdp-row, .cdp-row-last { margin-left: 0 !important; }
+    #s5-title { font-size: 28px !important; }
+    @media (min-width: 1024px) {
+      .cdp-outer { flex-direction: row !important; padding: 0 32px !important; }
+      .cdp-left {
+        position: sticky !important;
+        top: 0 !important;
+        width: 33% !important;
+        height: 100vh !important;
+        padding: 0 48px 0 0 !important;
+      }
+      .cdp-right { width: 67% !important; padding: 32px 0 32px !important; }
+      .cdp-step-1 { margin-left: 0px !important; }
+      .cdp-step-2 { margin-left: 32px !important; }
+      .cdp-step-3 { margin-left: 64px !important; }
+      .cdp-step-4 { margin-left: 96px !important; }
+      .cdp-step-5 { margin-left: 128px !important; }
+      .cdp-step-6 { margin-left: 160px !important; }
+      .cdp-step-7 { margin-left: 192px !important; }
+      #s5-title { font-size: 36px !important; }
+    }
+
+    /* --- CTA + Footer --- */
+    .cta-grid-ds { grid-template-columns: 1fr !important; gap: 32px !important; }
+    .cta-form-row-ds { grid-template-columns: 1fr !important; }
+    .cta-wrap-ds { padding: 20px !important; }
+    #git-title { font-size: 28px !important; }
+    @media (min-width: 768px) {
+      .cta-grid-ds { grid-template-columns: 1.6fr 0.7fr !important; gap: 64px !important; }
+      .cta-form-row-ds { grid-template-columns: 1fr 1fr !important; }
+      .cta-wrap-ds { padding: 32px !important; }
+      #git-title { font-size: 36px !important; }
+    }
+    @media (min-width: 768px) {
+      #contact-form button[type="submit"] { width: auto !important; }
+      .cta-email-ds { font-size: 20px !important; }
+    }
+
+  </style>
+<style>
+  .git-input, .git-select {
+    width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);
+    border-radius:0.25rem; padding:14px 16px; font-size:15px; font-weight:400;
+    letter-spacing:-0.05em; color:#fff; outline:none; font-family:Inter,sans-serif;
+    transition:border-color 0.3s, background 0.3s;
+  }
+  .git-input::placeholder { color:rgba(255,255,255,0.3); }
+  .git-input:focus, .git-select:focus {
+    border-color:#3B82F6; background:rgba(59,130,246,0.06);
+  }
+  .git-select { appearance:none; cursor:pointer;
+    background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='rgba(255,255,255,0.35)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:right 16px center;
+  }
+  .git-select option { background:#111; color:#fff; }
+</style>
+
+</head>
+<body>
+
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full border-b border-[#DFDFDF] bg-[#F6F6F6]/80 backdrop-blur-xl z-[9999] grid items-center px-4 md:px-[32px] py-3 md:py-4" style="grid-template-columns:auto 1fr auto;">
+  <a href="home.html" style="text-decoration:none;"><img src="../../prop/logo.png" alt="REALMAN ROBOTICS" class="h-[20px] w-auto"></a>
+  <button class="md:hidden justify-self-end text-[#1a1a1a]/70 hover:text-[#3B82F6]" onclick="document.getElementById('mobile-menu-ds').classList.toggle('hidden')">
+    <span class="material-symbols-outlined text-[20px]">menu</span>
+  </button>
+  <div class="hidden md:flex items-center justify-center space-x-4">
+    <a href="home.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">Home</a>
+    <div class="relative group/cp flex items-center">
+      <a href="core-products.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">Core Products</a>
+      <div class="absolute top-full left-0 pt-3 hidden group-hover/cp:block">
+        <div class="bg-white/95 backdrop-blur-xl border border-[#DFDFDF] shadow-2xl shadow-black/10 rounded-[0.25rem]">
+          <div class="grid grid-cols-3 divide-x divide-[#DFDFDF]" style="min-width:660px;">
+            <div class="py-5 px-5">
+              <a href="core-products.html#joint-modules" class="block text-[12px] text-[#000] tracking-wider mb-3 pb-2 border-b border-[#DFDFDF]" style="text-decoration:none;">Joint Modules</a>
+              <a href="../products/whj-joint-modules.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">WHJ Series</a>
+              <a href="../products/whj-torque-joint-modules.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">WHJ Torque Series</a>
+              <a href="../products/whg-joint-modules.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">WHG Series</a>
+            </div>
+            <div class="py-5 px-5">
+              <a href="core-products.html#robotic-arms" class="block text-[12px] text-[#000] tracking-wider mb-3 pb-2 border-b border-[#DFDFDF]" style="text-decoration:none;">Robotic Arms</a>
+              <a href="core-products.html#robotic-arms" class="block text-[12px] text-[#000] tracking-wider mt-1 mb-1 hover:text-[#3B82F6]" style="text-decoration:none;">RM Series</a>
+              <a href="../products/rm65.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">RM65</a>
+              <a href="../products/rm75.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">RM75</a>
+              <a href="core-products.html#robotic-arms" class="block text-[12px] text-[#000] tracking-wider mt-3 mb-1 hover:text-[#3B82F6]" style="text-decoration:none;">RML Series</a>
+              <a href="../products/rml63.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">RML63</a>
+              <a href="core-products.html#robotic-arms" class="block text-[12px] text-[#000] tracking-wider mt-3 mb-1 hover:text-[#3B82F6]" style="text-decoration:none;">ECO Series</a>
+              <a href="../products/eco65.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">ECO65</a>
+              <a href="../products/eco63.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">ECO63</a>
+              <a href="../products/eco62.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">ECO62</a>
+              <a href="core-products.html#robotic-arms" class="block text-[12px] text-[#000] tracking-wider mt-3 mb-1 hover:text-[#3B82F6]" style="text-decoration:none;">RX Series</a>
+              <a href="../products/rx75.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">RX75</a>
+            </div>
+            <div class="py-5 px-5">
+              <a href="core-products.html#wheeled-robots" class="block text-[12px] text-[#000] tracking-wider mb-3 pb-2 border-b border-[#DFDFDF]" style="text-decoration:none;">Wheeled Robots</a>
+              <a href="../products/realbot-humanoid.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">RealBOT Humanoid</a>
+              <a href="../products/single-arm-lift.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Single-Arm Lift</a>
+              <a href="../products/dual-arm-lift.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Dual-Arm Lift</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="teleoperation-network.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">Teleoperation Network</a>
+    <a href="data-services.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">Data Services</a>
+    <div class="relative group/sol flex items-center">
+      <a href="solutions.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">Solutions</a>
+      <div class="absolute top-full left-0 pt-3 hidden group-hover/sol:block">
+        <div class="bg-white/95 backdrop-blur-xl border border-[#DFDFDF] shadow-2xl shadow-black/10 min-w-[240px] py-4 px-5 rounded-[0.25rem]">
+          <a href="solutions.html#industry" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Industry Solutions</a>
+          <a href="solutions.html#ecosystem" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Ecosystem Solutions</a>
+          <a href="solutions.html#odm" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">ODM Services</a>
+          <a href="solutions.html#robotic-arm-odm" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Robotic Arm ODM</a>
+          <a href="solutions.html#complete-robot-odm" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Complete Robot ODM</a>
+          <a href="solutions.html#odm-pipeline" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">ODM Pipeline</a>
+        </div>
+      </div>
+    </div>
+    <div class="relative group/dev flex items-center">
+      <a href="developer-center.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">Developer Center</a>
+      <div class="absolute top-full left-0 pt-3 hidden group-hover/dev:block">
+        <div class="bg-white/95 backdrop-blur-xl border border-[#DFDFDF] shadow-2xl shadow-black/10 min-w-[220px] py-4 px-5 rounded-[0.25rem]">
+          <a href="developer-center.html#products-spec" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Product Specs</a>
+          <a href="developer-center.html#documentation" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Technical Documentation</a>
+          <a href="developer-center.html#faqs" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">FAQs</a>
+        </div>
+      </div>
+    </div>
+    <div class="relative group/about flex items-center">
+      <a href="about-us.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">About Us</a>
+      <div class="absolute top-full left-0 pt-3 hidden group-hover/about:block">
+        <div class="bg-white/95 backdrop-blur-xl border border-[#DFDFDF] shadow-2xl shadow-black/10 min-w-[240px] py-4 px-5 rounded-[0.25rem]">
+          <a href="about-us.html#who-we-are" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Company Overview</a>
+          <a href="about-us.html#who-we-are" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Who We Are</a>
+          <a href="about-us.html#milestones" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Milestones</a>
+          <a href="about-us.html#certifications" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Certifications</a>
+          <a href="about-us.html#partners" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Partners</a>
+          <div class="border-t border-[#DFDFDF] my-2"></div>
+          <a href="about-us.html#news" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">News &amp; Events</a>
+          <a href="about-us.html#careers" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Careers</a>
+          <a href="about-us.html#partnership" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Partnership</a>
+          <a href="#get-in-touch" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hidden md:block text-[12px] tracking-wider font-bold border border-[#3B82F6]/30 px-3 py-1 rounded-[0.25rem] cursor-pointer select-none" onclick="switchLang()"><span style="color:rgba(59,130,246,0.4)">CN</span><span style="color:rgba(59,130,246,0.25)">/</span><span style="color:#3B82F6">EN</span></div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu-ds" class="hidden fixed top-[52px] left-0 w-full bg-white/98 backdrop-blur-xl z-[9998] border-b border-[#DFDFDF] md:hidden overflow-y-auto max-h-[calc(100vh-52px)]">
+  <div class="flex flex-col py-4 px-4 md:px-[32px] space-y-3">
+    <a href="home.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">Home</a>
+    <a href="core-products.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">Core Products</a>
+    <a href="teleoperation-network.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">Teleoperation Network</a>
+    <a href="data-services.html" class="text-[#3B82F6] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">Data Services</a>
+    <a href="solutions.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">Solutions</a>
+    <a href="developer-center.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">Developer Center</a>
+    <a href="about-us.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">About Us</a>
+    <div class="text-[12px] tracking-wider font-bold border border-[#3B82F6]/30 px-3 py-1 w-fit rounded-[0.25rem] cursor-pointer select-none" onclick="switchLang()"><span style="color:rgba(59,130,246,0.4)">CN</span><span style="color:rgba(59,130,246,0.25)">/</span><span style="color:#3B82F6">EN</span></div>
+  </div>
+</div>
+
+<!-- Section 1: Three Data Access Options -->
+<section id="data-access" class="w-full lg:h-screen bg-[#FFFFFF] relative flex flex-col" style="font-family:'Inter',sans-serif;">
+  <h2 id="s1-title" class="ds-title" style="padding:32px 32px 0 32px; margin-top:60px; font-size:36px; font-weight:400; line-height:1; color:#000; letter-spacing:-0.05em; flex-shrink:0; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">Three Data Access Options</h2>
+  <div class="flex-1 flex items-center dao-wrap" style="padding:0 32px 32px; min-height:0;">
+    <div class="w-full grid grid-cols-3 gap-8 dao-grid">
+
+      <!-- Option 1: Open Source -->
+      <div class="ds-fade dao-card flex flex-col items-center text-center" style="transition-delay:0s;">
+        <div class="dao-circle" style="width:180px; height:180px; margin-bottom:32px;">
+          <svg viewBox="0 0 180 180" width="180" height="180">
+            <defs><clipPath id="circ1"><circle cx="90" cy="90" r="85"/></clipPath></defs>
+            <g clip-path="url(#circ1)">
+              <circle cx="30" cy="30" r="3" fill="#3B82F6" opacity="0.7"/>
+              <circle cx="55" cy="22" r="2.5" fill="#3B82F6" opacity="0.5"/>
+              <circle cx="78" cy="18" r="3" fill="#3B82F6" opacity="0.8"/>
+              <circle cx="105" cy="20" r="2" fill="#3B82F6" opacity="0.4"/>
+              <circle cx="130" cy="28" r="3" fill="#3B82F6" opacity="0.6"/>
+              <circle cx="150" cy="38" r="2.5" fill="#3B82F6" opacity="0.5"/>
+              <circle cx="20" cy="55" r="2" fill="#3B82F6" opacity="0.4"/>
+              <circle cx="45" cy="48" r="3.5" fill="#3B82F6" opacity="0.7"/>
+              <circle cx="70" cy="42" r="2.5" fill="#3B82F6" opacity="0.6"/>
+              <circle cx="95" cy="45" r="3" fill="#3B82F6" opacity="0.8"/>
+              <circle cx="120" cy="50" r="2" fill="#3B82F6" opacity="0.5"/>
+              <circle cx="145" cy="55" r="3" fill="#3B82F6" opacity="0.7"/>
+              <circle cx="160" cy="65" r="2" fill="#3B82F6" opacity="0.4"/>
+              <circle cx="15" cy="80" r="3" fill="#3B82F6" opacity="0.6"/>
+              <circle cx="38" cy="72" r="2.5" fill="#3B82F6" opacity="0.5"/>
+              <circle cx="60" cy="68" r="3" fill="#3B82F6" opacity="0.8"/>
+              <circle cx="85" cy="70" r="2" fill="#3B82F6" opacity="0.4"/>
+              <circle cx="110" cy="72" r="3.5" fill="#3B82F6" opacity="0.7"/>
+              <circle cx="135" cy="75" r="2.5" fill="#3B82F6" opacity="0.6"/>
+              <circle cx="158" cy="82" r="2" fill="#3B82F6" opacity="0.5"/>
+              <circle cx="12" cy="105" r="2.5" fill="#3B82F6" opacity="0.5"/>
+              <circle cx="35" cy="95" r="3" fill="#3B82F6" opacity="0.7"/>
+              <circle cx="58" cy="92" r="2" fill="#3B82F6" opacity="0.4"/>
+              <circle cx="82" cy="95" r="3" fill="#3B82F6" opacity="0.8"/>
+              <circle cx="108" cy="98" r="2.5" fill="#3B82F6" opacity="0.6"/>
+              <circle cx="132" cy="100" r="3" fill="#3B82F6" opacity="0.5"/>
+              <circle cx="155" cy="105" r="2" fill="#3B82F6" opacity="0.7"/>
+              <circle cx="168" cy="95" r="2.5" fill="#3B82F6" opacity="0.4"/>
+              <circle cx="25" cy="125" r="3" fill="#3B82F6" opacity="0.6"/>
+              <circle cx="50" cy="118" r="2.5" fill="#3B82F6" opacity="0.8"/>
+              <circle cx="75" cy="115" r="2" fill="#3B82F6" opacity="0.5"/>
+              <circle cx="100" cy="120" r="3" fill="#3B82F6" opacity="0.7"/>
+              <circle cx="125" cy="122" r="2.5" fill="#3B82F6" opacity="0.4"/>
+              <circle cx="148" cy="128" r="3" fill="#3B82F6" opacity="0.6"/>
+              <circle cx="40" cy="145" r="2" fill="#3B82F6" opacity="0.5"/>
+              <circle cx="65" cy="140" r="3" fill="#3B82F6" opacity="0.7"/>
+              <circle cx="90" cy="142" r="2.5" fill="#3B82F6" opacity="0.8"/>
+              <circle cx="115" cy="145" r="2" fill="#3B82F6" opacity="0.4"/>
+              <circle cx="140" cy="148" r="3" fill="#3B82F6" opacity="0.6"/>
+              <circle cx="55" cy="162" r="2.5" fill="#3B82F6" opacity="0.5"/>
+              <circle cx="80" cy="160" r="3" fill="#3B82F6" opacity="0.7"/>
+              <circle cx="105" cy="162" r="2" fill="#3B82F6" opacity="0.6"/>
+              <circle cx="128" cy="158" r="2.5" fill="#3B82F6" opacity="0.4"/>
+            </g>
+          </svg>
+        </div>
+        <h3 style="font-size:36px; font-weight:400; line-height:1.1; letter-spacing:-0.05em; color:#000; margin-bottom:20px;">Open Source</h3>
+        <p style="font-size:12px; font-weight:400; line-height:1.7; letter-spacing:-0.05em; color:#999; max-width:300px; margin-bottom:28px;">Publicly available trajectories distributed across official repositories for open research and benchmarking.</p>
+        <a href="https://realmanrobot.github.io/real_source_dataset/#/index" target="_blank" class="dao-cta" style="display:flex; align-items:center; gap:6px; color:#000; text-decoration:none;">
+          <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase;">Get Data</span>
+          <span class="material-symbols-outlined" style="font-size:18px;">north_east</span>
+        </a>
+      </div>
+
+      <!-- Option 2: Standard Dataset -->
+      <div class="ds-fade dao-card flex flex-col items-center text-center" style="transition-delay:0.15s;">
+        <div class="dao-circle" style="width:180px; height:180px; margin-bottom:32px;">
+          <svg viewBox="0 0 180 180" width="180" height="180">
+            <defs><clipPath id="circ2"><circle cx="90" cy="90" r="85"/></clipPath></defs>
+            <g clip-path="url(#circ2)">
+              <line x1="90" y1="90" x2="90" y2="0" stroke="#3B82F6" stroke-width="1.2" opacity="0.7"/>
+              <line x1="90" y1="90" x2="113" y2="2" stroke="#3B82F6" stroke-width="1.2" opacity="0.65"/>
+              <line x1="90" y1="90" x2="135" y2="8" stroke="#3B82F6" stroke-width="1.2" opacity="0.6"/>
+              <line x1="90" y1="90" x2="155" y2="20" stroke="#3B82F6" stroke-width="1.2" opacity="0.55"/>
+              <line x1="90" y1="90" x2="170" y2="38" stroke="#3B82F6" stroke-width="1.2" opacity="0.5"/>
+              <line x1="90" y1="90" x2="178" y2="58" stroke="#3B82F6" stroke-width="1.2" opacity="0.45"/>
+              <line x1="90" y1="90" x2="180" y2="80" stroke="#3B82F6" stroke-width="1.2" opacity="0.4"/>
+              <line x1="90" y1="90" x2="180" y2="100" stroke="#3B82F6" stroke-width="1.2" opacity="0.4"/>
+              <line x1="90" y1="90" x2="178" y2="122" stroke="#3B82F6" stroke-width="1.2" opacity="0.45"/>
+              <line x1="90" y1="90" x2="170" y2="142" stroke="#3B82F6" stroke-width="1.2" opacity="0.5"/>
+              <line x1="90" y1="90" x2="155" y2="160" stroke="#3B82F6" stroke-width="1.2" opacity="0.55"/>
+              <line x1="90" y1="90" x2="135" y2="172" stroke="#3B82F6" stroke-width="1.2" opacity="0.6"/>
+              <line x1="90" y1="90" x2="113" y2="178" stroke="#3B82F6" stroke-width="1.2" opacity="0.65"/>
+              <line x1="90" y1="90" x2="90" y2="180" stroke="#3B82F6" stroke-width="1.2" opacity="0.7"/>
+              <line x1="90" y1="90" x2="67" y2="178" stroke="#3B82F6" stroke-width="1.2" opacity="0.65"/>
+              <line x1="90" y1="90" x2="45" y2="172" stroke="#3B82F6" stroke-width="1.2" opacity="0.6"/>
+              <line x1="90" y1="90" x2="25" y2="160" stroke="#3B82F6" stroke-width="1.2" opacity="0.55"/>
+              <line x1="90" y1="90" x2="10" y2="142" stroke="#3B82F6" stroke-width="1.2" opacity="0.5"/>
+              <line x1="90" y1="90" x2="2" y2="122" stroke="#3B82F6" stroke-width="1.2" opacity="0.45"/>
+              <line x1="90" y1="90" x2="0" y2="100" stroke="#3B82F6" stroke-width="1.2" opacity="0.4"/>
+              <line x1="90" y1="90" x2="0" y2="80" stroke="#3B82F6" stroke-width="1.2" opacity="0.4"/>
+              <line x1="90" y1="90" x2="2" y2="58" stroke="#3B82F6" stroke-width="1.2" opacity="0.45"/>
+              <line x1="90" y1="90" x2="10" y2="38" stroke="#3B82F6" stroke-width="1.2" opacity="0.5"/>
+              <line x1="90" y1="90" x2="25" y2="20" stroke="#3B82F6" stroke-width="1.2" opacity="0.55"/>
+              <line x1="90" y1="90" x2="45" y2="8" stroke="#3B82F6" stroke-width="1.2" opacity="0.6"/>
+              <line x1="90" y1="90" x2="67" y2="2" stroke="#3B82F6" stroke-width="1.2" opacity="0.65"/>
+              <circle cx="90" cy="90" r="3" fill="#3B82F6" opacity="0.8"/>
+            </g>
+          </svg>
+        </div>
+        <h3 style="font-size:36px; font-weight:400; line-height:1.1; letter-spacing:-0.05em; color:#000; margin-bottom:20px;">Standard Dataset</h3>
+        <p style="font-size:12px; font-weight:400; line-height:1.7; letter-spacing:-0.05em; color:#999; max-width:300px; margin-bottom:28px;">Standardized task and scene datasets designed for faster model development and evaluation.</p>
+        <a href="#get-in-touch" class="dao-cta" style="display:flex; align-items:center; gap:6px; color:#000; text-decoration:none;">
+          <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase;">Request Spec</span>
+          <span class="material-symbols-outlined" style="font-size:18px;">north_east</span>
+        </a>
+      </div>
+
+      <!-- Option 3: Custom Build -->
+      <div class="ds-fade dao-card flex flex-col items-center text-center" style="transition-delay:0.3s;">
+        <div class="dao-circle" style="width:180px; height:180px; margin-bottom:32px;">
+          <svg viewBox="0 0 180 180" width="180" height="180">
+            <defs><clipPath id="circ3"><circle cx="90" cy="90" r="85"/></clipPath></defs>
+            <g clip-path="url(#circ3)">
+              <line x1="5" y1="12" x2="175" y2="12" stroke="#3B82F6" stroke-width="2.5" opacity="0.3"/>
+              <line x1="5" y1="20" x2="175" y2="20" stroke="#3B82F6" stroke-width="2.5" opacity="0.35"/>
+              <line x1="5" y1="28" x2="175" y2="28" stroke="#3B82F6" stroke-width="2.5" opacity="0.4"/>
+              <line x1="5" y1="36" x2="175" y2="36" stroke="#3B82F6" stroke-width="2.5" opacity="0.45"/>
+              <line x1="5" y1="44" x2="175" y2="44" stroke="#3B82F6" stroke-width="2.5" opacity="0.5"/>
+              <line x1="5" y1="52" x2="175" y2="52" stroke="#3B82F6" stroke-width="2.5" opacity="0.55"/>
+              <line x1="5" y1="60" x2="175" y2="60" stroke="#3B82F6" stroke-width="2.5" opacity="0.6"/>
+              <line x1="5" y1="68" x2="175" y2="68" stroke="#3B82F6" stroke-width="2.5" opacity="0.65"/>
+              <line x1="5" y1="76" x2="175" y2="76" stroke="#3B82F6" stroke-width="2.5" opacity="0.7"/>
+              <line x1="5" y1="84" x2="175" y2="84" stroke="#3B82F6" stroke-width="2.5" opacity="0.75"/>
+              <line x1="5" y1="92" x2="175" y2="92" stroke="#3B82F6" stroke-width="2.5" opacity="0.75"/>
+              <line x1="5" y1="100" x2="175" y2="100" stroke="#3B82F6" stroke-width="2.5" opacity="0.7"/>
+              <line x1="5" y1="108" x2="175" y2="108" stroke="#3B82F6" stroke-width="2.5" opacity="0.65"/>
+              <line x1="5" y1="116" x2="175" y2="116" stroke="#3B82F6" stroke-width="2.5" opacity="0.6"/>
+              <line x1="5" y1="124" x2="175" y2="124" stroke="#3B82F6" stroke-width="2.5" opacity="0.55"/>
+              <line x1="5" y1="132" x2="175" y2="132" stroke="#3B82F6" stroke-width="2.5" opacity="0.5"/>
+              <line x1="5" y1="140" x2="175" y2="140" stroke="#3B82F6" stroke-width="2.5" opacity="0.45"/>
+              <line x1="5" y1="148" x2="175" y2="148" stroke="#3B82F6" stroke-width="2.5" opacity="0.4"/>
+              <line x1="5" y1="156" x2="175" y2="156" stroke="#3B82F6" stroke-width="2.5" opacity="0.35"/>
+              <line x1="5" y1="164" x2="175" y2="164" stroke="#3B82F6" stroke-width="2.5" opacity="0.3"/>
+            </g>
+          </svg>
+        </div>
+        <h3 style="font-size:36px; font-weight:400; line-height:1.1; letter-spacing:-0.05em; color:#000; margin-bottom:20px;">Custom Build</h3>
+        <p style="font-size:12px; font-weight:400; line-height:1.7; letter-spacing:-0.05em; color:#999; max-width:300px; margin-bottom:28px;">Custom data collection pipelines tailored to your research objectives, robot setup, and target scenarios.</p>
+        <a href="#get-in-touch" class="dao-cta" style="display:flex; align-items:center; gap:6px; color:#000; text-decoration:none;">
+          <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase;">Talk to Sales</span>
+          <span class="material-symbols-outlined" style="font-size:18px;">north_east</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Section 2: Dataset Architecture -->
+<section id="dataset-architecture" class="w-full relative da-section" style="font-family:'Inter',sans-serif; padding:32px; background:url('../../prop/background-1.jpg') center/cover no-repeat;">
+  <div class="da-title-wrap" style="display:flex; align-items:flex-start; gap:48px;">
+    <h2 id="s2-title" style="font-size:36px; font-weight:400; line-height:1; color:#F6F6F6; letter-spacing:-0.05em; flex-shrink:0; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">Dataset Architecture</h2>
+  </div>
+  <div class="da-grid" style="margin-top:24px; display:grid; grid-template-columns:repeat(9,1fr); gap:24px;">
+    <div class="ds-fade flex flex-col items-center text-center" style="transition-delay:0s;">
+      <span class="material-symbols-outlined" style="font-size:24px; color:#F6F6F6; margin-bottom:8px;">image</span>
+      <span style="font-size:12px; font-weight:400; letter-spacing:-0.03em; color:#F6F6F6; line-height:1.4;">Image<br>Data</span>
+    </div>
+    <div class="ds-fade flex flex-col items-center text-center" style="transition-delay:0.05s;">
+      <span class="material-symbols-outlined" style="font-size:24px; color:#F6F6F6; margin-bottom:8px;">precision_manufacturing</span>
+      <span style="font-size:12px; font-weight:400; letter-spacing:-0.03em; color:#F6F6F6; line-height:1.4;">Joint<br>Positions</span>
+    </div>
+    <div class="ds-fade flex flex-col items-center text-center" style="transition-delay:0.1s;">
+      <span class="material-symbols-outlined" style="font-size:24px; color:#F6F6F6; margin-bottom:8px;">speed</span>
+      <span style="font-size:12px; font-weight:400; letter-spacing:-0.03em; color:#F6F6F6; line-height:1.4;">Joint<br>Velocities</span>
+    </div>
+    <div class="ds-fade flex flex-col items-center text-center" style="transition-delay:0.15s;">
+      <span class="material-symbols-outlined" style="font-size:24px; color:#F6F6F6; margin-bottom:8px;">fitness_center</span>
+      <span style="font-size:12px; font-weight:400; letter-spacing:-0.03em; color:#F6F6F6; line-height:1.4;">6-Axis<br>Force/Torque</span>
+    </div>
+    <div class="ds-fade flex flex-col items-center text-center" style="transition-delay:0.2s;">
+      <span class="material-symbols-outlined" style="font-size:24px; color:#F6F6F6; margin-bottom:8px;">3d_rotation</span>
+      <span style="font-size:12px; font-weight:400; letter-spacing:-0.03em; color:#F6F6F6; line-height:1.4;">End-Effector<br>Pose</span>
+    </div>
+    <div class="ds-fade flex flex-col items-center text-center" style="transition-delay:0.25s;">
+      <span class="material-symbols-outlined" style="font-size:24px; color:#F6F6F6; margin-bottom:8px;">terminal</span>
+      <span style="font-size:12px; font-weight:400; letter-spacing:-0.03em; color:#F6F6F6; line-height:1.4;">Action<br>Commands</span>
+    </div>
+    <div class="ds-fade flex flex-col items-center text-center" style="transition-delay:0.3s;">
+      <span class="material-symbols-outlined" style="font-size:24px; color:#F6F6F6; margin-bottom:8px;">schedule</span>
+      <span style="font-size:12px; font-weight:400; letter-spacing:-0.03em; color:#F6F6F6; line-height:1.4;">Timestamps</span>
+    </div>
+    <div class="ds-fade flex flex-col items-center text-center" style="transition-delay:0.35s;">
+      <span class="material-symbols-outlined" style="font-size:24px; color:#F6F6F6; margin-bottom:8px;">photo_camera</span>
+      <span style="font-size:12px; font-weight:400; letter-spacing:-0.03em; color:#F6F6F6; line-height:1.4;">Camera<br>Parameters</span>
+    </div>
+    <div class="ds-fade flex flex-col items-center text-center" style="transition-delay:0.4s;">
+      <span class="material-symbols-outlined" style="font-size:24px; color:#F6F6F6; margin-bottom:8px;">smart_toy</span>
+      <span style="font-size:12px; font-weight:400; letter-spacing:-0.03em; color:#F6F6F6; line-height:1.4;">Mobile<br>Base Data</span>
+    </div>
+  </div>
+</section>
+
+<!-- Section 3: Why RealSource Data Stands Out -->
+<section id="why-realsource" class="w-full lg:h-screen bg-[#F6F6F6] relative flex flex-col" style="font-family:'Inter',sans-serif;">
+  <h2 id="s3-title" style="padding:32px 32px 0 32px; font-size:36px; font-weight:400; line-height:1; color:#000; letter-spacing:-0.05em; flex-shrink:0; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">Why RealSource Data Stands Out</h2>
+  <div class="flex-1 flex items-end rs-wrap" style="padding:32px 32px 32px; min-height:0;">
+    <div class="w-full rs-grid" style="display:grid; grid-template-columns:1fr 1.2fr 1fr 1fr; grid-template-rows:1fr 1fr; gap:6px; height:calc(100% - 0px);">
+
+      <!-- 0x01 — (1,1) White text card -->
+      <div class="ds-fade rounded-[0.25rem] bg-white flex flex-col justify-end rs-card rs-card-1" style="padding:24px; transition-delay:0s; grid-column:1; grid-row:1;">
+        <span style="font-size:11px; font-weight:500; letter-spacing:0.12em; color:#3B82F6; margin-bottom:auto;">0x01</span>
+        <div style="margin-bottom:10px;">
+          <span style="font-size:40px; font-weight:300; line-height:1; letter-spacing:-0.05em; color:#000;">3</span>
+          <span style="font-size:15px; font-weight:300; letter-spacing:-0.03em; color:#999; margin-left:4px;">camera views</span>
+        </div>
+        <h3 style="font-size:18px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:6px;">Hard-Synchronized Multi-Modal Sensors</h3>
+        <span style="font-size:10px; font-weight:400; letter-spacing:-0.02em; color:#3B82F6; margin-bottom:10px;">3 camera views · hardware-level sync · precise timestamps</span>
+        <p style="font-size:11px; font-weight:400; line-height:1.6; letter-spacing:-0.03em; color:#999;">Tightly aligned multi-view visual streams give models a consistent temporal foundation for perception, fusion, and action learning.</p>
+      </div>
+
+      <!-- 0x03 — (1-2, 2) Blue tall card spanning 2 rows -->
+      <div class="ds-fade rounded-[0.25rem] flex flex-col justify-end rs-card rs-card-2" style="padding:28px; background:#3B82F6; transition-delay:0.06s; grid-column:2; grid-row:1/3;">
+        <span style="font-size:11px; font-weight:500; letter-spacing:0.12em; color:rgba(255,255,255,0.5); margin-bottom:auto;">0x03</span>
+        <div style="margin-bottom:16px;">
+          <span style="font-size:64px; font-weight:300; line-height:1; letter-spacing:-0.05em; color:#fff;">71-D</span>
+        </div>
+        <h3 style="font-size:20px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#fff; margin-bottom:8px;">Rich Robot-State Signals</h3>
+        <span style="font-size:10px; font-weight:400; letter-spacing:-0.02em; color:rgba(255,255,255,0.6); margin-bottom:12px;">71-D state space · 14M+ frames · 30 FPS visual observations</span>
+        <p style="font-size:11px; font-weight:400; line-height:1.6; letter-spacing:-0.03em; color:rgba(255,255,255,0.7);">RealSource pairs dense robot proprioception with large-scale visual demonstrations to support both learning and evaluation workflows.</p>
+      </div>
+
+      <!-- 0x04 — (1,3) White card -->
+      <div class="ds-fade rounded-[0.25rem] bg-white flex flex-col justify-end rs-card rs-card-3" style="padding:24px; transition-delay:0.12s; grid-column:3; grid-row:1;">
+        <span style="font-size:11px; font-weight:500; letter-spacing:0.12em; color:#3B82F6; margin-bottom:auto;">0x04</span>
+        <h3 style="font-size:18px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:10px;">Factory-Grade High-Precision Calibration</h3>
+        <p style="font-size:11px; font-weight:400; line-height:1.6; letter-spacing:-0.03em; color:#999;">Each robot and sensor undergoes rigorous factory calibration, with complete camera calibration parameters provided, enabling users to deploy the system directly without additional calibration.</p>
+      </div>
+
+      <!-- 0x05 — (1,4) Dark card -->
+      <div class="ds-fade rounded-[0.25rem] flex flex-col justify-end rs-card rs-card-4" style="padding:24px; background:#0a0f1a; transition-delay:0.18s; grid-column:4; grid-row:1;">
+        <span style="font-size:11px; font-weight:500; letter-spacing:0.12em; color:rgba(255,255,255,0.4); margin-bottom:auto;">0x05</span>
+        <h3 style="font-size:18px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#F6F6F6; margin-bottom:10px;">Deep Generalization Data Collection</h3>
+        <p style="font-size:11px; font-weight:400; line-height:1.6; letter-spacing:-0.03em; color:rgba(246,246,246,0.6);">For the same task, large-scale demonstrations are performed across diverse variables, including object attributes, environmental context, motion trajectories, and viewpoints, to support broader generalization.</p>
+      </div>
+
+      <!-- 0x02 — (2,1) White text card -->
+      <div class="ds-fade rounded-[0.25rem] bg-white flex flex-col justify-end rs-card rs-card-5" style="padding:24px; transition-delay:0.24s; grid-column:1; grid-row:2;">
+        <span style="font-size:11px; font-weight:500; letter-spacing:0.12em; color:#3B82F6; margin-bottom:auto;">0x02</span>
+        <div style="margin-bottom:10px;">
+          <span style="font-size:40px; font-weight:300; line-height:1; letter-spacing:-0.05em; color:#000;">&lt;0.5%</span>
+        </div>
+        <h3 style="font-size:18px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:6px;">Ultra-Low Frame Loss</h3>
+        <span style="font-size:10px; font-weight:400; letter-spacing:-0.02em; color:#3B82F6; margin-bottom:10px;">&lt;0.5% loss rate across multi-channel collection</span>
+        <p style="font-size:11px; font-weight:400; line-height:1.6; letter-spacing:-0.03em; color:#999;">An optimized transmission, caching, and processing pipeline helps preserve complete and continuous demonstrations even under demanding recording conditions.</p>
+      </div>
+
+      <!-- 0x06 — (2, 3-4) Wide card spanning 2 cols -->
+      <div class="ds-fade rounded-[0.25rem] flex flex-col justify-end rs-card rs-card-6" style="padding:24px; background:#DFDFDF; transition-delay:0.3s; grid-column:3/5; grid-row:2;">
+        <span style="font-size:11px; font-weight:500; letter-spacing:0.12em; color:#3B82F6; margin-bottom:auto;">0x06</span>
+        <div style="margin-bottom:10px;">
+          <span style="font-size:40px; font-weight:300; line-height:1; letter-spacing:-0.05em; color:#000;">7 DoF</span>
+        </div>
+        <h3 style="font-size:18px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:6px;">Human-Like Demonstrations at the Source</h3>
+        <span style="font-size:10px; font-weight:400; letter-spacing:-0.02em; color:#3B82F6; margin-bottom:10px;">Exoskeleton teleop · 7 DoF · 0.088° · 100 Hz</span>
+        <p style="font-size:11px; font-weight:400; line-height:1.6; letter-spacing:-0.03em; color:#666;">Exoskeleton-based teleoperation preserves natural dual-arm coordination and expert motion intent, creating trajectories that are more transferable to real embodied tasks.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Section 4: Standards & Interoperability -->
+<section id="standards" class="w-full bg-[#F6F6F6] relative si-section" style="font-family:'Inter',sans-serif; padding:32px 32px 32px;">
+  <h2 id="s4-title" style="font-size:36px; font-weight:400; line-height:1; color:#000; letter-spacing:-0.05em; display:inline-block; overflow:hidden; white-space:nowrap; width:0; margin-bottom:32px;">Standards & Interoperability</h2>
+  <div class="ds-fade rounded-[0.25rem] bg-white si-strip" style="padding:0; display:flex; transition-delay:0s;">
+    <div style="flex:1; padding:32px 28px; display:flex; align-items:flex-start; gap:16px;">
+      <span class="material-symbols-outlined" style="font-size:22px; color:#3B82F6; margin-top:2px; flex-shrink:0;">workspace_premium</span>
+      <div>
+        <h4 style="font-size:15px; font-weight:400; line-height:1.3; letter-spacing:-0.05em; color:#000; margin-bottom:8px;">Standards Leadership</h4>
+        <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999;">RealMan leads the formulation of 3 CR standards for humanoid robot data systems.</p>
+      </div>
+    </div>
+    <div class="si-divider" style="width:1px; background:#DFDFDF; margin:24px 0; flex-shrink:0;"></div>
+    <div style="flex:1; padding:32px 28px; display:flex; align-items:flex-start; gap:16px;">
+      <span class="material-symbols-outlined" style="font-size:22px; color:#3B82F6; margin-top:2px; flex-shrink:0;">description</span>
+      <div>
+        <h4 style="font-size:15px; font-weight:400; line-height:1.3; letter-spacing:-0.05em; color:#000; margin-bottom:8px;">Format Compatibility</h4>
+        <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999;">Supports MCAP, HDF5, and LeRobot for easier integration with mainstream research toolchains.</p>
+      </div>
+    </div>
+    <div class="si-divider" style="width:1px; background:#DFDFDF; margin:24px 0; flex-shrink:0;"></div>
+    <div style="flex:1; padding:32px 28px; display:flex; align-items:flex-start; gap:16px;">
+      <span class="material-symbols-outlined" style="font-size:22px; color:#3B82F6; margin-top:2px; flex-shrink:0;">hub</span>
+      <div>
+        <h4 style="font-size:15px; font-weight:400; line-height:1.3; letter-spacing:-0.05em; color:#000; margin-bottom:8px;">Workflow Integration</h4>
+        <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999;">Designed for reinforcement learning validation, model development, and real-world deployment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 5: Custom Data Pipeline -->
+<section id="custom-pipeline" class="w-full relative" style="font-family:'Inter',sans-serif; background:#FFFFFF;">
+  <div class="cdp-outer" style="display:flex; align-items:flex-start; gap:0; padding:0 32px;">
+    <!-- Left: Sticky title -->
+    <div class="cdp-left" style="position:sticky; top:0; width:33%; flex-shrink:0; height:100vh; display:flex; flex-direction:column; justify-content:center; padding-right:48px;">
+      <h2 id="s5-title" style="font-size:36px; font-weight:400; line-height:1.1; color:#000; letter-spacing:-0.05em; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">Custom Data Pipeline</h2>
+    </div>
+    <!-- Right: Scrolling steps -->
+    <div class="cdp-right" style="width:67%; padding:32px 0 32px;">
+      <!-- Step 01 -->
+      <div class="ds-fade cdp-row cdp-step-1" style="padding:40px 0; border-bottom:1px solid rgba(0,0,0,0.1); display:flex; align-items:flex-start; gap:20px; transition-delay:0s; margin-left:0;">
+        <span style="font-size:20px; font-weight:400; letter-spacing:-0.05em; color:rgba(59,130,246,0.4); flex-shrink:0; width:32px;">01</span>
+        <div style="flex:1; min-width:0;">
+          <h3 style="font-size:20px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000; margin-bottom:10px;">Define the Task</h3>
+          <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999;">Set target tasks, scenarios, data scope, and success criteria.</p>
+        </div>
+      </div>
+      <!-- Step 02 -->
+      <div class="ds-fade cdp-row cdp-step-2" style="padding:40px 0; border-bottom:1px solid rgba(0,0,0,0.1); display:flex; align-items:flex-start; gap:20px; transition-delay:0.06s; margin-left:32px;">
+        <span style="font-size:20px; font-weight:400; letter-spacing:-0.05em; color:rgba(59,130,246,0.4); flex-shrink:0; width:32px;">02</span>
+        <div style="flex:1; min-width:0;">
+          <h3 style="font-size:20px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000; margin-bottom:10px;">Design the Collection Setup</h3>
+          <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999;">Confirm robot configuration, sensors, environments, and collection strategy.</p>
+        </div>
+      </div>
+      <!-- Step 03 -->
+      <div class="ds-fade cdp-row cdp-step-3" style="padding:40px 0; border-bottom:1px solid rgba(0,0,0,0.1); display:flex; align-items:flex-start; gap:20px; transition-delay:0.12s; margin-left:64px;">
+        <span style="font-size:20px; font-weight:400; letter-spacing:-0.05em; color:rgba(59,130,246,0.4); flex-shrink:0; width:32px;">03</span>
+        <div style="flex:1; min-width:0;">
+          <h3 style="font-size:20px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000; margin-bottom:10px;">Capture the Data</h3>
+          <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999;">Run parallel teleoperation sessions for scalable real-world data collection.</p>
+        </div>
+      </div>
+      <!-- Step 04 -->
+      <div class="ds-fade cdp-row cdp-step-4" style="padding:40px 0; border-bottom:1px solid rgba(0,0,0,0.1); display:flex; align-items:flex-start; gap:20px; transition-delay:0.18s; margin-left:96px;">
+        <span style="font-size:20px; font-weight:400; letter-spacing:-0.05em; color:rgba(59,130,246,0.4); flex-shrink:0; width:32px;">04</span>
+        <div style="flex:1; min-width:0;">
+          <h3 style="font-size:20px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000; margin-bottom:10px;">Quality Assurance</h3>
+          <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999;">Apply automated checks and expert review to ensure consistency and usability.</p>
+        </div>
+      </div>
+      <!-- Step 05 -->
+      <div class="ds-fade cdp-row cdp-step-5" style="padding:40px 0; border-bottom:1px solid rgba(0,0,0,0.1); display:flex; align-items:flex-start; gap:20px; transition-delay:0.24s; margin-left:128px;">
+        <span style="font-size:20px; font-weight:400; letter-spacing:-0.05em; color:rgba(59,130,246,0.4); flex-shrink:0; width:32px;">05</span>
+        <div style="flex:1; min-width:0;">
+          <h3 style="font-size:20px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000; margin-bottom:10px;">Format</h3>
+          <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999;">Prepare the dataset in target formats such as MCAP, HDF5, or LeRobot.</p>
+        </div>
+      </div>
+      <!-- Step 06 -->
+      <div class="ds-fade cdp-row cdp-step-6" style="padding:40px 0; border-bottom:1px solid rgba(0,0,0,0.1); display:flex; align-items:flex-start; gap:20px; transition-delay:0.3s; margin-left:160px;">
+        <span style="font-size:20px; font-weight:400; letter-spacing:-0.05em; color:rgba(59,130,246,0.4); flex-shrink:0; width:32px;">06</span>
+        <div style="flex:1; min-width:0;">
+          <h3 style="font-size:20px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000; margin-bottom:10px;">Annotation & Structuring</h3>
+          <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999;">Add semantic labels, metadata, and task structure for downstream training use.</p>
+        </div>
+      </div>
+      <!-- Step 07 -->
+      <div class="ds-fade cdp-row-last cdp-step-7 rounded-[0.25rem]" style="padding:40px 24px; margin-top:2px; margin-left:192px; background:#3B82F6; display:flex; align-items:flex-start; gap:20px; transition-delay:0.36s;">
+        <span style="font-size:20px; font-weight:400; letter-spacing:-0.05em; color:rgba(255,255,255,0.4); flex-shrink:0; width:32px;">07</span>
+        <div style="flex:1; min-width:0;">
+          <h3 style="font-size:20px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#fff; margin-bottom:10px;">Deliver & Integrate</h3>
+          <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:rgba(255,255,255,0.7);">Deliver packaged datasets for easier use in research, training, and deployment workflows.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+function initTypewriter(id, text) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  let typed = false;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !typed) {
+        typed = true;
+        let i = 0;
+        el.style.width = 'auto';
+        el.textContent = '';
+        const type = () => {
+          if (i < text.length) {
+            el.textContent += text[i];
+            i++;
+            setTimeout(type, 80);
+          }
+        };
+        type();
+        obs.unobserve(el);
+      }
+    });
+  }, { threshold: 0.2 });
+  obs.observe(el);
+}
+
+initTypewriter('s1-title', 'Three Data Access Options');
+initTypewriter('s2-title', 'Dataset Architecture');
+initTypewriter('s3-title', 'Why RealSource Data Stands Out');
+initTypewriter('s4-title', 'Standards & Interoperability');
+initTypewriter('s5-title', 'Custom Data Pipeline');
+
+(function() {
+  const cards = document.querySelectorAll('.ds-fade');
+  if (!cards.length) return;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('ds-visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  cards.forEach(c => obs.observe(c));
+})();
+</script>
+
+
+<!-- ============================================================ -->
+<!-- CTA + FOOTER: GET IN TOUCH -->
+<!-- ============================================================ -->
+<style>
+  .git-input, .git-select {
+    width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);
+    border-radius:0.25rem; padding:14px 16px; font-size:15px; font-weight:400;
+    letter-spacing:-0.05em; color:#fff; outline:none; font-family:Inter,sans-serif;
+    transition:border-color 0.3s, background 0.3s;
+  }
+  .git-input::placeholder { color:rgba(255,255,255,0.3); }
+  .git-input:focus, .git-select:focus {
+    border-color:#3B82F6; background:rgba(59,130,246,0.06);
+  }
+  .git-select { appearance:none; cursor:pointer;
+    background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='rgba(255,255,255,0.35)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:right 16px center;
+  }
+  .git-select option { background:#111; color:#fff; }
+</style>
+<section id="get-in-touch" class="w-full relative" style="font-family:Inter,sans-serif; min-height:calc(100vh - 56px); background:#000; display:flex; flex-direction:column;">
+  <div class="cta-wrap-ds" style="padding:32px 32px; flex:1; display:flex; flex-direction:column; max-width:1280px;">
+    <h2 id="git-title" style="font-size:36px; font-weight:400; line-height:1; color:#fff; letter-spacing:-0.05em; margin-bottom:12px; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">Get in Touch</h2>
+    <p style="font-size:15px; font-weight:400; letter-spacing:-0.05em; color:rgba(255,255,255,0.4); margin-bottom:48px;">Have a question or want to collaborate? We'd love to hear from you.</p>
+
+    <div class="cta-grid-ds" style="flex:1; display:grid; grid-template-columns:1.6fr 0.7fr; gap:64px; align-content:start;">
+
+      <!-- Left: Form -->
+      <form id="contact-form" style="max-width:100%;" onsubmit="return false;">
+        <div class="cta-form-row-ds" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+          <input type="text" class="git-input" placeholder="Name *" required>
+          <input type="email" class="git-input" placeholder="Work Email *" required>
+        </div>
+        <div class="cta-form-row-ds" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+          <input type="text" class="git-input" placeholder="Company *" required>
+          <select class="git-select" required>
+            <option value="" disabled selected>Region *</option>
+            <option value="asia-pacific">Asia Pacific</option>
+            <option value="europe">Europe</option>
+            <option value="north-america">North America</option>
+            <option value="south-america">South America</option>
+            <option value="middle-east-africa">Middle East &amp; Africa</option>
+          </select>
+        </div>
+        <div style="margin-bottom:16px;">
+          <select class="git-select" required>
+            <option value="" disabled selected>Inquiry Type *</option>
+            <option value="partnership">Partnership</option>
+            <option value="sales">Sales Inquiry</option>
+            <option value="technical">Technical Support</option>
+            <option value="media">Media &amp; Press</option>
+            <option value="careers">Careers</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div style="margin-bottom:28px;">
+          <textarea class="git-input" placeholder="Additional Details (optional)" rows="4" style="resize:vertical; min-height:80px;"></textarea>
+        </div>
+        <button type="submit" style="display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:14px 32px; background:#3B82F6; color:#fff; border:none; border-radius:0.25rem; font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; font-family:Inter,sans-serif; cursor:pointer; transition:background 0.3s; width:100%;" onmouseover="this.style.background='#2563EB'" onmouseout="this.style.background='#3B82F6'">
+          Submit Inquiry
+          <span class="material-symbols-outlined" style="font-size:16px;">arrow_outward</span>
+        </button>
+      </form>
+
+      <!-- Right: Contact Info + Social -->
+      <div style="display:flex; flex-direction:column; gap:48px; padding-top:36px;">
+        <!-- Contact Info -->
+        <div style="display:flex; flex-direction:column; gap:32px;">
+          <div>
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.35); display:block; margin-bottom:10px;">General Inquiries</span>
+            <a href="mailto:info@realman-robot.com" class="cta-email-ds" style="font-size:16px; font-weight:400; letter-spacing:-0.05em; color:#fff; text-decoration:none; transition:color 0.3s; word-break:break-all;" onmouseover="this.style.color='#3B82F6'" onmouseout="this.style.color='#fff'">info@realman-robot.com</a>
+          </div>
+          <div>
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.35); display:block; margin-bottom:10px;">Sales</span>
+            <a href="mailto:Sales@realman-robot.com" class="cta-email-ds" style="font-size:16px; font-weight:400; letter-spacing:-0.05em; color:#fff; text-decoration:none; transition:color 0.3s; word-break:break-all;" onmouseover="this.style.color='#3B82F6'" onmouseout="this.style.color='#fff'">Sales@realman-robot.com</a>
+          </div>
+        </div>
+
+        <!-- Social Icons -->
+        <div>
+          <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.35); display:block; margin-bottom:16px;">Follow Us</span>
+          <div style="display:flex; gap:20px; align-items:center;">
+            <a href="https://www.linkedin.com/company/realmanrobotics" target="_blank" rel="noopener" title="LinkedIn" style="display:flex; align-items:center; justify-content:center; opacity:0.5; transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#fff"/></svg>
+            </a>
+            <a href="https://x.com/RealmanRobotics" target="_blank" rel="noopener" title="X" style="display:flex; align-items:center; justify-content:center; opacity:0.5; transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="#fff"/></svg>
+            </a>
+            <a href="https://www.facebook.com/realmanrobotics2018/" target="_blank" rel="noopener" title="Facebook" style="display:flex; align-items:center; justify-content:center; opacity:0.5; transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#fff"/></svg>
+            </a>
+            <a href="https://www.instagram.com/realman_robotic/" target="_blank" rel="noopener" title="Instagram" style="display:flex; align-items:center; justify-content:center; opacity:0.5; transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" fill="#fff"/></svg>
+            </a>
+            <a href="https://www.youtube.com/@RealManRobotics" target="_blank" rel="noopener" title="YouTube" style="display:flex; align-items:center; justify-content:center; opacity:0.5; transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" fill="#fff"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@realmanrobotic" target="_blank" rel="noopener" title="TikTok" style="display:flex; align-items:center; justify-content:center; opacity:0.5; transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
+              <svg width="20" height="22" viewBox="0 0 448 512" fill="none"><path d="M448 209.91a210.06 210.06 0 01-122.77-39.25v178.72A162.55 162.55 0 11185 188.31v89.89a74.62 74.62 0 1052.23 71.18V0h88a121.18 121.18 0 001.86 22.17A122.18 122.18 0 00381 102.39a121.43 121.43 0 0067 20.14z" fill="#fff"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="margin-top:auto; padding-top:32px;">
+          <span style="font-size:12px; font-weight:400; letter-spacing:-0.05em; color:rgba(255,255,255,0.25);">&copy; 2026 RealMan Robotics. All rights reserved.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+<script>
+initTypewriter('git-title', 'Get in Touch');
+</script>
+
+
+<script src="../../prop/supabase-cta.js"></script>
+<script>function switchLang(){var h=location.href;if(h.indexOf("/en/")>-1){location.href=h.replace("/en/","/cn/")}else if(h.indexOf("/cn/")>-1){location.href=h.replace("/cn/","/en/")}}</script>
+</body>
+</html>

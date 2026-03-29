@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>睿尔曼智能 | 关于我们</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          "headline": ["Inter", "sans-serif"],
+          "body": ["Inter", "sans-serif"],
+          "label": ["Inter", "sans-serif"],
+        },
+        borderRadius: {
+          "DEFAULT": "0.25rem",
+          "lg": "0.25rem",
+          "xl": "0.25rem",
+          "full": "9999px",
+        },
+      },
+    },
+  }
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow-x: hidden; font-family: 'Inter', sans-serif; }
+    html { scroll-behavior: smooth; }
+    .au-fade { opacity:0; transform:translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .au-fade.au-visible { opacity:1; transform:translateY(0); }
+    .globe-lbl {
+      position:absolute; pointer-events:none; z-index:5;
+      opacity:0; transition:opacity 0.25s;
+      transform:translate(-50%,-130%); white-space:nowrap;
+    }
+    .globe-lbl span {
+      font-size:11px; font-weight:500; letter-spacing:0.02em; color:#3B82F6;
+      background:rgba(255,255,255,0.88); padding:2px 8px; border-radius:0.25rem;
+      backdrop-filter:blur(4px); border:1px solid rgba(59,130,246,0.15);
+    }
+
+    /* Partners marquee */
+    @keyframes marquee-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    @keyframes marquee-right { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+    .marquee-left { animation: marquee-left 30s linear infinite; }
+    .marquee-right { animation: marquee-right 30s linear infinite; }
+    .marquee-track:hover .marquee-left,
+    .marquee-track:hover .marquee-right { animation-play-state: paused; }
+
+    /* News carousel */
+    .news-card { transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.5s ease; cursor: grab; }
+    .news-card:active { cursor: grabbing; }
+    .news-card.active { transform: scale(1); opacity: 1; }
+    .news-card.side { transform: scale(0.85); opacity: 0.5; }
+
+    /* Milestone line */
+    .ms-dot { transition: background 0.3s ease, transform 0.3s ease; }
+    .ms-item:hover .ms-dot { background: #3B82F6; transform: scale(1.4); }
+    .ms-item:hover .ms-year { color: #3B82F6; }
+
+    /* ======== Responsive: mobile-first ======== */
+
+    /* --- S1: Who We Are --- */
+    .wwa-section { flex-direction: column !important; height: auto !important; min-height: 100vh; }
+    .wwa-left { width: 100% !important; padding-top: 72px !important; }
+    .wwa-content { padding: 0 16px 20px !important; }
+    .wwa-stats { grid-template-columns: repeat(2, 1fr) !important; gap: 24px !important; }
+    .wwa-heading { font-size: 28px !important; }
+    .wwa-stat-num { font-size: 28px !important; }
+    .wwa-right { width: 100% !important; height: 280px !important; }
+    @media (min-width: 1024px) {
+      .wwa-section { flex-direction: row !important; height: 100vh !important; min-height: 0; }
+      .wwa-left { width: 62% !important; padding-top: 92px !important; }
+      .wwa-content { padding: 0 32px 32px !important; }
+      .wwa-stats { grid-template-columns: repeat(4, 1fr) !important; gap: 40px !important; }
+      .wwa-heading { font-size: 36px !important; }
+      .wwa-stat-num { font-size: 36px !important; }
+      .wwa-right { width: 45% !important; height: auto !important; }
+    }
+
+    /* --- S2: Milestones --- */
+    .ms-grid {
+      grid-template-columns: 1fr !important;
+      grid-template-rows: auto !important;
+      grid-auto-flow: row !important;
+      padding: 16px 16px 20px !important;
+      gap: 8px !important;
+    }
+    .ms-card-img { width: 100px !important; height: 60px !important; }
+    #au-title-2 { font-size: 28px !important; padding: 20px 16px 0 16px !important; }
+    @media (min-width: 1024px) {
+      .ms-grid {
+        grid-template-columns: 1fr 1fr !important;
+        grid-template-rows: repeat(4, 1fr) !important;
+        grid-auto-flow: column !important;
+        padding: 24px 32px 32px !important;
+        gap: 12px 40px !important;
+      }
+      .ms-card-img { width: 160px !important; height: 90px !important; }
+      #au-title-2 { font-size: 36px !important; padding: 32px 32px 0 32px !important; }
+    }
+
+    /* --- S3: Certifications --- */
+    .cert-flex { flex-direction: column !important; gap: 32px !important; padding: 32px 16px !important; }
+    .cert-item { padding: 0 !important; }
+    .cert-divider { display: none !important; }
+    .cert-num { font-size: 48px !important; }
+    #au-title-3 { font-size: 28px !important; padding: 20px 16px 0 16px !important; }
+    @media (min-width: 768px) {
+      .cert-flex { flex-direction: row !important; gap: 0 !important; padding: 48px 32px !important; }
+      .cert-item-1 { padding: 0 48px 0 0 !important; }
+      .cert-item-2 { padding: 0 0 0 48px !important; }
+      .cert-divider { display: block !important; }
+      .cert-num { font-size: 72px !important; }
+      #au-title-3 { font-size: 36px !important; padding: 32px 32px 0 32px !important; }
+    }
+
+    /* --- S4: Partners --- */
+    #au-title-4 { font-size: 28px !important; padding: 20px 16px 0 16px !important; }
+    @media (min-width: 768px) { #au-title-4 { font-size: 36px !important; padding: 32px 32px 0 32px !important; } }
+
+    /* --- S5: News --- */
+    #au-title-5 { font-size: 28px !important; padding: 20px 16px 0 16px !important; }
+    .news-card { width: 280px !important; }
+    @media (min-width: 768px) {
+      #au-title-5 { font-size: 36px !important; padding: 32px 32px 0 32px !important; }
+      .news-card { width: 360px !important; }
+    }
+
+    /* --- S6+S7: Careers & Partnership --- */
+    .cp-section { padding: 20px 16px 20px !important; }
+    .cp-icons { grid-template-columns: repeat(2, 1fr) !important; gap: 16px !important; }
+    #au-title-6, #au-title-7 { font-size: 28px !important; }
+    @media (min-width: 768px) {
+      .cp-section { padding: 32px 32px 32px !important; }
+      .cp-icons { grid-template-columns: repeat(3, 1fr) !important; }
+      #au-title-6, #au-title-7 { font-size: 36px !important; }
+    }
+    @media (min-width: 1024px) { .cp-icons { grid-template-columns: repeat(5, 1fr) !important; gap: 0 !important; } }
+
+    /* --- CTA + Footer --- */
+    .cta-grid-au { grid-template-columns: 1fr !important; gap: 32px !important; }
+    .cta-form-row-au { grid-template-columns: 1fr !important; }
+    .cta-wrap-au { padding: 20px !important; }
+    #git-title { font-size: 28px !important; }
+    @media (min-width: 768px) {
+      .cta-grid-au { grid-template-columns: 1.6fr 0.7fr !important; gap: 64px !important; }
+      .cta-form-row-au { grid-template-columns: 1fr 1fr !important; }
+      .cta-wrap-au { padding: 32px !important; }
+      #git-title { font-size: 36px !important; }
+    }
+    @media (min-width: 768px) {
+      #contact-form button[type="submit"] { width: auto !important; }
+      .cta-email-au { font-size: 20px !important; }
+    }
+
+  </style>
+<style>
+  .git-input, .git-select {
+    width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);
+    border-radius:0.25rem; padding:14px 16px; font-size:15px; font-weight:400;
+    letter-spacing:-0.05em; color:#fff; outline:none; font-family:Inter,sans-serif;
+    transition:border-color 0.3s, background 0.3s;
+  }
+  .git-input::placeholder { color:rgba(255,255,255,0.3); }
+  .git-input:focus, .git-select:focus {
+    border-color:#3B82F6; background:rgba(59,130,246,0.06);
+  }
+  .git-select { appearance:none; cursor:pointer;
+    background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='rgba(255,255,255,0.35)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:right 16px center;
+  }
+  .git-select option { background:#111; color:#fff; }
+</style>
+
+</head>
+<body>
+
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full border-b border-[#DFDFDF] bg-[#F6F6F6]/80 backdrop-blur-xl z-[9999] grid items-center px-4 md:px-[32px] py-3 md:py-4" style="grid-template-columns:auto 1fr auto;">
+  <a href="home.html" style="text-decoration:none;"><img src="../../prop/logo.png" alt="REALMAN ROBOTICS" class="h-[20px] w-auto"></a>
+  <button class="md:hidden justify-self-end text-[#1a1a1a]/70 hover:text-[#3B82F6]" onclick="document.getElementById('mobile-menu-au').classList.toggle('hidden')">
+    <span class="material-symbols-outlined text-[20px]">menu</span>
+  </button>
+  <div class="hidden md:flex items-center justify-center space-x-4">
+    <a href="home.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">首页</a>
+    <div class="relative group/cp flex items-center">
+      <a href="core-products.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">核心产品</a>
+      <div class="absolute top-full left-0 pt-3 hidden group-hover/cp:block">
+        <div class="bg-white/95 backdrop-blur-xl border border-[#DFDFDF] shadow-2xl shadow-black/10 rounded-[0.25rem]">
+          <div class="grid grid-cols-3 divide-x divide-[#DFDFDF]" style="min-width:660px;">
+            <div class="py-5 px-5">
+              <a href="core-products.html#joint-modules" class="block text-[12px] text-[#000] tracking-wider mb-3 pb-2 border-b border-[#DFDFDF]" style="text-decoration:none;">关节模组</a>
+              <a href="../products/whj-joint-modules.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">WHJ 系列</a>
+              <a href="../products/whj-torque-joint-modules.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">WHJ 力矩系列</a>
+              <a href="../products/whg-joint-modules.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">WHG 系列</a>
+            </div>
+            <div class="py-5 px-5">
+              <a href="core-products.html#robotic-arms" class="block text-[12px] text-[#000] tracking-wider mb-3 pb-2 border-b border-[#DFDFDF]" style="text-decoration:none;">机械臂</a>
+              <a href="core-products.html#robotic-arms" class="block text-[12px] text-[#000] tracking-wider mt-1 mb-1 hover:text-[#3B82F6]" style="text-decoration:none;">RM 系列</a>
+              <a href="../products/rm65.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">RM65</a>
+              <a href="../products/rm75.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">RM75</a>
+              <a href="core-products.html#robotic-arms" class="block text-[12px] text-[#000] tracking-wider mt-3 mb-1 hover:text-[#3B82F6]" style="text-decoration:none;">RML 系列</a>
+              <a href="../products/rml63.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">RML63</a>
+              <a href="core-products.html#robotic-arms" class="block text-[12px] text-[#000] tracking-wider mt-3 mb-1 hover:text-[#3B82F6]" style="text-decoration:none;">ECO 系列</a>
+              <a href="../products/eco65.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">ECO65</a>
+              <a href="../products/eco63.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">ECO63</a>
+              <a href="../products/eco62.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">ECO62</a>
+              <a href="core-products.html#robotic-arms" class="block text-[12px] text-[#000] tracking-wider mt-3 mb-1 hover:text-[#3B82F6]" style="text-decoration:none;">RX 系列</a>
+              <a href="../products/rx75.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">RX75</a>
+            </div>
+            <div class="py-5 px-5">
+              <a href="core-products.html#wheeled-robots" class="block text-[12px] text-[#000] tracking-wider mb-3 pb-2 border-b border-[#DFDFDF]" style="text-decoration:none;">轮式机器人</a>
+              <a href="../products/realbot-humanoid.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">RealBOT 人形机器人</a>
+              <a href="../products/single-arm-lift.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">单臂升降机器人</a>
+              <a href="../products/dual-arm-lift.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">双臂升降机器人</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="teleoperation-network.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">远程作业网络</a>
+    <a href="data-services.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">数据服务</a>
+    <div class="relative group/sol flex items-center">
+      <a href="solutions.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">解决方案</a>
+      <div class="absolute top-full left-0 pt-3 hidden group-hover/sol:block">
+        <div class="bg-white/95 backdrop-blur-xl border border-[#DFDFDF] shadow-2xl shadow-black/10 min-w-[240px] py-4 px-5 rounded-[0.25rem]">
+          <a href="solutions.html#industry" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">行业应用方案</a>
+          <a href="solutions.html#ecosystem" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">生态解决方案</a>
+          <a href="solutions.html#odm" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">ODM 定制化解决方案</a>
+          <a href="solutions.html#robotic-arm-odm" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">机械臂 ODM</a>
+          <a href="solutions.html#complete-robot-odm" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">机器人整机 ODM</a>
+          <a href="solutions.html#odm-pipeline" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">ODM 流程</a>
+        </div>
+      </div>
+    </div>
+    <div class="relative group/dev flex items-center">
+      <a href="developer-center.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">开发者中心</a>
+      <div class="absolute top-full left-0 pt-3 hidden group-hover/dev:block">
+        <div class="bg-white/95 backdrop-blur-xl border border-[#DFDFDF] shadow-2xl shadow-black/10 min-w-[220px] py-4 px-5 rounded-[0.25rem]">
+          <a href="developer-center.html#products-spec" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">产品手册</a>
+          <a href="developer-center.html#documentation" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">技术文档</a>
+          <a href="developer-center.html#faqs" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">常见问题</a>
+        </div>
+      </div>
+    </div>
+    <div class="relative group/about flex items-center">
+      <a href="about-us.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">关于我们</a>
+      <div class="absolute top-full left-0 pt-3 hidden group-hover/about:block">
+        <div class="bg-white/95 backdrop-blur-xl border border-[#DFDFDF] shadow-2xl shadow-black/10 min-w-[240px] py-4 px-5 rounded-[0.25rem]">
+          <a href="about-us.html#who-we-are" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">公司概览</a>
+          <a href="about-us.html#who-we-are" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">走进睿尔曼</a>
+          <a href="about-us.html#milestones" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">发展里程碑</a>
+          <a href="about-us.html#certifications" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">资质荣誉</a>
+          <a href="about-us.html#partners" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">合作伙伴</a>
+          <div class="border-t border-[#DFDFDF] my-2"></div>
+          <a href="about-us.html#news" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">新闻与活动</a>
+          <a href="about-us.html#careers" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">招贤纳士</a>
+          <a href="about-us.html#partnership" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">商务合作</a>
+          <a href="#get-in-touch" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">联系我们</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hidden md:block text-[12px] tracking-wider font-bold border border-[#3B82F6]/30 px-3 py-1 rounded-[0.25rem] cursor-pointer select-none" onclick="switchLang()"><span style="color:#3B82F6">CN</span><span style="color:rgba(59,130,246,0.25)">/</span><span style="color:rgba(59,130,246,0.4)">EN</span></div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu-au" class="hidden fixed top-[52px] left-0 w-full bg-white/98 backdrop-blur-xl z-[9998] border-b border-[#DFDFDF] md:hidden overflow-y-auto max-h-[calc(100vh-52px)]">
+  <div class="flex flex-col py-4 px-4 md:px-[32px] space-y-3">
+    <a href="home.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">首页</a>
+    <a href="core-products.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">核心产品</a>
+    <a href="teleoperation-network.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">远程作业网络</a>
+    <a href="data-services.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">数据服务</a>
+    <a href="solutions.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">解决方案</a>
+    <a href="developer-center.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">开发者中心</a>
+    <a href="about-us.html" class="text-[#3B82F6] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">关于我们</a>
+    <div class="text-[12px] tracking-wider font-bold border border-[#3B82F6]/30 px-3 py-1 w-fit rounded-[0.25rem] cursor-pointer select-none" onclick="switchLang()"><span style="color:#3B82F6">CN</span><span style="color:rgba(59,130,246,0.25)">/</span><span style="color:rgba(59,130,246,0.4)">EN</span></div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 1: WHO WE ARE (Full Screen) -->
+<!-- ============================================================ -->
+<section id="who-we-are" class="wwa-section w-full h-screen bg-[#FFFFFF] relative flex" style="font-family:'Inter',sans-serif;">
+  <!-- Left: Content -->
+  <div class="wwa-left" style="width:62%; display:flex; flex-direction:column; padding-top:92px; position:relative; z-index:2;">
+    <div class="wwa-content flex-1 flex flex-col justify-center" style="padding:0 32px 32px;">
+      <div class="au-fade" style="max-width:780px;">
+        <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:#3B82F6; display:block; margin-bottom:16px;">走进睿尔曼</span>
+        <h3 class="wwa-heading" style="font-size:36px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:24px;">面向具身智能时代的系统级基础设施平台公司</h3>
+        <p style="font-size:15px; font-weight:400; line-height:1.8; letter-spacing:-0.05em; color:#666; margin-bottom:12px;">作为具身智能时代的系统级基础设施底座，睿尔曼致力于深耕核心技术，加速"机器人服务人类社会"的美好愿景成为现实</p>
+        <p style="font-size:15px; font-weight:400; line-height:1.8; letter-spacing:-0.05em; color:#666; margin-bottom:32px;">依托硬件、数据与远程作业网络三大核心底座，睿尔曼持续驱动全链路创新</p>
+      </div>
+      <div class="wwa-stats au-fade grid grid-cols-4 gap-10" style="max-width:780px;">
+        <div>
+          <span class="wwa-stat-num" style="font-size:36px; font-weight:300; line-height:1; letter-spacing:-0.05em; color:#3B82F6; display:block; margin-bottom:8px;">2018</span>
+          <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:#999;">公司成立</span>
+        </div>
+        <div>
+          <span class="wwa-stat-num" style="font-size:36px; font-weight:300; line-height:1; letter-spacing:-0.05em; color:#3B82F6; display:block; margin-bottom:8px;">5</span>
+          <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:#999; display:block; margin-bottom:4px;">全球分支机构</span>
+          <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:#999; line-height:1.5; opacity:0.7; white-space:nowrap;">北京 · 常州 · 深圳 · 东京 · 旧金山</span>
+        </div>
+        <div>
+          <span class="wwa-stat-num" style="font-size:36px; font-weight:300; line-height:1; letter-spacing:-0.05em; color:#3B82F6; display:block; margin-bottom:8px;">120+</span>
+          <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:#999;">核心专利与知识产权</span>
+        </div>
+        <div>
+          <span class="wwa-stat-num" style="font-size:36px; font-weight:300; line-height:1; letter-spacing:-0.05em; color:#3B82F6; display:block; margin-bottom:8px;">8K+</span>
+          <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:#999;">全球累计服务客户</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Right: COBE Globe -->
+  <div id="globe-container" class="wwa-right" style="width:45%; display:flex; align-items:center; justify-content:center; position:relative;">
+    <div id="globe-wrap" style="position:relative; width:100%; max-width:560px; aspect-ratio:1;">
+      <canvas id="cobe-globe" style="width:100%; height:100%; cursor:grab; touch-action:none;"></canvas>
+      <canvas id="cobe-arcs" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:2;"></canvas>
+      <div class="globe-lbl" data-city="0"><span>北京</span></div>
+      <div class="globe-lbl" data-city="1"><span>常州</span></div>
+      <div class="globe-lbl" data-city="2"><span>深圳</span></div>
+      <div class="globe-lbl" data-city="3"><span>东京</span></div>
+      <div class="globe-lbl" data-city="4"><span>旧金山</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 2: MILESTONES (Full Screen) -->
+<!-- ============================================================ -->
+<section id="milestones" class="w-full lg:h-screen bg-[#FFFFFF] relative flex flex-col" style="font-family:'Inter',sans-serif;">
+  <h2 id="au-title-2" style="padding:32px 32px 0 32px; font-size:36px; font-weight:400; line-height:1; color:#000; letter-spacing:-0.05em; display:inline-block; overflow:hidden; white-space:nowrap; width:0; flex-shrink:0;">发展里程碑</h2>
+  <div class="ms-grid flex-1" style="padding:24px 32px 32px; display:grid; grid-template-columns:1fr 1fr; grid-template-rows:repeat(4,1fr); grid-auto-flow:column; gap:12px 40px; align-content:center;">
+
+    <!-- 2018 -->
+    <div class="au-fade" style="display:flex; gap:16px; padding:20px 20px; border-radius:0.25rem; border:1px solid transparent; transition:opacity 0.6s ease, transform 0.6s ease, border-color 0.3s, background 0.3s; transition-delay:0s;" onmouseenter="this.style.borderColor='#E5E5E5';this.style.background='#FAFAFA'" onmouseleave="this.style.borderColor='transparent';this.style.background='transparent'">
+      <div style="flex-shrink:0; display:flex; flex-direction:column; align-items:center; gap:4px; padding-top:2px;">
+        <span style="font-size:20px; font-weight:300; letter-spacing:-0.05em; color:#3B82F6; line-height:1;">2018</span>
+      </div>
+      <div style="width:1px; background:#E5E5E5; flex-shrink:0; align-self:stretch;"></div>
+      <div style="flex:1; min-width:0;">
+        <span style="font-size:15px; font-weight:500; letter-spacing:-0.02em; color:#000; display:block; margin-bottom:4px;">公司成立</span>
+        <p style="font-size:12px; font-weight:400; line-height:1.5; letter-spacing:-0.02em; color:#999;">睿尔曼智能科技（北京）有限公司成立</p>
+      </div>
+      <div class="ms-card-img" style="width:160px; height:90px; flex-shrink:0; border-radius:0.25rem; overflow:hidden;">
+        <img src="../../prop/milestones/2018.png" alt="2018" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+    </div>
+
+    <!-- 2019 -->
+    <div class="au-fade" style="display:flex; gap:16px; padding:20px 20px; border-radius:0.25rem; border:1px solid transparent; transition:opacity 0.6s ease, transform 0.6s ease, border-color 0.3s, background 0.3s; transition-delay:0.08s;" onmouseenter="this.style.borderColor='#E5E5E5';this.style.background='#FAFAFA'" onmouseleave="this.style.borderColor='transparent';this.style.background='transparent'">
+      <div style="flex-shrink:0; display:flex; flex-direction:column; align-items:center; gap:4px; padding-top:2px;">
+        <span style="font-size:20px; font-weight:300; letter-spacing:-0.05em; color:#3B82F6; line-height:1;">2019</span>
+      </div>
+      <div style="width:1px; background:#E5E5E5; flex-shrink:0; align-self:stretch;"></div>
+      <div style="flex:1; min-width:0;">
+        <span style="font-size:15px; font-weight:500; letter-spacing:-0.02em; color:#000; display:block; margin-bottom:4px;">创新研发</span>
+        <p style="font-size:12px; font-weight:400; line-height:1.5; letter-spacing:-0.02em; color:#999;">四大核心零部件自主研发</p>
+      </div>
+      <div class="ms-card-img" style="width:160px; height:90px; flex-shrink:0; border-radius:0.25rem; overflow:hidden;">
+        <img src="../../prop/milestones/2019.png" alt="2019" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+    </div>
+
+    <!-- 2020 -->
+    <div class="au-fade" style="display:flex; gap:16px; padding:20px 20px; border-radius:0.25rem; border:1px solid transparent; transition:opacity 0.6s ease, transform 0.6s ease, border-color 0.3s, background 0.3s; transition-delay:0.16s;" onmouseenter="this.style.borderColor='#E5E5E5';this.style.background='#FAFAFA'" onmouseleave="this.style.borderColor='transparent';this.style.background='transparent'">
+      <div style="flex-shrink:0; display:flex; flex-direction:column; align-items:center; gap:4px; padding-top:2px;">
+        <span style="font-size:20px; font-weight:300; letter-spacing:-0.05em; color:#3B82F6; line-height:1;">2020</span>
+      </div>
+      <div style="width:1px; background:#E5E5E5; flex-shrink:0; align-self:stretch;"></div>
+      <div style="flex:1; min-width:0;">
+        <span style="font-size:15px; font-weight:500; letter-spacing:-0.02em; color:#000; display:block; margin-bottom:4px;">全面拓展</span>
+        <p style="font-size:12px; font-weight:400; line-height:1.5; letter-spacing:-0.02em; color:#999;">持续优化超轻量仿人机械臂，拓展应用场景</p>
+      </div>
+      <div class="ms-card-img" style="width:160px; height:90px; flex-shrink:0; border-radius:0.25rem; overflow:hidden;">
+        <img src="../../prop/milestones/2020.png" alt="2020" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+    </div>
+
+    <!-- 2021 -->
+    <div class="au-fade" style="display:flex; gap:16px; padding:20px 20px; border-radius:0.25rem; border:1px solid transparent; transition:opacity 0.6s ease, transform 0.6s ease, border-color 0.3s, background 0.3s; transition-delay:0.24s;" onmouseenter="this.style.borderColor='#E5E5E5';this.style.background='#FAFAFA'" onmouseleave="this.style.borderColor='transparent';this.style.background='transparent'">
+      <div style="flex-shrink:0; display:flex; flex-direction:column; align-items:center; gap:4px; padding-top:2px;">
+        <span style="font-size:20px; font-weight:300; letter-spacing:-0.05em; color:#3B82F6; line-height:1;">2021</span>
+      </div>
+      <div style="width:1px; background:#E5E5E5; flex-shrink:0; align-self:stretch;"></div>
+      <div style="flex:1; min-width:0;">
+        <span style="font-size:15px; font-weight:500; letter-spacing:-0.02em; color:#000; display:block; margin-bottom:4px;">加速发展</span>
+        <p style="font-size:12px; font-weight:400; line-height:1.5; letter-spacing:-0.02em; color:#999;">"升降""双臂""单臂"等复合机器人面世</p>
+      </div>
+      <div class="ms-card-img" style="width:160px; height:90px; flex-shrink:0; border-radius:0.25rem; overflow:hidden;">
+        <img src="../../prop/milestones/2021.png" alt="2021" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+    </div>
+
+    <!-- 2022 -->
+    <div class="au-fade" style="display:flex; gap:16px; padding:20px 20px; border-radius:0.25rem; border:1px solid transparent; transition:opacity 0.6s ease, transform 0.6s ease, border-color 0.3s, background 0.3s; transition-delay:0.06s;" onmouseenter="this.style.borderColor='#E5E5E5';this.style.background='#FAFAFA'" onmouseleave="this.style.borderColor='transparent';this.style.background='transparent'">
+      <div style="flex-shrink:0; display:flex; flex-direction:column; align-items:center; gap:4px; padding-top:2px;">
+        <span style="font-size:20px; font-weight:300; letter-spacing:-0.05em; color:#3B82F6; line-height:1;">2022</span>
+      </div>
+      <div style="width:1px; background:#E5E5E5; flex-shrink:0; align-self:stretch;"></div>
+      <div style="flex:1; min-width:0;">
+        <span style="font-size:15px; font-weight:500; letter-spacing:-0.02em; color:#000; display:block; margin-bottom:4px;">基地投产</span>
+        <p style="font-size:12px; font-weight:400; line-height:1.5; letter-spacing:-0.02em; color:#999;">睿尔曼江苏公司正式投产</p>
+      </div>
+      <div class="ms-card-img" style="width:160px; height:90px; flex-shrink:0; border-radius:0.25rem; overflow:hidden;">
+        <img src="../../prop/milestones/2022.png" alt="2022" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+    </div>
+
+    <!-- 2023 -->
+    <div class="au-fade" style="display:flex; gap:16px; padding:20px 20px; border-radius:0.25rem; border:1px solid transparent; transition:opacity 0.6s ease, transform 0.6s ease, border-color 0.3s, background 0.3s; transition-delay:0.14s;" onmouseenter="this.style.borderColor='#E5E5E5';this.style.background='#FAFAFA'" onmouseleave="this.style.borderColor='transparent';this.style.background='transparent'">
+      <div style="flex-shrink:0; display:flex; flex-direction:column; align-items:center; gap:4px; padding-top:2px;">
+        <span style="font-size:20px; font-weight:300; letter-spacing:-0.05em; color:#3B82F6; line-height:1;">2023</span>
+      </div>
+      <div style="width:1px; background:#E5E5E5; flex-shrink:0; align-self:stretch;"></div>
+      <div style="flex:1; min-width:0;">
+        <span style="font-size:15px; font-weight:500; letter-spacing:-0.02em; color:#000; display:block; margin-bottom:4px;">开启机器人服务人的时代</span>
+        <p style="font-size:12px; font-weight:400; line-height:1.5; letter-spacing:-0.02em; color:#999;">大健康按摩机器人面世</p>
+      </div>
+      <div class="ms-card-img" style="width:160px; height:90px; flex-shrink:0; border-radius:0.25rem; overflow:hidden;">
+        <img src="../../prop/milestones/2023.png" alt="2023" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+    </div>
+
+    <!-- 2024 -->
+    <div class="au-fade" style="display:flex; gap:16px; padding:20px 20px; border-radius:0.25rem; border:1px solid transparent; transition:opacity 0.6s ease, transform 0.6s ease, border-color 0.3s, background 0.3s; transition-delay:0.22s;" onmouseenter="this.style.borderColor='#E5E5E5';this.style.background='#FAFAFA'" onmouseleave="this.style.borderColor='transparent';this.style.background='transparent'">
+      <div style="flex-shrink:0; display:flex; flex-direction:column; align-items:center; gap:4px; padding-top:2px;">
+        <span style="font-size:20px; font-weight:300; letter-spacing:-0.05em; color:#3B82F6; line-height:1;">2024</span>
+      </div>
+      <div style="width:1px; background:#E5E5E5; flex-shrink:0; align-self:stretch;"></div>
+      <div style="flex:1; min-width:0;">
+        <span style="font-size:15px; font-weight:500; letter-spacing:-0.02em; color:#000; display:block; margin-bottom:4px;">全球布局</span>
+        <p style="font-size:12px; font-weight:400; line-height:1.5; letter-spacing:-0.02em; color:#999;">组建全球通用机器人 (GPR) 联盟助力机器人行业发展</p>
+      </div>
+      <div class="ms-card-img" style="width:160px; height:90px; flex-shrink:0; border-radius:0.25rem; overflow:hidden;">
+        <img src="../../prop/milestones/2024.png" alt="2024" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+    </div>
+
+    <!-- 2025 -->
+    <div class="au-fade" style="display:flex; gap:16px; padding:20px 20px; border-radius:0.25rem; border:1px solid transparent; transition:opacity 0.6s ease, transform 0.6s ease, border-color 0.3s, background 0.3s; transition-delay:0.3s;" onmouseenter="this.style.borderColor='#E5E5E5';this.style.background='#FAFAFA'" onmouseleave="this.style.borderColor='transparent';this.style.background='transparent'">
+      <div style="flex-shrink:0; display:flex; flex-direction:column; align-items:center; gap:4px; padding-top:2px;">
+        <span style="font-size:20px; font-weight:300; letter-spacing:-0.05em; color:#3B82F6; line-height:1;">2025</span>
+      </div>
+      <div style="width:1px; background:#3B82F6; flex-shrink:0; align-self:stretch;"></div>
+      <div style="flex:1; min-width:0;">
+        <span style="font-size:15px; font-weight:500; letter-spacing:-0.02em; color:#000; display:block; margin-bottom:4px;">真机数据采集</span>
+        <p style="font-size:12px; font-weight:400; line-height:1.5; letter-spacing:-0.02em; color:#999;">北京首个人形机器人数据训练中心落地</p>
+      </div>
+      <div class="ms-card-img" style="width:160px; height:90px; flex-shrink:0; border-radius:0.25rem; overflow:hidden;">
+        <img src="../../prop/milestones/2025.png" alt="2025" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 3: CERTIFICATIONS (Half Screen) -->
+<!-- ============================================================ -->
+<section id="certifications" class="w-full relative" style="font-family:'Inter',sans-serif; min-height:50vh; background:url('../../prop/background-3.jpg') center 50% / cover no-repeat;">
+  <div style="position:absolute; inset:0; background:rgba(0,0,0,0.35);"></div>
+  <div style="position:relative; z-index:1;">
+    <h2 id="au-title-3" style="padding:32px 32px 0 32px; font-size:36px; font-weight:400; line-height:1; color:#fff; letter-spacing:-0.05em; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">资质荣誉</h2>
+    <div class="cert-flex" style="padding:48px 32px; display:flex; gap:0; align-items:stretch;">
+      <!-- REACH -->
+      <div class="au-fade cert-item cert-item-1" style="flex:1; padding:0 48px 0 0; position:relative;">
+        <span style="font-size:11px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:#3B82F6; display:block; margin-bottom:16px;">SVHC 合规标准</span>
+        <span class="cert-num" style="font-size:72px; font-weight:200; letter-spacing:-0.06em; color:#fff; display:block; line-height:0.85;">REACH</span>
+        <div style="width:32px; height:1px; background:#3B82F6; margin:20px 0;"></div>
+        <span style="font-size:13px; font-weight:400; letter-spacing:-0.01em; color:rgba(255,255,255,0.5); line-height:1.6;">通过 <span style="color:rgba(255,255,255,0.8); font-weight:500;">TÜV SÜD</span> 认证</span>
+      </div>
+      <!-- Divider -->
+      <div class="cert-divider" style="width:1px; background:linear-gradient(to bottom, transparent, rgba(255,255,255,0.2), transparent); flex-shrink:0;"></div>
+      <!-- MTBF -->
+      <div class="au-fade cert-item cert-item-2" style="flex:1; padding:0 0 0 48px; position:relative;">
+        <span style="font-size:11px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:#3B82F6; display:block; margin-bottom:16px;">平均无故障工作时间 (MTBF)</span>
+        <div style="display:flex; align-items:baseline; gap:10px;">
+          <span class="cert-num" style="font-size:72px; font-weight:200; letter-spacing:-0.06em; color:#fff; line-height:0.85;">50,000</span>
+          <span style="font-size:18px; font-weight:300; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.45);">小时</span>
+        </div>
+        <div style="width:32px; height:1px; background:#3B82F6; margin:20px 0;"></div>
+        <span style="font-size:13px; font-weight:400; letter-spacing:-0.01em; color:rgba(255,255,255,0.5); line-height:1.6;">荣获 <span style="color:rgba(255,255,255,0.8); font-weight:500;">STIEE</span> 的 MTBF 认证</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 4: PARTNERS (Half Screen, Dual Marquee) -->
+<!-- ============================================================ -->
+<section id="partners" class="w-full bg-white relative" style="font-family:'Inter',sans-serif; min-height:50vh; overflow:hidden;">
+  <h2 id="au-title-4" style="padding:32px 32px 0 32px; font-size:36px; font-weight:400; line-height:1; color:#000; letter-spacing:-0.05em; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">合作伙伴</h2>
+  <div style="padding:40px 0 56px;">
+    <!-- Row 1: scroll left — Alibaba, Amazon, BYD, CATL, 苏黎世联邦理工学院, GE Transportation, Huawei, Lenovo -->
+    <div class="marquee-track" style="overflow:hidden; margin-bottom:24px;">
+      <div class="marquee-left" style="display:flex; gap:32px; width:max-content; align-items:center;">
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/Alibaba Group.png" alt="Alibaba Group" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/Amazon.png" alt="Amazon" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/BYD.png" alt="BYD" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/CATL.png" alt="CATL" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/ETH_Z%C3%BCrich.png" alt="苏黎世联邦理工学院" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/GE Transportation.png" alt="GE Transportation" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/Huawei.png" alt="Huawei" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/Lenovo.png" alt="Lenovo" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+        <!-- Duplicate for seamless loop -->
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/Alibaba Group.png" alt="Alibaba Group" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/Amazon.png" alt="Amazon" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/BYD.png" alt="BYD" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/CATL.png" alt="CATL" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/ETH_Z%C3%BCrich.png" alt="苏黎世联邦理工学院" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/GE Transportation.png" alt="GE Transportation" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/Huawei.png" alt="Huawei" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/Lenovo.png" alt="Lenovo" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+      </div>
+    </div>
+    <!-- Row 2: scroll right — Microsoft, NVIDIA, Qualcomm, Samsung, Sony, Tsinghua, Xiaomi, XPeng -->
+    <div class="marquee-track" style="overflow:hidden;">
+      <div class="marquee-right" style="display:flex; gap:32px; width:max-content; align-items:center;">
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/Microsoft.png" alt="Microsoft" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/NVIDIA.png" alt="NVIDIA" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/Qualcomm.png" alt="Qualcomm" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/Samsung.png" alt="Samsung" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/Sony.png" alt="Sony" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/Tsinghua.png" alt="Tsinghua" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/Xiaomi.png" alt="Xiaomi" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/XPeng.png" alt="XPeng" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+        <!-- Duplicate for seamless loop -->
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/Microsoft.png" alt="Microsoft" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/NVIDIA.png" alt="NVIDIA" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/Qualcomm.png" alt="Qualcomm" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/Samsung.png" alt="Samsung" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/Sony.png" alt="Sony" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/Tsinghua.png" alt="Tsinghua" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/Xiaomi.png" alt="Xiaomi" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+        <div class="rounded-[0.25rem] flex items-center justify-center" style="width:160px; height:72px; flex-shrink:0; padding:12px 20px;"><img src="../../prop/logo/XPeng.png" alt="XPeng" style="max-height:36px; max-width:100%; object-fit:contain;"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 5: NEWS & EVENTS (Draggable Carousel) -->
+<!-- ============================================================ -->
+<section id="news" class="w-full bg-[#F6F6F6] relative" style="font-family:'Inter',sans-serif; min-height:80vh; overflow:hidden;">
+  <h2 id="au-title-5" style="padding:32px 32px 0 32px; font-size:36px; font-weight:400; line-height:1; color:#000; letter-spacing:-0.05em; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">新闻与活动</h2>
+
+  <div id="news-carousel" style="padding:40px 0 56px; position:relative; display:flex; align-items:center; justify-content:center; min-height:420px; user-select:none;">
+    <div id="news-track" style="display:flex; align-items:center; gap:24px; transition:transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);">
+
+      <div class="news-card rounded-[0.25rem] border border-[#DFDFDF] bg-white overflow-hidden" style="width:360px; flex-shrink:0;" data-index="0">
+        <div style="height:200px; overflow:hidden;"><img src="../../prop/news/2026-02-25.png" alt="春晚机器人" draggable="false" style="width:100%; height:100%; object-fit:cover; pointer-events:none;"></div>
+        <div style="padding:24px;">
+          <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:#3B82F6; display:block; margin-bottom:8px;">2026 年 2 月 25 日</span>
+          <h3 style="font-size:20px; font-weight:400; line-height:1.3; letter-spacing:-0.05em; color:#000; margin-bottom:8px;">技术解析｜北京春晚有"TA"在，机器人"包饺子和馅"总共分几步？</h3>
+          <p style="font-size:15px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#666;">深度剖析睿尔曼在硬件底座、真机数据与远程作业网络上的协同能力，展现 50,000 小时工业级无故障运行的稳健表现</p>
+        </div>
+      </div>
+
+      <div class="news-card rounded-[0.25rem] border border-[#DFDFDF] bg-white overflow-hidden" style="width:360px; flex-shrink:0;" data-index="1">
+        <div style="height:200px; overflow:hidden;"><img src="../../prop/news/2026-01-16%20CES.png" alt="CES 2026" draggable="false" style="width:100%; height:100%; object-fit:cover; pointer-events:none;"></div>
+        <div style="padding:24px;">
+          <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:#3B82F6; display:block; margin-bottom:8px;">2026 年 1 月 16 日</span>
+          <h3 style="font-size:20px; font-weight:400; line-height:1.3; letter-spacing:-0.05em; color:#000; margin-bottom:8px;">CES 2026｜三赴 CES，睿尔曼以三大底层能力构建全球化具身智能新基建</h3>
+          <p style="font-size:15px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#666;">依托一体化关节模组、超轻量仿人机械臂与远程作业网络，进一步强化系统级具身智能基础设施平台定位</p>
+        </div>
+      </div>
+
+      <div class="news-card rounded-[0.25rem] border border-[#DFDFDF] bg-white overflow-hidden" style="width:360px; flex-shrink:0;" data-index="2">
+        <div style="height:200px; overflow:hidden;"><img src="../../prop/news/2026-01-16%20PEOPLE'S_DAILY.jpg" alt="人民日报报道" draggable="false" style="width:100%; height:100%; object-fit:cover; pointer-events:none;"></div>
+        <div style="padding:24px;">
+          <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:#3B82F6; display:block; margin-bottom:8px;">2026 年 1 月 16 日</span>
+          <h3 style="font-size:20px; font-weight:400; line-height:1.3; letter-spacing:-0.05em; color:#000; margin-bottom:8px;">郑随兵《人民日报》发文：创新让技术更包容、发展成果更共享</h3>
+          <p style="font-size:15px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#666;">创始人郑随兵阐述"硬件 + 数据 + 远程作业网络"的技术演进路径，旨在通过构建远程劳动力协作体系，驱动社会价值的普惠与共享</p>
+        </div>
+      </div>
+
+      <div class="news-card rounded-[0.25rem] border border-[#DFDFDF] bg-white overflow-hidden" style="width:360px; flex-shrink:0;" data-index="3">
+        <div style="height:200px; overflow:hidden;"><img src="../../prop/news/2026-01-16%20Forum.jpg" alt="2025 社会责任论坛" draggable="false" style="width:100%; height:100%; object-fit:cover; pointer-events:none;"></div>
+        <div style="padding:24px;">
+          <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:#3B82F6; display:block; margin-bottom:8px;">2026 年 1 月 16 日</span>
+          <h3 style="font-size:20px; font-weight:400; line-height:1.3; letter-spacing:-0.05em; color:#000; margin-bottom:8px;">2025 企业社会责任论坛｜睿尔曼公司创始人、CEO 郑随兵：构建远程作业网络，打造可持续的"真机数据引擎"</h3>
+          <p style="font-size:15px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#666;">通过远程劳动力网络，赋能全球劳动力跨时空协作，通过简单培训即可实现异地机器人精准操控，助力精密装配与物流作业的数字化转型</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Carousel dots -->
+  <div id="news-dots" style="display:flex; justify-content:center; gap:8px; padding-bottom:32px;">
+    <button class="news-dot" data-dot="0" style="width:8px; height:8px; border-radius:50%; background:#3B82F6; border:none; cursor:pointer; transition:background 0.3s;"></button>
+    <button class="news-dot" data-dot="1" style="width:8px; height:8px; border-radius:50%; background:#DFDFDF; border:none; cursor:pointer; transition:background 0.3s;"></button>
+    <button class="news-dot" data-dot="2" style="width:8px; height:8px; border-radius:50%; background:#DFDFDF; border:none; cursor:pointer; transition:background 0.3s;"></button>
+    <button class="news-dot" data-dot="3" style="width:8px; height:8px; border-radius:50%; background:#DFDFDF; border:none; cursor:pointer; transition:background 0.3s;"></button>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 6+7: CAREERS & PARTNERSHIP (shared background) -->
+<!-- ============================================================ -->
+<div class="w-full relative" style="background:url('../../prop/background-4.jpg') center center / cover no-repeat;">
+  <div style="position:absolute; inset:0; background:rgba(0,0,0,0.45);"></div>
+
+  <section id="careers" class="w-full relative" style="font-family:'Inter',sans-serif; position:relative; z-index:1;">
+    <div class="cp-section" style="padding:32px 32px 32px; max-width:1120px;">
+      <h2 id="au-title-6" style="font-size:36px; font-weight:400; line-height:1; color:#fff; letter-spacing:-0.05em; display:inline-block; overflow:hidden; white-space:nowrap; width:0; margin-bottom:32px;">招贤纳士</h2>
+      <p class="au-fade" style="font-size:15px; font-weight:400; line-height:1.8; letter-spacing:-0.02em; color:rgba(255,255,255,0.55); margin-bottom:32px;">跨越硬件、软件、AI 与全球化运营，与睿尔曼一同定义具身智能的未来</p>
+      <div class="cp-icons" style="display:grid; grid-template-columns:repeat(5,1fr); margin-bottom:32px;">
+        <div>
+          <span class="material-symbols-outlined" style="font-size:22px; color:#3B82F6; display:block; margin-bottom:6px;">memory</span>
+          <span style="font-size:15px; font-weight:500; letter-spacing:-0.02em; color:#fff;">硬件</span>
+        </div>
+        <div>
+          <span class="material-symbols-outlined" style="font-size:22px; color:#3B82F6; display:block; margin-bottom:6px;">code</span>
+          <span style="font-size:15px; font-weight:500; letter-spacing:-0.02em; color:#fff;">软件</span>
+        </div>
+        <div>
+          <span class="material-symbols-outlined" style="font-size:22px; color:#3B82F6; display:block; margin-bottom:6px;">psychology</span>
+          <span style="font-size:15px; font-weight:500; letter-spacing:-0.02em; color:#fff;">AI 研究</span>
+        </div>
+        <div>
+          <span class="material-symbols-outlined" style="font-size:22px; color:#3B82F6; display:block; margin-bottom:6px;">public</span>
+          <span style="font-size:15px; font-weight:500; letter-spacing:-0.02em; color:#fff;">市场与运营</span>
+        </div>
+      </div>
+      <a class="au-fade" href="#get-in-touch" style="display:inline-flex; align-items:center; gap:8px; padding:12px 28px; background:#fff; color:#000; border-radius:0.25rem; font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; transition:background 0.3s, color 0.3s;" onmouseover="this.style.background='#3B82F6';this.style.color='#fff'" onmouseout="this.style.background='#fff';this.style.color='#000'">
+        查看在招职位
+        <span class="material-symbols-outlined" style="font-size:16px;">arrow_outward</span>
+      </a>
+    </div>
+  </section>
+
+  <section id="partnership" class="w-full relative" style="font-family:'Inter',sans-serif; position:relative; z-index:1;">
+    <div class="cp-section" style="padding:32px 32px 32px; max-width:1120px;">
+      <h2 id="au-title-7" style="font-size:36px; font-weight:400; line-height:1; color:#fff; letter-spacing:-0.05em; display:inline-block; overflow:hidden; white-space:nowrap; width:0; margin-bottom:32px;">商务合作</h2>
+      <p class="au-fade" style="font-size:15px; font-weight:400; line-height:1.8; letter-spacing:-0.02em; color:rgba(255,255,255,0.55); margin-bottom:32px;">携手全球生态伙伴，驱动具身智能在真实场景的规模化应用与技术创新</p>
+      <div class="cp-icons" style="display:grid; grid-template-columns:repeat(5,1fr); margin-bottom:32px;">
+        <div>
+          <span class="material-symbols-outlined" style="font-size:22px; color:#3B82F6; display:block; margin-bottom:6px;">inventory</span>
+          <span style="font-size:15px; font-weight:500; letter-spacing:-0.02em; color:#fff;">供应商</span>
+        </div>
+        <div>
+          <span class="material-symbols-outlined" style="font-size:22px; color:#3B82F6; display:block; margin-bottom:6px;">local_shipping</span>
+          <span style="font-size:15px; font-weight:500; letter-spacing:-0.02em; color:#fff;">代理合作伙伴</span>
+        </div>
+        <div>
+          <span class="material-symbols-outlined" style="font-size:22px; color:#3B82F6; display:block; margin-bottom:6px;">settings_suggest</span>
+          <span style="font-size:15px; font-weight:500; letter-spacing:-0.02em; color:#fff;">系统集成商</span>
+        </div>
+        <div>
+          <span class="material-symbols-outlined" style="font-size:22px; color:#3B82F6; display:block; margin-bottom:6px;">hub</span>
+          <span style="font-size:15px; font-weight:500; letter-spacing:-0.02em; color:#fff;">技术方案商</span>
+        </div>
+        <div>
+          <span class="material-symbols-outlined" style="font-size:22px; color:#3B82F6; display:block; margin-bottom:6px;">science</span>
+          <span style="font-size:15px; font-weight:500; letter-spacing:-0.02em; color:#fff;">科研院校 / 机构</span>
+        </div>
+      </div>
+      <a class="au-fade" href="#get-in-touch" style="display:inline-flex; align-items:center; gap:8px; padding:12px 28px; background:#fff; color:#000; border-radius:0.25rem; font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; transition:background 0.3s, color 0.3s;" onmouseover="this.style.background='#3B82F6';this.style.color='#fff'" onmouseout="this.style.background='#fff';this.style.color='#000'">
+        成为合作伙伴
+        <span class="material-symbols-outlined" style="font-size:16px;">arrow_outward</span>
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- SCRIPTS -->
+<!-- ============================================================ -->
+<script>
+// Typewriter
+function initTypewriter(id, text) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  let typed = false;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !typed) {
+        typed = true;
+        let i = 0;
+        el.style.width = 'auto';
+        el.textContent = '';
+        const type = () => {
+          if (i < text.length) {
+            el.textContent += text[i];
+            i++;
+            setTimeout(type, 80);
+          }
+        };
+        type();
+        obs.unobserve(el);
+      }
+    });
+  }, { threshold: 0.2 });
+  obs.observe(el);
+}
+
+initTypewriter('au-title-2', '发展里程碑');
+initTypewriter('au-title-3', '资质荣誉');
+initTypewriter('au-title-4', '合作伙伴');
+initTypewriter('au-title-5', '新闻与活动');
+initTypewriter('au-title-6', '招贤纳士');
+initTypewriter('au-title-7', '商务合作');
+
+// Scroll fade-in
+(function() {
+  const cards = document.querySelectorAll('.au-fade');
+  if (!cards.length) return;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('au-visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  cards.forEach(c => obs.observe(c));
+})();
+
+// News carousel — drag + center-large effect
+(function() {
+  const track = document.getElementById('news-track');
+  const carousel = document.getElementById('news-carousel');
+  const cards = document.querySelectorAll('.news-card');
+  const dots = document.querySelectorAll('.news-dot');
+  if (!track || !cards.length) return;
+
+  let current = 0;
+  const total = cards.length;
+  let isDragging = false;
+  let startX = 0;
+  let dragOffset = 0;
+
+  function updateCarousel(animate) {
+    const actualCardW = cards[0].offsetWidth;
+    const cardW = actualCardW + 24;
+    const centerOffset = (carousel.offsetWidth / 2) - (actualCardW / 2);
+    const tx = centerOffset - current * cardW;
+    track.style.transition = animate ? 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)' : 'none';
+    track.style.transform = `translateX(${tx}px)`;
+    cards.forEach((c, i) => {
+      if (i === current) {
+        c.style.transform = 'scale(1)';
+        c.style.opacity = '1';
+      } else {
+        c.style.transform = 'scale(0.85)';
+        c.style.opacity = '0.5';
+      }
+    });
+    dots.forEach((d, i) => {
+      d.style.background = i === current ? '#3B82F6' : '#DFDFDF';
+    });
+  }
+
+  function goTo(idx) {
+    current = Math.max(0, Math.min(total - 1, idx));
+    updateCarousel(true);
+  }
+
+  // Dots
+  dots.forEach(d => {
+    d.addEventListener('click', () => goTo(parseInt(d.dataset.dot)));
+  });
+
+  // Drag
+  carousel.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    startX = e.clientX;
+    dragOffset = 0;
+    track.style.transition = 'none';
+    carousel.style.cursor = 'grabbing';
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    dragOffset = e.clientX - startX;
+    const actualCardW = cards[0].offsetWidth;
+    const cardW = actualCardW + 24;
+    const centerOffset = (carousel.offsetWidth / 2) - (actualCardW / 2);
+    const tx = centerOffset - current * cardW + dragOffset;
+    track.style.transform = `translateX(${tx}px)`;
+  });
+
+  window.addEventListener('mouseup', () => {
+    if (!isDragging) return;
+    isDragging = false;
+    carousel.style.cursor = 'grab';
+    if (Math.abs(dragOffset) > 80) {
+      if (dragOffset < 0 && current < total - 1) current++;
+      else if (dragOffset > 0 && current > 0) current--;
+    }
+    updateCarousel(true);
+  });
+
+  // Touch
+  carousel.addEventListener('touchstart', (e) => {
+    isDragging = true;
+    startX = e.touches[0].clientX;
+    dragOffset = 0;
+    track.style.transition = 'none';
+    stopAuto();
+  }, { passive: true });
+
+  carousel.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    dragOffset = e.touches[0].clientX - startX;
+    const actualCardW = cards[0].offsetWidth;
+    const cardW = actualCardW + 24;
+    const centerOffset = (carousel.offsetWidth / 2) - (actualCardW / 2);
+    const tx = centerOffset - current * cardW + dragOffset;
+    track.style.transform = `translateX(${tx}px)`;
+  }, { passive: true });
+
+  carousel.addEventListener('touchend', () => {
+    if (!isDragging) return;
+    isDragging = false;
+    if (Math.abs(dragOffset) > 50) {
+      if (dragOffset < 0 && current < total - 1) current++;
+      else if (dragOffset > 0 && current > 0) current--;
+    }
+    updateCarousel(true);
+    setTimeout(startAuto, 3000);
+  });
+
+  // Auto-play: advances every 4s, pauses on hover/touch
+  let autoTimer = null;
+  function startAuto() {
+    stopAuto();
+    autoTimer = setInterval(() => {
+      current = (current + 1) % total;
+      updateCarousel(true);
+    }, 4000);
+  }
+  function stopAuto() {
+    if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+  }
+
+  carousel.addEventListener('mouseenter', stopAuto);
+  carousel.addEventListener('mouseleave', startAuto);
+
+  // Init
+  updateCarousel(false);
+  window.addEventListener('resize', () => updateCarousel(false));
+  startAuto();
+})();
+</script>
+
+<!-- COBE Globe (v0.6.3) + overlay arcs & labels -->
+<script type="module">
+import createGlobe from 'https://esm.sh/cobe@0.6.3';
+
+const canvas = document.getElementById('cobe-globe');
+const arcCanvas = document.getElementById('cobe-arcs');
+const labelEls = document.querySelectorAll('.globe-lbl');
+
+if (canvas && arcCanvas) {
+  const THETA = 0.22;
+  const PI = Math.PI;
+
+  const cities = [
+    { lat: 39.9042, lng: 116.4074 },
+    { lat: 31.8112, lng: 119.9741 },
+    { lat: 22.5431, lng: 114.0579 },
+    { lat: 35.6762, lng: 139.6503 },
+    { lat: 37.7749, lng: -122.4194 },
+  ];
+
+  const arcPairs = [];
+  for (let i = 0; i < cities.length; i++)
+    for (let j = i + 1; j < cities.length; j++)
+      arcPairs.push([i, j]);
+
+  function project(lat, lng, phi) {
+    const latR = lat * PI / 180;
+    const lngR = lng * PI / 180 - PI;
+    const cl = Math.cos(latR);
+    const gx = -cl * Math.cos(lngR);
+    const gy = Math.sin(latR);
+    const gz = cl * Math.sin(lngR);
+    const cosP = Math.cos(phi), sinP = Math.sin(phi);
+    const cosT = Math.cos(THETA), sinT = Math.sin(THETA);
+    const fx = cosP * gx + sinP * gz;
+    const fy = sinP * sinT * gx + cosT * gy - cosP * sinT * gz;
+    const fz = -sinP * cosT * gx + sinT * gy + cosP * cosT * gz;
+    return { x: (fx * 0.8 + 1) / 2, y: (-fy * 0.8 + 1) / 2, visible: fz > 0.1 };
+  }
+
+  let currentPhi = 1.8;
+  let targetPhi = 1.8;
+  let pointerDown = false;
+  let pointerX = 0;
+
+  const globe = createGlobe(canvas, {
+    devicePixelRatio: 2,
+    width: canvas.offsetWidth * 2,
+    height: canvas.offsetWidth * 2,
+    phi: currentPhi,
+    theta: THETA,
+    dark: 0,
+    diffuse: 1.2,
+    mapSamples: 40000,
+    mapBrightness: 1.8,
+    baseColor: [1, 1, 1],
+    markerColor: [0.231, 0.51, 0.964],
+    glowColor: [0.96, 0.96, 0.98],
+    markers: cities.map(c => ({ location: [c.lat, c.lng], size: 0.06 })),
+    onRender: (state) => {
+      if (!pointerDown) targetPhi += 0.003;
+      currentPhi += (targetPhi - currentPhi) * 0.08;
+      state.phi = currentPhi;
+      const w = canvas.offsetWidth;
+      state.width = w * 2;
+      state.height = w * 2;
+
+      const pts = cities.map(c => project(c.lat, c.lng, currentPhi));
+
+      labelEls.forEach((el, i) => {
+        const p = pts[i];
+        if (p.visible) {
+          el.style.opacity = '1';
+          el.style.left = (p.x * 100) + '%';
+          el.style.top = (p.y * 100) + '%';
+        } else {
+          el.style.opacity = '0';
+        }
+      });
+
+      const ctx = arcCanvas.getContext('2d');
+      arcCanvas.width = w * 2;
+      arcCanvas.height = w * 2;
+      ctx.clearRect(0, 0, arcCanvas.width, arcCanvas.height);
+      ctx.strokeStyle = 'rgba(59, 130, 246, 0.35)';
+      ctx.lineWidth = 2;
+
+      for (const [i, j] of arcPairs) {
+        const a = pts[i], b = pts[j];
+        if (!a.visible || !b.visible) continue;
+        const ax = a.x * w * 2, ay = a.y * w * 2;
+        const bx = b.x * w * 2, by = b.y * w * 2;
+        const mx = (ax + bx) / 2, my = (ay + by) / 2;
+        const cx = w, cy = w;
+        const dx = mx - cx, dy = my - cy;
+        const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+        const bulge = dist * 0.3;
+        const cpx = mx + (dx / dist) * bulge;
+        const cpy = my + (dy / dist) * bulge;
+        ctx.beginPath();
+        ctx.moveTo(ax, ay);
+        ctx.quadraticCurveTo(cpx, cpy, bx, by);
+        ctx.stroke();
+      }
+    }
+  });
+
+  canvas.addEventListener('pointerdown', (e) => {
+    pointerDown = true;
+    pointerX = e.clientX;
+    canvas.style.cursor = 'grabbing';
+  });
+
+  canvas.addEventListener('pointermove', (e) => {
+    if (pointerDown) {
+      const delta = e.clientX - pointerX;
+      pointerX = e.clientX;
+      targetPhi += delta * 0.005;
+    }
+  });
+
+  window.addEventListener('pointerup', () => {
+    pointerDown = false;
+    canvas.style.cursor = 'grab';
+  });
+}
+</script>
+
+
+<!-- ============================================================ -->
+<!-- CTA + FOOTER: GET IN TOUCH -->
+<!-- ============================================================ -->
+<style>
+  .git-input, .git-select {
+    width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);
+    border-radius:0.25rem; padding:14px 16px; font-size:15px; font-weight:400;
+    letter-spacing:-0.05em; color:#fff; outline:none; font-family:Inter,sans-serif;
+    transition:border-color 0.3s, background 0.3s;
+  }
+  .git-input::placeholder { color:rgba(255,255,255,0.3); }
+  .git-input:focus, .git-select:focus {
+    border-color:#3B82F6; background:rgba(59,130,246,0.06);
+  }
+  .git-select { appearance:none; cursor:pointer;
+    background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='rgba(255,255,255,0.35)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:right 16px center;
+  }
+  .git-select option { background:#111; color:#fff; }
+
+  .cta-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .cta-form-row { grid-template-columns: 1fr !important; }
+  .cta-wrap { padding: 20px !important; }
+  #git-title { font-size: 28px !important; }
+  #contact-form button[type="submit"] { width: 100%; justify-content: center; }
+  @media (min-width: 768px) {
+    .cta-grid { grid-template-columns: 1.6fr 0.7fr !important; gap: 64px !important; }
+    .cta-form-row { grid-template-columns: 1fr 1fr !important; }
+    .cta-wrap { padding: 32px !important; }
+    #git-title { font-size: 36px !important; }
+    #contact-form button[type="submit"] { width: auto !important; }
+    .cta-grid a[href^="mailto:"], .cta-grid a[href^="tel:"] { font-size: 20px !important; }
+  }
+</style>
+<section id="get-in-touch" class="w-full relative" style="font-family:Inter,sans-serif; min-height:calc(100vh - 56px); background:#000; display:flex; flex-direction:column;">
+  <div class="cta-wrap" style="padding:32px; flex:1; display:flex; flex-direction:column; max-width:1280px;">
+    <h2 id="git-title" style="font-size:36px; font-weight:400; line-height:1; color:#fff; letter-spacing:-0.05em; margin-bottom:12px; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">联系我们</h2>
+    <p style="font-size:14px; font-weight:400; letter-spacing:-0.05em; color:rgba(255,255,255,0.4); margin-bottom:36px;">如有任何疑问或合作意向，欢迎随时与我们联系</p>
+
+    <div class="cta-grid" style="flex:1; display:grid; grid-template-columns:1.6fr 0.7fr; gap:64px; align-content:start;">
+
+      <form id="contact-form" style="max-width:100%;" onsubmit="return false;">
+        <div class="cta-form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+          <input type="text" class="git-input" placeholder="姓名 *" required>
+          <input type="email" class="git-input" placeholder="工作邮箱 *" required>
+        </div>
+        <div class="cta-form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+          <input type="text" class="git-input" placeholder="公司名称 *" required>
+          <select id="region-select" class="git-select" required onchange="handleRegionChange(this.value)">
+            <option value="" disabled selected>所在地区 *</option>
+            <option value="china">中国地区</option>
+            <option value="overseas">海外地区</option>
+          </select>
+        </div>
+        <div id="sub-region-wrap" style="display:none; margin-bottom:16px;">
+          <select id="province-select" class="git-select" style="display:none;">
+            <option value="" disabled selected>省 / 自治区 / 直辖市 *</option>
+            <optgroup label="直辖市">
+              <option value="beijing">北京市</option>
+              <option value="tianjin">天津市</option>
+              <option value="shanghai">上海市</option>
+              <option value="chongqing">重庆市</option>
+            </optgroup>
+            <optgroup label="省">
+              <option value="hebei">河北省</option>
+              <option value="shanxi">山西省</option>
+              <option value="liaoning">辽宁省</option>
+              <option value="jilin">吉林省</option>
+              <option value="heilongjiang">黑龙江省</option>
+              <option value="jiangsu">江苏省</option>
+              <option value="zhejiang">浙江省</option>
+              <option value="anhui">安徽省</option>
+              <option value="fujian">福建省</option>
+              <option value="jiangxi">江西省</option>
+              <option value="shandong">山东省</option>
+              <option value="henan">河南省</option>
+              <option value="hubei">湖北省</option>
+              <option value="hunan">湖南省</option>
+              <option value="guangdong">广东省</option>
+              <option value="hainan">海南省</option>
+              <option value="sichuan">四川省</option>
+              <option value="guizhou">贵州省</option>
+              <option value="yunnan">云南省</option>
+              <option value="shaanxi">陕西省</option>
+              <option value="gansu">甘肃省</option>
+              <option value="qinghai">青海省</option>
+              <option value="taiwan">台湾省</option>
+            </optgroup>
+            <optgroup label="自治区">
+              <option value="neimenggu">内蒙古自治区</option>
+              <option value="guangxi">广西壮族自治区</option>
+              <option value="xizang">西藏自治区</option>
+              <option value="ningxia">宁夏回族自治区</option>
+              <option value="xinjiang">新疆维吾尔自治区</option>
+            </optgroup>
+            <optgroup label="特别行政区">
+              <option value="hongkong">香港特别行政区</option>
+              <option value="macao">澳门特别行政区</option>
+            </optgroup>
+          </select>
+          <select id="overseas-select" class="git-select" style="display:none;">
+            <option value="" disabled selected>海外区域 *</option>
+            <option value="asia-pacific">亚太</option>
+            <option value="europe">欧洲</option>
+            <option value="north-america">北美</option>
+            <option value="south-america">南美</option>
+            <option value="middle-east-africa">中东和非洲</option>
+          </select>
+        </div>
+        <div style="margin-bottom:16px;">
+          <select class="git-select" required>
+            <option value="" disabled selected>咨询类型 *</option>
+            <option value="partnership">合作洽谈</option>
+            <option value="sales">销售咨询</option>
+            <option value="technical">技术支持</option>
+            <option value="media">媒体垂询</option>
+            <option value="careers">招聘相关</option>
+            <option value="other">其他</option>
+          </select>
+        </div>
+        <div style="margin-bottom:28px;">
+          <textarea class="git-input" placeholder="详细需求（选填）" rows="4" style="resize:vertical; min-height:80px;"></textarea>
+        </div>
+        <button type="submit" style="display:inline-flex; align-items:center; gap:8px; padding:14px 32px; background:#3B82F6; color:#fff; border:none; border-radius:0.25rem; font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; font-family:Inter,sans-serif; cursor:pointer; transition:background 0.3s; width:100%; justify-content:center;" onmouseover="this.style.background='#2563EB'" onmouseout="this.style.background='#3B82F6'">
+          立即提交
+          <span class="material-symbols-outlined" style="font-size:16px;">arrow_outward</span>
+        </button>
+      </form>
+
+      <div style="display:flex; flex-direction:column; gap:36px; padding-top:0;">
+        <div style="display:flex; flex-direction:column; gap:24px;">
+          <div>
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.35); display:block; margin-bottom:10px;">通用咨询</span>
+            <a href="mailto:info@realman-robot.com" style="font-size:16px; font-weight:400; letter-spacing:-0.05em; color:#fff; text-decoration:none; transition:color 0.3s; word-break:break-all;" onmouseover="this.style.color='#3B82F6'" onmouseout="this.style.color='#fff'">info@realman-robot.com</a>
+          </div>
+          <div>
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.35); display:block; margin-bottom:10px;">销售咨询</span>
+            <a href="mailto:Sales@realman-robot.com" style="font-size:16px; font-weight:400; letter-spacing:-0.05em; color:#fff; text-decoration:none; transition:color 0.3s; word-break:break-all;" onmouseover="this.style.color='#3B82F6'" onmouseout="this.style.color='#fff'">Sales@realman-robot.com</a>
+          </div>
+          <div>
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.35); display:block; margin-bottom:10px;">服务热线</span>
+            <a href="tel:400-898-2018" style="font-size:16px; font-weight:400; letter-spacing:-0.05em; color:#fff; text-decoration:none; transition:color 0.3s; word-break:break-all;" onmouseover="this.style.color='#3B82F6'" onmouseout="this.style.color='#fff'">400-898-2018</a>
+          </div>
+        </div>
+
+        <div>
+          <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.35); display:block; margin-bottom:16px;">关注我们</span>
+          <span style="font-size:13px; font-weight:400; letter-spacing:-0.02em; color:rgba(255,255,255,0.3);">平台二维码即将上线</span>
+        </div>
+
+        <div style="margin-top:auto; padding-top:24px;">
+          <span style="font-size:12px; font-weight:400; letter-spacing:-0.05em; color:rgba(255,255,255,0.25);">&copy; 2026 睿尔曼智能 版权所有</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+if (typeof initTypewriter === 'undefined') {
+  function initTypewriter(id, text) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var typed = false;
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting && !typed) {
+          typed = true;
+          var i = 0;
+          el.style.width = 'auto';
+          el.textContent = '';
+          var typeChar = function() {
+            if (i < text.length) {
+              el.textContent += text[i];
+              i++;
+              setTimeout(typeChar, 80);
+            }
+          };
+          typeChar();
+          obs.unobserve(el);
+        }
+      });
+    }, { threshold: 0.2 });
+    obs.observe(el);
+  }
+}
+initTypewriter('git-title', '联系我们');
+
+function handleRegionChange(val) {
+  var wrap = document.getElementById('sub-region-wrap');
+  var prov = document.getElementById('province-select');
+  var over = document.getElementById('overseas-select');
+  wrap.style.display = 'block';
+  if (val === 'china') {
+    prov.style.display = ''; prov.required = true; prov.selectedIndex = 0;
+    over.style.display = 'none'; over.required = false;
+  } else if (val === 'overseas') {
+    over.style.display = ''; over.required = true; over.selectedIndex = 0;
+    prov.style.display = 'none'; prov.required = false;
+  } else {
+    wrap.style.display = 'none';
+    prov.required = false; over.required = false;
+  }
+}
+</script>
+
+<script src="../../prop/supabase-cta-cn.js"></script>
+<script>function switchLang(){var h=location.href;if(h.indexOf("/en/")>-1){location.href=h.replace("/en/","/cn/")}else if(h.indexOf("/cn/")>-1){location.href=h.replace("/cn/","/en/")}}</script>
+</body>
+</html>

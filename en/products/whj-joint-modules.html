@@ -1,0 +1,611 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>REALMAN | WHJ Series</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+        fontFamily: {
+          "headline": ["Inter", "sans-serif"],
+          "body": ["Inter", "sans-serif"],
+          "label": ["Inter", "sans-serif"],
+        },
+        borderRadius: {
+          "DEFAULT": "0.25rem",
+          "lg": "0.25rem",
+          "xl": "0.25rem",
+          "full": "9999px",
+        },
+                },
+            },
+        }
+    </script>
+<style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow-x: hidden; font-family: 'Inter', sans-serif; background: #FFFFFF; color: #000; }
+
+    .gallery-item { cursor: pointer; overflow: hidden; border-radius: 0.25rem; position: relative; }
+    .gallery-item img { transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
+    .gallery-item:hover img { transform: scale(1.04); }
+
+    /* ======== Responsive: mobile-first ======== */
+
+    /* --- S1: Product Title + Gallery --- */
+    .prod-title-wrap { padding: 20px 16px 0 16px !important; }
+    .prod-h1 { font-size: 28px !important; }
+    .prod-gallery-wrap { padding: 16px !important; }
+    @media (min-width: 768px) {
+      .prod-title-wrap { padding: 32px 32px 0 32px !important; }
+      .prod-h1 { font-size: 36px !important; }
+      .prod-gallery-wrap { padding: 32px !important; }
+    }
+
+    /* --- S2: Core Advantages --- */
+    .adv-wrap { padding: 20px 16px !important; }
+    .adv-h2 { font-size: 28px !important; margin-bottom: 32px !important; }
+    .adv-card { border-right: none !important; }
+    @media (min-width: 768px) {
+      .adv-wrap { padding: 32px !important; }
+      .adv-h2 { font-size: 36px !important; margin-bottom: 48px !important; }
+    }
+    @media (min-width: 768px) {
+      .adv-card { border-right: 1px solid #DFDFDF !important; }
+      .adv-card-last { border-right: none !important; }
+    }
+
+    /* --- S3: Tech Specs --- */
+    .spec-wrap { padding: 20px 16px !important; }
+    .spec-h2 { font-size: 28px !important; }
+    .spec-header { flex-direction: column !important; gap: 8px !important; margin-bottom: 32px !important; }
+    @media (min-width: 768px) {
+      .spec-wrap { padding: 32px !important; }
+      .spec-h2 { font-size: 36px !important; }
+      .spec-header { flex-direction: row !important; gap: 0 !important; margin-bottom: 48px !important; }
+    }
+
+    /* --- CTA + Footer --- */
+    .cta-grid-prod { grid-template-columns: 1fr !important; gap: 32px !important; }
+    .cta-form-row-prod { grid-template-columns: 1fr !important; }
+    .cta-wrap-prod { padding: 20px 16px !important; }
+    #git-title { font-size: 28px !important; }
+    #contact-form button[type="submit"] { width: 100%; justify-content: center; }
+    .cta-email-prod { font-size: 16px !important; word-break: break-all; }
+    @media (min-width: 768px) {
+      .cta-grid-prod { grid-template-columns: 1.6fr 0.7fr !important; gap: 64px !important; }
+      .cta-form-row-prod { grid-template-columns: 1fr 1fr !important; }
+      .cta-wrap-prod { padding: 32px 32px !important; }
+      #git-title { font-size: 36px !important; }
+      #contact-form button[type="submit"] { width: auto !important; }
+      .cta-email-prod { font-size: 20px !important; }
+    }
+
+    </style>
+</head>
+<body>
+
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full border-b border-[#DFDFDF] bg-[#F6F6F6]/80 backdrop-blur-xl z-[9999] grid items-center px-4 md:px-[32px] py-3 md:py-4" style="grid-template-columns:auto 1fr auto;">
+  <a href="../main/home.html" style="text-decoration:none;"><img src="../../prop/logo.png" alt="REALMAN ROBOTICS" class="h-[20px] w-auto"></a>
+  <button class="md:hidden justify-self-end text-[#1a1a1a]/70 hover:text-[#3B82F6]" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+    <span class="material-symbols-outlined text-[20px]">menu</span>
+  </button>
+  <div class="hidden md:flex items-center justify-center space-x-4">
+    <a href="../main/home.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">Home</a>
+    <div class="relative group/cp flex items-center">
+      <a href="../main/core-products.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">Core Products</a>
+      <div class="absolute top-full left-0 pt-3 hidden group-hover/cp:block">
+        <div class="bg-white/95 backdrop-blur-xl border border-[#DFDFDF] shadow-2xl shadow-black/10 rounded-[0.25rem]">
+          <div class="grid grid-cols-3 divide-x divide-[#DFDFDF]" style="min-width:660px;">
+            <div class="py-5 px-5">
+              <a href="../main/core-products.html#joint-modules" class="block text-[12px] text-[#000] tracking-wider mb-3 pb-2 border-b border-[#DFDFDF]" style="text-decoration:none;">Joint Modules</a>
+              <a href="whj-joint-modules.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">WHJ Series</a>
+              <a href="whj-torque-joint-modules.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">WHJ Torque Series</a>
+              <a href="whg-joint-modules.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">WHG Series</a>
+            </div>
+            <div class="py-5 px-5">
+              <a href="../main/core-products.html#robotic-arms" class="block text-[12px] text-[#000] tracking-wider mb-3 pb-2 border-b border-[#DFDFDF]" style="text-decoration:none;">Robotic Arms</a>
+              <a href="../main/core-products.html#robotic-arms" class="block text-[12px] text-[#000] tracking-wider mt-1 mb-1 hover:text-[#3B82F6]" style="text-decoration:none;">RM Series</a>
+              <a href="rm65.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">RM65</a>
+              <a href="rm75.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">RM75</a>
+              <a href="../main/core-products.html#robotic-arms" class="block text-[12px] text-[#000] tracking-wider mt-3 mb-1 hover:text-[#3B82F6]" style="text-decoration:none;">RML Series</a>
+              <a href="rml63.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">RML63</a>
+              <a href="../main/core-products.html#robotic-arms" class="block text-[12px] text-[#000] tracking-wider mt-3 mb-1 hover:text-[#3B82F6]" style="text-decoration:none;">ECO Series</a>
+              <a href="eco65.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">ECO65</a>
+              <a href="eco63.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">ECO63</a>
+              <a href="eco62.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">ECO62</a>
+              <a href="../main/core-products.html#robotic-arms" class="block text-[12px] text-[#000] tracking-wider mt-3 mb-1 hover:text-[#3B82F6]" style="text-decoration:none;">RX Series</a>
+              <a href="rx75.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">RX75</a>
+            </div>
+            <div class="py-5 px-5">
+              <a href="../main/core-products.html#wheeled-robots" class="block text-[12px] text-[#000] tracking-wider mb-3 pb-2 border-b border-[#DFDFDF]" style="text-decoration:none;">Wheeled Robots</a>
+              <a href="realbot-humanoid.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">RealBOT Humanoid</a>
+              <a href="single-arm-lift.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Single-Arm Lift</a>
+              <a href="dual-arm-lift.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Dual-Arm Lift</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="../main/teleoperation-network.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">Teleoperation Network</a>
+    <a href="../main/data-services.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">Data Services</a>
+    <div class="relative group/sol flex items-center">
+      <a href="../main/solutions.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">Solutions</a>
+      <div class="absolute top-full left-0 pt-3 hidden group-hover/sol:block">
+        <div class="bg-white/95 backdrop-blur-xl border border-[#DFDFDF] shadow-2xl shadow-black/10 min-w-[240px] py-4 px-5 rounded-[0.25rem]">
+          <a href="../main/solutions.html#industry" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Industry Solutions</a>
+          <a href="../main/solutions.html#ecosystem" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Ecosystem Solutions</a>
+          <a href="../main/solutions.html#odm" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">ODM Services</a>
+          <a href="../main/solutions.html#robotic-arm-odm" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Robotic Arm ODM</a>
+          <a href="../main/solutions.html#complete-robot-odm" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Complete Robot ODM</a>
+          <a href="../main/solutions.html#odm-pipeline" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">ODM Pipeline</a>
+        </div>
+      </div>
+    </div>
+    <div class="relative group/dev flex items-center">
+      <a href="../main/developer-center.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">Developer Center</a>
+      <div class="absolute top-full left-0 pt-3 hidden group-hover/dev:block">
+        <div class="bg-white/95 backdrop-blur-xl border border-[#DFDFDF] shadow-2xl shadow-black/10 min-w-[220px] py-4 px-5 rounded-[0.25rem]">
+          <a href="../main/developer-center.html#products-spec" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Product Specs</a>
+          <a href="../main/developer-center.html#documentation" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Technical Documentation</a>
+          <a href="../main/developer-center.html#faqs" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">FAQs</a>
+        </div>
+      </div>
+    </div>
+    <div class="relative group/about flex items-center">
+      <a href="../main/about-us.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">About Us</a>
+      <div class="absolute top-full left-0 pt-3 hidden group-hover/about:block">
+        <div class="bg-white/95 backdrop-blur-xl border border-[#DFDFDF] shadow-2xl shadow-black/10 min-w-[240px] py-4 px-5 rounded-[0.25rem]">
+          <a href="../main/about-us.html#who-we-are" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Company Overview</a>
+          <a href="../main/about-us.html#who-we-are" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Who We Are</a>
+          <a href="../main/about-us.html#milestones" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Milestones</a>
+          <a href="../main/about-us.html#certifications" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Certifications</a>
+          <a href="../main/about-us.html#partners" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Partners</a>
+          <div class="border-t border-[#DFDFDF] my-2"></div>
+          <a href="../main/about-us.html#news" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">News &amp; Events</a>
+          <a href="../main/about-us.html#careers" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Careers</a>
+          <a href="../main/about-us.html#partnership" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Partnership</a>
+          <a href="#get-in-touch" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hidden md:block text-[12px] tracking-wider font-bold border border-[#3B82F6]/30 px-3 py-1 rounded-[0.25rem] cursor-pointer select-none" onclick="switchLang()"><span style="color:rgba(59,130,246,0.4)">CN</span><span style="color:rgba(59,130,246,0.25)">/</span><span style="color:#3B82F6">EN</span></div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="hidden fixed top-[52px] left-0 w-full bg-white/98 backdrop-blur-xl z-[9998] border-b border-[#DFDFDF] md:hidden overflow-y-auto max-h-[calc(100vh-52px)]">
+  <div class="flex flex-col py-4 px-4 md:px-[32px] space-y-3">
+    <a href="../main/home.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">Home</a>
+    <a href="../main/core-products.html" class="text-[#3B82F6] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">Core Products</a>
+    <a href="../main/teleoperation-network.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">Teleoperation Network</a>
+    <a href="../main/data-services.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">Data Services</a>
+    <a href="../main/solutions.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">Solutions</a>
+    <a href="../main/developer-center.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">Developer Center</a>
+    <a href="../main/about-us.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">About Us</a>
+    <div class="text-[12px] tracking-wider font-bold border border-[#3B82F6]/30 px-3 py-1 w-fit rounded-[0.25rem] cursor-pointer select-none" onclick="switchLang()"><span style="color:rgba(59,130,246,0.4)">CN</span><span style="color:rgba(59,130,246,0.25)">/</span><span style="color:#3B82F6">EN</span></div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SECTION 1: PRODUCT NAME + PHOTO GALLERY -->
+<!-- ============================================================ -->
+<section class="w-full bg-[#FFFFFF]" style="padding-top:60px;">
+
+  <!-- Product Title -->
+  <div class="prod-title-wrap" style="padding:32px 32px 0 32px;">
+    <h1 class="prod-h1" style="font-size:36px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000;">WHJ Series</h1>
+    <p style="font-size:15px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:rgba(0,0,0,0.4); margin-top:16px; max-width:640px;">
+      Harmonic joint modules available in 3, 10, 30, 60, and 120 N&middot;m rated torque options, featuring ultra-compact form factors from 33 mm diameter, dual encoders, a hollow shaft, and a CAN FD interface.
+    </p>
+            </div>
+
+  <!-- Photo Gallery: 6 models in 2×3 grid -->
+  <div class="prod-gallery-wrap" style="padding:32px;">
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+
+      <div class="gallery-item" style="aspect-ratio:4/3; background:#F6F6F6;">
+        <img src="../../prop/products-images/关节/WHJ系列/WHJ03/WHJ03.png" alt="WHJ03 Joint Module" style="width:100%; height:100%; object-fit:contain; padding:5%;">
+        <div style="position:absolute; bottom:0; left:0; right:0; padding:12px 16px; background:linear-gradient(to top, rgba(0,0,0,0.55), transparent);">
+          <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+            <span style="font-size:15px; font-weight:500; color:#fff;">WHJ03</span>
+            <span style="font-size:12px; font-weight:400; color:#3B82F6;">3 N&middot;m &middot; 170 g</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" style="aspect-ratio:4/3; background:#F6F6F6;">
+        <img src="../../prop/products-images/关节/WHJ系列/WHJ10-B/WHJ10-B.png" alt="WHJ10-B Joint Module" style="width:100%; height:100%; object-fit:contain; padding:5%;">
+        <div style="position:absolute; bottom:0; left:0; right:0; padding:12px 16px; background:linear-gradient(to top, rgba(0,0,0,0.55), transparent);">
+          <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+            <span style="font-size:15px; font-weight:500; color:#fff;">WHJ10-B</span>
+            <span style="font-size:12px; font-weight:400; color:#3B82F6;">10 N&middot;m &middot; 455 g</span>
+    </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" style="aspect-ratio:4/3; background:#F6F6F6;">
+        <img src="../../prop/products-images/关节/WHJ系列/WHJ10-N/WHJ10-N.png" alt="WHJ10-N Joint Module" style="width:100%; height:100%; object-fit:contain; padding:5%;">
+        <div style="position:absolute; bottom:0; left:0; right:0; padding:12px 16px; background:linear-gradient(to top, rgba(0,0,0,0.55), transparent);">
+          <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+            <span style="font-size:15px; font-weight:500; color:#fff;">WHJ10-N</span>
+            <span style="font-size:12px; font-weight:400; color:#3B82F6;">10 N&middot;m &middot; 445 g</span>
+    </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" style="aspect-ratio:4/3; background:#F6F6F6;">
+        <img src="../../prop/products-images/关节/WHJ系列/WHJ30/WHJ30.png" alt="WHJ30 Joint Module" style="width:100%; height:100%; object-fit:contain; padding:5%;">
+        <div style="position:absolute; bottom:0; left:0; right:0; padding:12px 16px; background:linear-gradient(to top, rgba(0,0,0,0.55), transparent);">
+          <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+            <span style="font-size:15px; font-weight:500; color:#fff;">WHJ30</span>
+            <span style="font-size:12px; font-weight:400; color:#3B82F6;">30 N&middot;m &middot; 750 g</span>
+    </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" style="aspect-ratio:4/3; background:#F6F6F6;">
+        <img src="../../prop/products-images/关节/WHJ系列/WHJ60/WHJ60.png" alt="WHJ60 Joint Module" style="width:100%; height:100%; object-fit:contain; padding:5%;">
+        <div style="position:absolute; bottom:0; left:0; right:0; padding:12px 16px; background:linear-gradient(to top, rgba(0,0,0,0.55), transparent);">
+          <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+            <span style="font-size:15px; font-weight:500; color:#fff;">WHJ60</span>
+            <span style="font-size:12px; font-weight:400; color:#3B82F6;">60 N&middot;m &middot; 1040 g</span>
+</div>
+</div>
+</div>
+
+      <div class="gallery-item" style="aspect-ratio:4/3; background:#F6F6F6;">
+        <img src="../../prop/products-images/关节/WHJ系列/WHJ120/WHJ120.png" alt="WHJ120 Joint Module" style="width:100%; height:100%; object-fit:contain; padding:5%;">
+        <div style="position:absolute; bottom:0; left:0; right:0; padding:12px 16px; background:linear-gradient(to top, rgba(0,0,0,0.55), transparent);">
+          <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+            <span style="font-size:15px; font-weight:500; color:#fff;">WHJ120</span>
+            <span style="font-size:12px; font-weight:400; color:#3B82F6;">120 N&middot;m &middot; 2300 g</span>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- SECTION 2: CORE ADVANTAGES -->
+<!-- ============================================================ -->
+<section class="w-full bg-[#F6F6F6]">
+  <div class="adv-wrap" style="padding:32px;">
+    <h2 class="adv-h2" style="font-size:36px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000; margin-bottom:48px;">Core Advantages</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-0 border-t border-[#DFDFDF]">
+
+      <div class="adv-card" style="padding:32px 24px; border-bottom:1px solid #DFDFDF; border-right:1px solid #DFDFDF;">
+        <span class="material-symbols-outlined" style="font-size:28px; color:#3B82F6; display:block; margin-bottom:20px;">bolt</span>
+        <h3 style="font-size:20px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000;">High Torque Density</h3>
+      </div>
+
+      <div class="adv-card" style="padding:32px 24px; border-bottom:1px solid #DFDFDF; border-right:1px solid #DFDFDF;">
+        <span class="material-symbols-outlined" style="font-size:28px; color:#3B82F6; display:block; margin-bottom:20px;">verified</span>
+        <h3 style="font-size:20px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000;">High Reliability</h3>
+      </div>
+
+      <div class="adv-card adv-card-last" style="padding:32px 24px; border-bottom:1px solid #DFDFDF;">
+        <span class="material-symbols-outlined" style="font-size:28px; color:#3B82F6; display:block; margin-bottom:20px;">target</span>
+        <h3 style="font-size:20px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000;">High Precision</h3>
+      </div>
+
+</div>
+</div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- SECTION 3: TECHNICAL SPECIFICATIONS (Two Tables) -->
+<!-- ============================================================ -->
+<section class="w-full bg-[#FFFFFF]">
+  <div class="spec-wrap" style="padding:32px;">
+    <div class="spec-header" style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:48px;">
+      <h2 class="spec-h2" style="font-size:36px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000;">Technical Specifications</h2>
+
+</div>
+
+    <div class="overflow-x-auto">
+      <div style="border:1px solid #DFDFDF; border-radius:0.25rem; min-width:900px;">
+
+        <div class="grid grid-cols-7" style="background:#3B82F6; border-radius:0.25rem 0.25rem 0 0;">
+          <div style="padding:14px 16px;"><span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:#fff;">Parameter</span></div>
+          <div style="padding:14px 16px; text-align:center; border-left:1px solid rgba(255,255,255,0.15);"><span style="font-size:12px; font-weight:500; letter-spacing:0.02em; color:#fff;">WHJ03</span></div>
+          <div style="padding:14px 16px; text-align:center; border-left:1px solid rgba(255,255,255,0.15);"><span style="font-size:12px; font-weight:500; letter-spacing:0.02em; color:#fff;">WHJ10-B</span></div>
+          <div style="padding:14px 16px; text-align:center; border-left:1px solid rgba(255,255,255,0.15);"><span style="font-size:12px; font-weight:500; letter-spacing:0.02em; color:#fff;">WHJ10-N</span></div>
+          <div style="padding:14px 16px; text-align:center; border-left:1px solid rgba(255,255,255,0.15);"><span style="font-size:12px; font-weight:500; letter-spacing:0.02em; color:#fff;">WHJ30</span></div>
+          <div style="padding:14px 16px; text-align:center; border-left:1px solid rgba(255,255,255,0.15);"><span style="font-size:12px; font-weight:500; letter-spacing:0.02em; color:#fff;">WHJ60</span></div>
+          <div style="padding:14px 16px; text-align:center; border-left:1px solid rgba(255,255,255,0.15);"><span style="font-size:12px; font-weight:500; letter-spacing:0.02em; color:#fff;">WHJ120</span></div>
+        </div>
+
+        <div class="grid grid-cols-7" style="border-bottom:1px solid #DFDFDF;">
+          <div style="padding:12px 16px; background:#FFFFFF;"><span style="font-size:12px; font-weight:400; color:rgba(0,0,0,0.5);">Weight</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">170 g</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">455 g</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">445 g</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">750 g</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">1040 g</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">2300 g</span></div>
+        </div>
+        <div class="grid grid-cols-7" style="border-bottom:1px solid #DFDFDF;">
+          <div style="padding:12px 16px; background:#F6F6F6;"><span style="font-size:12px; font-weight:400; color:rgba(0,0,0,0.5);">Dimensions (D&times;L)</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">33&times;48 mm</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">50&times;73 mm</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">50&times;64 mm</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">60&times;86.5 mm</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">70&times;91 mm</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">88&times;109 mm</span></div>
+        </div>
+        <div class="grid grid-cols-7" style="border-bottom:1px solid #DFDFDF;">
+          <div style="padding:12px 16px; background:#FFFFFF;"><span style="font-size:12px; font-weight:400; color:rgba(0,0,0,0.5);">Hollow Shaft</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">4 mm</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">8 mm</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">8 mm</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">9 mm</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">9 mm</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">16 mm</span></div>
+        </div>
+        <div class="grid grid-cols-7" style="border-bottom:1px solid #DFDFDF;">
+          <div style="padding:12px 16px; background:#F6F6F6;"><span style="font-size:12px; font-weight:400; color:rgba(0,0,0,0.5);">Rated Voltage</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">24/48 V</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">24/48 V</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">24/48 V</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">24/48 V</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">24/48 V</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">48 V</span></div>
+        </div>
+        <div class="grid grid-cols-7" style="border-bottom:1px solid #DFDFDF;">
+          <div style="padding:12px 16px; background:#FFFFFF;"><span style="font-size:12px; font-weight:400; color:rgba(0,0,0,0.5);">Rated Current</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">0.4 A @48V</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">1.3 A @48V</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">1.3 A @48V</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">2.8 A @48V</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">5.3 A @48V</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">17.8 A</span></div>
+        </div>
+        <div class="grid grid-cols-7" style="border-bottom:1px solid #DFDFDF;">
+          <div style="padding:12px 16px; background:#F6F6F6;"><span style="font-size:12px; font-weight:400; color:rgba(0,0,0,0.5);">Rated Power</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">20 W</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">63 W</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">63 W</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">137 W</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">264 W</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">857 W</span></div>
+        </div>
+        <div class="grid grid-cols-7" style="border-bottom:1px solid #DFDFDF;">
+          <div style="padding:12px 16px; background:#FFFFFF;"><span style="font-size:12px; font-weight:400; color:rgba(0,0,0,0.5);">Peak Speed</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">60 RPM</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">75 RPM</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">75 RPM</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">75 RPM</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">60 RPM</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">30 RPM</span></div>
+        </div>
+        <div class="grid grid-cols-7" style="border-bottom:1px solid #DFDFDF;">
+          <div style="padding:12px 16px; background:#F6F6F6;"><span style="font-size:12px; font-weight:400; color:rgba(0,0,0,0.5);">Rated Torque</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">3 N&middot;m</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">10 N&middot;m</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">10 N&middot;m</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">30 N&middot;m</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">60 N&middot;m</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">120 N&middot;m</span></div>
+        </div>
+        <div class="grid grid-cols-7" style="border-bottom:1px solid #DFDFDF;">
+          <div style="padding:12px 16px; background:#FFFFFF;"><span style="font-size:12px; font-weight:400; color:rgba(0,0,0,0.5);">Gear Ratio</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">100</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">80</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">80</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">80</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">100</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">100</span></div>
+        </div>
+        <div class="grid grid-cols-7" style="border-bottom:1px solid #DFDFDF;">
+          <div style="padding:12px 16px; background:#F6F6F6;"><span style="font-size:12px; font-weight:400; color:rgba(0,0,0,0.5);">Operating Temp</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">0–50 °C</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">0–50 °C</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">0–50 °C</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">0–50 °C</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">0–50 °C</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">0–50 °C</span></div>
+        </div>
+        <div class="grid grid-cols-7" style="border-bottom:1px solid #DFDFDF;">
+          <div style="padding:12px 16px; background:#FFFFFF;"><span style="font-size:12px; font-weight:400; color:rgba(0,0,0,0.5);">Incr. Encoder</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">16 bit</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">16 bit</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">16 bit</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">16 bit</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">16 bit</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">16 bit</span></div>
+        </div>
+        <div class="grid grid-cols-7" style="border-bottom:1px solid #DFDFDF;">
+          <div style="padding:12px 16px; background:#F6F6F6;"><span style="font-size:12px; font-weight:400; color:rgba(0,0,0,0.5);">Abs. Encoder</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">18 bit</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">18 bit</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">18 bit</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">18 bit</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">18 bit</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">18 bit</span></div>
+        </div>
+        <div class="grid grid-cols-7" style="border-bottom:1px solid #DFDFDF;">
+          <div style="padding:12px 16px; background:#FFFFFF;"><span style="font-size:12px; font-weight:400; color:rgba(0,0,0,0.5);">Brake Type</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">Spring</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">Pin-Type</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">Spring</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">Pin-Type</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">Pin-Type</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;"><span style="font-size:12px; font-weight:500; color:#000;">Electromagnetic</span></div>
+        </div>
+        <div class="grid grid-cols-7">
+          <div style="padding:12px 16px; background:#F6F6F6; border-radius:0 0 0 0.25rem;"><span style="font-size:12px; font-weight:400; color:rgba(0,0,0,0.5);">Comm Interface</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">CAN FD</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">CAN FD</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">CAN FD</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">CAN FD</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;"><span style="font-size:12px; font-weight:500; color:#000;">CAN FD</span></div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6; border-radius:0 0 0.25rem 0;"><span style="font-size:12px; font-weight:500; color:#000;">CAN FD</span></div>
+        </div>
+
+      </div>
+    </div>
+
+</div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- CTA + FOOTER: GET IN TOUCH -->
+<!-- ============================================================ -->
+<style>
+  .git-input, .git-select {
+    width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);
+    border-radius:0.25rem; padding:14px 16px; font-size:15px; font-weight:400;
+    letter-spacing:-0.05em; color:#fff; outline:none; font-family:Inter,sans-serif;
+    transition:border-color 0.3s, background 0.3s;
+  }
+  .git-input::placeholder { color:rgba(255,255,255,0.3); }
+  .git-input:focus, .git-select:focus {
+    border-color:#3B82F6; background:rgba(59,130,246,0.06);
+  }
+  .git-select { appearance:none; cursor:pointer;
+    background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='rgba(255,255,255,0.35)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:right 16px center;
+  }
+  .git-select option { background:#111; color:#fff; }
+</style>
+<section id="get-in-touch" class="w-full relative" style="font-family:Inter,sans-serif; min-height:calc(100vh - 56px); background:#000; display:flex; flex-direction:column;">
+  <div class="cta-wrap-prod" style="padding:32px 32px; flex:1; display:flex; flex-direction:column; max-width:1280px;">
+    <h2 id="git-title" style="font-size:36px; font-weight:400; line-height:1; color:#fff; letter-spacing:-0.05em; margin-bottom:12px; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">Get in Touch</h2>
+    <p style="font-size:15px; font-weight:400; letter-spacing:-0.05em; color:rgba(255,255,255,0.4); margin-bottom:48px;">Have a question or want to collaborate? We'd love to hear from you.</p>
+
+    <div class="cta-grid-prod" style="flex:1; display:grid; grid-template-columns:1.6fr 0.7fr; gap:64px; align-content:start;">
+
+      <!-- Left: Form -->
+      <form id="contact-form" style="max-width:100%;" onsubmit="return false;">
+        <div class="cta-form-row-prod" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+          <input type="text" class="git-input" placeholder="Name *" required>
+          <input type="email" class="git-input" placeholder="Work Email *" required>
+        </div>
+        <div class="cta-form-row-prod" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+          <input type="text" class="git-input" placeholder="Company *" required>
+          <select class="git-select" required>
+            <option value="" disabled selected>Region *</option>
+            <option value="asia-pacific">Asia Pacific</option>
+            <option value="europe">Europe</option>
+            <option value="north-america">North America</option>
+            <option value="south-america">South America</option>
+            <option value="middle-east-africa">Middle East &amp; Africa</option>
+          </select>
+        </div>
+        <div style="margin-bottom:16px;">
+          <select class="git-select" required>
+            <option value="" disabled selected>Inquiry Type *</option>
+            <option value="partnership">Partnership</option>
+            <option value="sales">Sales Inquiry</option>
+            <option value="technical">Technical Support</option>
+            <option value="media">Media &amp; Press</option>
+            <option value="careers">Careers</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div style="margin-bottom:28px;">
+          <textarea class="git-input" placeholder="Additional Details (optional)" rows="4" style="resize:vertical; min-height:80px;"></textarea>
+        </div>
+        <button type="submit" style="display:inline-flex; align-items:center; gap:8px; padding:14px 32px; background:#3B82F6; color:#fff; border:none; border-radius:0.25rem; font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; font-family:Inter,sans-serif; cursor:pointer; transition:background 0.3s;" onmouseover="this.style.background='#2563EB'" onmouseout="this.style.background='#3B82F6'">
+          Submit Inquiry
+          <span class="material-symbols-outlined" style="font-size:16px;">arrow_outward</span>
+        </button>
+      </form>
+
+      <!-- Right: Contact Info + Social -->
+      <div style="display:flex; flex-direction:column; gap:48px; padding-top:36px;">
+        <!-- Contact Info -->
+        <div style="display:flex; flex-direction:column; gap:32px;">
+          <div>
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.35); display:block; margin-bottom:10px;">General Inquiries</span>
+            <a class="cta-email-prod" href="mailto:info@realman-robot.com" style="font-size:20px; font-weight:400; letter-spacing:-0.05em; color:#fff; text-decoration:none; transition:color 0.3s;" onmouseover="this.style.color='#3B82F6'" onmouseout="this.style.color='#fff'">info@realman-robot.com</a>
+          </div>
+          <div>
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.35); display:block; margin-bottom:10px;">Sales</span>
+            <a class="cta-email-prod" href="mailto:Sales@realman-robot.com" style="font-size:20px; font-weight:400; letter-spacing:-0.05em; color:#fff; text-decoration:none; transition:color 0.3s;" onmouseover="this.style.color='#3B82F6'" onmouseout="this.style.color='#fff'">Sales@realman-robot.com</a>
+          </div>
+        </div>
+
+        <!-- Social Icons -->
+        <div>
+          <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.35); display:block; margin-bottom:16px;">Follow Us</span>
+          <div style="display:flex; gap:20px; align-items:center;">
+            <a href="https://www.linkedin.com/company/realmanrobotics" target="_blank" rel="noopener" title="LinkedIn" style="display:flex; align-items:center; justify-content:center; opacity:0.5; transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#fff"/></svg>
+            </a>
+            <a href="https://x.com/RealmanRobotics" target="_blank" rel="noopener" title="X" style="display:flex; align-items:center; justify-content:center; opacity:0.5; transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="#fff"/></svg>
+            </a>
+            <a href="https://www.facebook.com/realmanrobotics2018/" target="_blank" rel="noopener" title="Facebook" style="display:flex; align-items:center; justify-content:center; opacity:0.5; transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#fff"/></svg>
+            </a>
+            <a href="https://www.instagram.com/realman_robotic/" target="_blank" rel="noopener" title="Instagram" style="display:flex; align-items:center; justify-content:center; opacity:0.5; transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" fill="#fff"/></svg>
+            </a>
+            <a href="https://www.youtube.com/@RealManRobotics" target="_blank" rel="noopener" title="YouTube" style="display:flex; align-items:center; justify-content:center; opacity:0.5; transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" fill="#fff"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@realmanrobotic" target="_blank" rel="noopener" title="TikTok" style="display:flex; align-items:center; justify-content:center; opacity:0.5; transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
+              <svg width="20" height="22" viewBox="0 0 448 512" fill="none"><path d="M448 209.91a210.06 210.06 0 01-122.77-39.25v178.72A162.55 162.55 0 11185 188.31v89.89a74.62 74.62 0 1052.23 71.18V0h88a121.18 121.18 0 001.86 22.17A122.18 122.18 0 00381 102.39a121.43 121.43 0 0067 20.14z" fill="#fff"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="margin-top:auto; padding-top:32px;">
+          <span style="font-size:12px; font-weight:400; letter-spacing:-0.05em; color:rgba(255,255,255,0.25);">&copy; 2026 RealMan Robotics. All rights reserved.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+function initTypewriter(id, text) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  let typed = false;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !typed) {
+        typed = true;
+        let i = 0;
+        el.style.width = 'auto';
+        el.textContent = '';
+        const type = () => {
+          if (i < text.length) {
+            el.textContent += text[i];
+            i++;
+            setTimeout(type, 80);
+          }
+        };
+        type();
+        obs.unobserve(el);
+      }
+    });
+  }, { threshold: 0.2 });
+  obs.observe(el);
+}
+initTypewriter('git-title', 'Get in Touch');
+</script>
+
+
+<script src="../../prop/supabase-cta.js"></script>
+<script>function switchLang(){var h=location.href;if(h.indexOf("/en/")>-1){location.href=h.replace("/en/","/cn/")}else if(h.indexOf("/cn/")>-1){location.href=h.replace("/cn/","/en/")}}</script>
+</body>
+</html>

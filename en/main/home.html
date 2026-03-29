@@ -1,0 +1,738 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>REALMAN | HOME</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          "headline": ["Inter", "sans-serif"],
+          "body": ["Inter", "sans-serif"],
+          "label": ["Inter", "sans-serif"],
+        },
+        borderRadius: {
+          "DEFAULT": "0.25rem",
+          "lg": "0.25rem",
+          "xl": "0.25rem",
+          "full": "9999px",
+        },
+      },
+    },
+  }
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .hero {
+      width: 100vw;
+      height: 100vh;
+      background-color: #F6F6F6;
+      display: flex;
+      align-items: center;
+      padding-left: 20px;
+      padding-top: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-image {
+      position: absolute;
+      right: 2vw;
+      bottom: 0;
+      height: 90vh;
+      width: auto;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    .hero-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 42px;
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      color: #000000;
+    }
+
+    @media (min-width: 768px) {
+      .hero { padding-left: 32px; }
+      .hero-text { font-size: 72px; }
+      .hero-image { height: 75vh; }
+    }
+
+    @media (min-width: 1024px) {
+      .hero-text { font-size: 108px; }
+      .hero-image { height: 90vh; }
+    }
+
+    .hero-text .highlight {
+      color: #3B82F6;
+    }
+
+    .hero-text div {
+      opacity: 0;
+      transform: perspective(800px) rotateY(-90deg) translateX(-60px);
+      transform-origin: left center;
+      animation: swingIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .hero-text div:nth-child(1) { animation-delay: 0.2s; }
+    .hero-text div:nth-child(2) { animation-delay: 0.45s; }
+    .hero-text div:nth-child(3) { animation-delay: 0.7s; }
+
+    @keyframes swingIn {
+      0% {
+        opacity: 0;
+        transform: perspective(800px) rotateY(-90deg) translateX(-60px);
+      }
+      100% {
+        opacity: 1;
+        transform: perspective(800px) rotateY(0deg) translateX(0);
+      }
+    }
+
+    /* Light orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(80px);
+    }
+
+    .orb-blue {
+      width: 420px;
+      height: 420px;
+      top: 2%;
+      left: 8%;
+      background: radial-gradient(circle, rgba(59,130,246,0.35) 0%, rgba(59,130,246,0.12) 40%, transparent 70%);
+      animation: orbFloat1 8s ease-in-out infinite;
+    }
+
+    .orb-white {
+      width: 380px;
+      height: 380px;
+      top: 40%;
+      left: 22%;
+      background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.3) 35%, transparent 70%);
+      animation: orbFloat2 10s ease-in-out infinite;
+    }
+
+    @keyframes orbFloat1 {
+      0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+      50% { transform: translate(15px, 10px) scale(1.08); opacity: 1; }
+    }
+
+    /* Dotted world map */
+
+    /* Hardware card hover effects */
+    .hw-card { cursor: pointer; }
+
+    .hw-card img {
+      transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .hw-card:hover img {
+      transform: scale(1.06);
+    }
+
+    .hw-card .hw-label {
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease;
+    }
+
+    .hw-card:hover .hw-label {
+      transform: translateY(-4px);
+    }
+
+    .hw-card .hw-title {
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.05s;
+    }
+
+    .hw-card:hover .hw-title {
+      transform: translateY(-4px);
+    }
+
+    .hw-card .hw-arrow {
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.1s, opacity 0.4s ease 0.1s;
+    }
+
+    .hw-card:hover .hw-arrow {
+      transform: translate(3px, -3px);
+      opacity: 1 !important;
+    }
+
+    @keyframes orbFloat2 {
+      0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.7; }
+      50% { transform: translate(-10px, -15px) scale(1.1); opacity: 0.95; }
+    }
+
+    /* ---- Responsive: section titles ---- */
+    @media (min-width: 768px) {
+      #hw-title { font-size: 36px !important; padding: 32px 32px 0 32px !important; }
+    }
+
+    /* ---- Responsive: Hardware grid rows ---- */
+    @media (min-width: 1024px) {
+      .hw-grid-wrap { grid-template-rows: 7fr 3fr; }
+    }
+
+    /* ---- Responsive: Teleoperation ---- */
+    .teleop-section { flex-direction: column; height: auto; min-height: auto; }
+    .teleop-left { width: 100%; height: auto; min-height: 420px; padding: 20px !important; }
+    .teleop-right { width: 100%; height: auto; }
+    .teleop-right > div { padding: 20px !important; }
+
+    @media (min-width: 768px) {
+      .teleop-left { padding: 32px !important; min-height: 500px; }
+      .teleop-right > div { padding: 32px !important; }
+    }
+
+    @media (min-width: 1024px) {
+      .teleop-section { flex-direction: row; height: 100vh; }
+      .teleop-left { width: 66.6667%; height: 100%; }
+      .teleop-right { width: 33.3333%; height: 100%; }
+    }
+
+    /* ---- Responsive: Teleoperation title ---- */
+    #tn-title { font-size: 28px !important; }
+    @media (min-width: 768px) { #tn-title { font-size: 36px !important; } }
+
+    /* ---- Responsive: Data Services ---- */
+    .ds-grid { grid-template-columns: 1fr !important; gap: 32px !important; padding: 40px 20px 40px 20px !important; }
+    .ds-num { font-size: 48px !important; }
+    .ds-header { padding: 20px 20px 0 20px !important; flex-direction: column; gap: 12px; }
+    #ds-title { font-size: 28px !important; }
+
+    @media (min-width: 768px) {
+      .ds-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 24px !important; padding: 60px 32px 56px 32px !important; }
+      .ds-num { font-size: 72px !important; }
+      .ds-header { padding: 32px 32px 0 32px !important; flex-direction: row; gap: 0; }
+      #ds-title { font-size: 36px !important; }
+    }
+
+    /* ---- Responsive: CTA + Footer ---- */
+    .cta-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+    .cta-form-row { grid-template-columns: 1fr !important; }
+    .cta-wrap { padding: 20px !important; }
+    #git-title { font-size: 28px !important; }
+
+    @media (min-width: 768px) {
+      .cta-grid { grid-template-columns: 1.6fr 0.7fr !important; gap: 64px !important; }
+      .cta-form-row { grid-template-columns: 1fr 1fr !important; }
+      .cta-wrap { padding: 32px !important; }
+      #git-title { font-size: 36px !important; }
+    }
+
+    /* ---- Responsive: CTA button ---- */
+    @media (min-width: 768px) {
+      #contact-form button[type="submit"] { width: auto !important; }
+    }
+
+    /* ---- Responsive: email font size ---- */
+    @media (min-width: 768px) {
+      .cta-grid a[href^="mailto:"] { font-size: 20px !important; }
+    }
+
+    /* ---- Responsive: orbs ---- */
+    .orb-blue { width: 200px; height: 200px; }
+    .orb-white { width: 180px; height: 180px; }
+    @media (min-width: 768px) {
+      .orb-blue { width: 420px; height: 420px; }
+      .orb-white { width: 380px; height: 380px; }
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full border-b border-[#DFDFDF] bg-[#F6F6F6]/80 backdrop-blur-xl z-[9999] grid items-center px-4 md:px-[32px] py-3 md:py-4" style="grid-template-columns:auto 1fr auto;">
+  <a href="home.html" style="text-decoration:none;"><img src="../../prop/logo.png" alt="REALMAN ROBOTICS" class="h-[20px] w-auto"></a>
+  <button class="md:hidden justify-self-end text-[#1a1a1a]/70 hover:text-[#3B82F6]" onclick="document.getElementById('mobile-menu-home').classList.toggle('hidden')">
+    <span class="material-symbols-outlined text-[20px]">menu</span>
+  </button>
+  <div class="hidden md:flex items-center justify-center space-x-4">
+    <a href="home.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">Home</a>
+    <div class="relative group/cp flex items-center">
+      <a href="core-products.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">Core Products</a>
+      <div class="absolute top-full left-0 pt-3 hidden group-hover/cp:block">
+        <div class="bg-white/95 backdrop-blur-xl border border-[#DFDFDF] shadow-2xl shadow-black/10 rounded-[0.25rem]">
+          <div class="grid grid-cols-3 divide-x divide-[#DFDFDF]" style="min-width:660px;">
+            <div class="py-5 px-5">
+              <a href="core-products.html#joint-modules" class="block text-[12px] text-[#000] tracking-wider mb-3 pb-2 border-b border-[#DFDFDF]" style="text-decoration:none;">Joint Modules</a>
+              <a href="../products/whj-joint-modules.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">WHJ Series</a>
+              <a href="../products/whj-torque-joint-modules.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">WHJ Torque Series</a>
+              <a href="../products/whg-joint-modules.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">WHG Series</a>
+            </div>
+            <div class="py-5 px-5">
+              <a href="core-products.html#robotic-arms" class="block text-[12px] text-[#000] tracking-wider mb-3 pb-2 border-b border-[#DFDFDF]" style="text-decoration:none;">Robotic Arms</a>
+              <a href="core-products.html#robotic-arms" class="block text-[12px] text-[#000] tracking-wider mt-1 mb-1 hover:text-[#3B82F6]" style="text-decoration:none;">RM Series</a>
+              <a href="../products/rm65.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">RM65</a>
+              <a href="../products/rm75.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">RM75</a>
+              <a href="core-products.html#robotic-arms" class="block text-[12px] text-[#000] tracking-wider mt-3 mb-1 hover:text-[#3B82F6]" style="text-decoration:none;">RML Series</a>
+              <a href="../products/rml63.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">RML63</a>
+              <a href="core-products.html#robotic-arms" class="block text-[12px] text-[#000] tracking-wider mt-3 mb-1 hover:text-[#3B82F6]" style="text-decoration:none;">ECO Series</a>
+              <a href="../products/eco65.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">ECO65</a>
+              <a href="../products/eco63.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">ECO63</a>
+              <a href="../products/eco62.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">ECO62</a>
+              <a href="core-products.html#robotic-arms" class="block text-[12px] text-[#000] tracking-wider mt-3 mb-1 hover:text-[#3B82F6]" style="text-decoration:none;">RX Series</a>
+              <a href="../products/rx75.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">RX75</a>
+            </div>
+            <div class="py-5 px-5">
+              <a href="core-products.html#wheeled-robots" class="block text-[12px] text-[#000] tracking-wider mb-3 pb-2 border-b border-[#DFDFDF]" style="text-decoration:none;">Wheeled Robots</a>
+              <a href="../products/realbot-humanoid.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">RealBOT Humanoid</a>
+              <a href="../products/single-arm-lift.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Single-Arm Lift</a>
+              <a href="../products/dual-arm-lift.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Dual-Arm Lift</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="teleoperation-network.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">Teleoperation Network</a>
+    <a href="data-services.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">Data Services</a>
+    <div class="relative group/sol flex items-center">
+      <a href="solutions.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">Solutions</a>
+      <div class="absolute top-full left-0 pt-3 hidden group-hover/sol:block">
+        <div class="bg-white/95 backdrop-blur-xl border border-[#DFDFDF] shadow-2xl shadow-black/10 min-w-[240px] py-4 px-5 rounded-[0.25rem]">
+          <a href="solutions.html#industry" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Industry Solutions</a>
+          <a href="solutions.html#ecosystem" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Ecosystem Solutions</a>
+          <a href="solutions.html#odm" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">ODM Services</a>
+          <a href="solutions.html#robotic-arm-odm" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Robotic Arm ODM</a>
+          <a href="solutions.html#complete-robot-odm" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Complete Robot ODM</a>
+          <a href="solutions.html#odm-pipeline" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">ODM Pipeline</a>
+        </div>
+      </div>
+    </div>
+    <div class="relative group/dev flex items-center">
+      <a href="developer-center.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">Developer Center</a>
+      <div class="absolute top-full left-0 pt-3 hidden group-hover/dev:block">
+        <div class="bg-white/95 backdrop-blur-xl border border-[#DFDFDF] shadow-2xl shadow-black/10 min-w-[220px] py-4 px-5 rounded-[0.25rem]">
+          <a href="developer-center.html#products-spec" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Product Specs</a>
+          <a href="developer-center.html#documentation" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Technical Documentation</a>
+          <a href="developer-center.html#faqs" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">FAQs</a>
+        </div>
+      </div>
+    </div>
+    <div class="relative group/about flex items-center">
+      <a href="about-us.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">About Us</a>
+      <div class="absolute top-full left-0 pt-3 hidden group-hover/about:block">
+        <div class="bg-white/95 backdrop-blur-xl border border-[#DFDFDF] shadow-2xl shadow-black/10 min-w-[240px] py-4 px-5 rounded-[0.25rem]">
+          <a href="about-us.html#who-we-are" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Company Overview</a>
+          <a href="about-us.html#who-we-are" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Who We Are</a>
+          <a href="about-us.html#milestones" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Milestones</a>
+          <a href="about-us.html#certifications" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Certifications</a>
+          <a href="about-us.html#partners" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Partners</a>
+          <div class="border-t border-[#DFDFDF] my-2"></div>
+          <a href="about-us.html#news" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">News &amp; Events</a>
+          <a href="about-us.html#careers" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Careers</a>
+          <a href="about-us.html#partnership" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Partnership</a>
+          <a href="#get-in-touch" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hidden md:block text-[12px] tracking-wider font-bold border border-[#3B82F6]/30 px-3 py-1 rounded-[0.25rem] cursor-pointer select-none" onclick="switchLang()"><span style="color:rgba(59,130,246,0.4)">CN</span><span style="color:rgba(59,130,246,0.25)">/</span><span style="color:#3B82F6">EN</span></div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu-home" class="hidden fixed top-[52px] left-0 w-full bg-white/98 backdrop-blur-xl z-[9998] border-b border-[#DFDFDF] md:hidden overflow-y-auto max-h-[calc(100vh-52px)]">
+  <div class="flex flex-col py-4 px-4 md:px-[32px] space-y-3">
+    <a href="home.html" class="text-[#3B82F6] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">Home</a>
+    <a href="core-products.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">Core Products</a>
+    <a href="teleoperation-network.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">Teleoperation Network</a>
+    <a href="data-services.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">Data Services</a>
+    <a href="solutions.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">Solutions</a>
+    <a href="developer-center.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">Developer Center</a>
+    <a href="about-us.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">About Us</a>
+    <div class="text-[12px] tracking-wider font-bold border border-[#3B82F6]/30 px-3 py-1 w-fit rounded-[0.25rem] cursor-pointer select-none" onclick="switchLang()"><span style="color:rgba(59,130,246,0.4)">CN</span><span style="color:rgba(59,130,246,0.25)">/</span><span style="color:#3B82F6">EN</span></div>
+  </div>
+</div>
+
+<!-- Hero Section -->
+<section class="hero" id="hero-section">
+  <div id="hero-vanta" style="position:absolute;inset:0;z-index:0;"></div>
+
+  <!-- Light orbs -->
+  <div class="orb orb-blue" style="z-index:0;"></div>
+  <div class="orb orb-white" style="z-index:0;"></div>
+
+  <div class="hero-text" style="position:relative;z-index:1;">
+    <div>Embodied.</div>
+    <div>Intelligence.</div>
+    <div class="highlight">Scaled.</div>
+  </div>
+  <img class="hero-image" src="../../prop/robot.png" alt="Robot" style="z-index:1;">
+</section>
+
+<!-- Section 2: Hardware -->
+<section class="w-full min-h-screen lg:h-screen bg-[#F6F6F6] relative flex flex-col" style="font-family:'Inter',sans-serif;">
+  <h2 id="hw-title" style="padding:20px 20px 0; font-size:28px; font-weight:400; line-height:1; color:#000; letter-spacing:-0.05em; flex-shrink:0; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">Hardware</h2>
+
+  <div class="hw-grid-wrap flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 p-5 md:p-[32px]" style="min-height:0; grid-auto-rows:minmax(200px,1fr);">
+
+    <!-- Card 01: Robotic Arms -->
+    <a href="core-products.html#robotic-arms" class="hw-card lg:row-span-2 border border-[#DFDFDF] rounded-[0.25rem] bg-[#F6F6F6] p-6 md:p-[32px] flex flex-col justify-end relative overflow-hidden" style="text-decoration:none; min-height:220px;">
+      <img src="../../prop/robotic-arms.png" alt="Robotic Arms" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none;">
+      <div style="position:relative; z-index:1;">
+        <span class="hw-label" style="font-size:12px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#3B82F6; margin-bottom:8px; display:block;">01 //</span>
+        <div class="flex items-end gap-2">
+          <h3 class="hw-title" style="font-size:20px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#F6F6F6;">Robotic<br>Arms</h3>
+          <span class="material-symbols-outlined hw-arrow" style="font-size:20px; color:#F6F6F6; opacity:0.5; margin-bottom:1px;">arrow_outward</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 02: Joint Modules -->
+    <a href="core-products.html#joint-modules" class="hw-card lg:row-span-2 border border-[#DFDFDF] rounded-[0.25rem] bg-[#F6F6F6] p-6 md:p-[32px] flex flex-col justify-end relative overflow-hidden" style="text-decoration:none; min-height:220px;">
+      <img src="../../prop/joint-modules.png" alt="Joint Modules" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none;">
+      <div style="position:relative; z-index:1;">
+        <span class="hw-label" style="font-size:12px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#3B82F6; margin-bottom:8px; display:block;">02 //</span>
+        <div class="flex items-end gap-2">
+          <h3 class="hw-title" style="font-size:20px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#F6F6F6;">Joint<br>Modules</h3>
+          <span class="material-symbols-outlined hw-arrow" style="font-size:20px; color:#F6F6F6; opacity:0.5; margin-bottom:1px;">arrow_outward</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 03: Wheeled Robots -->
+    <a href="core-products.html#wheeled-robots" class="hw-card border border-[#DFDFDF] rounded-[0.25rem] bg-[#F6F6F6] p-6 md:p-[32px] flex flex-col justify-end relative overflow-hidden" style="text-decoration:none; min-height:180px;">
+      <img src="../../prop/wheeled-robots.png" alt="Wheeled Robots" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none; filter:saturate(0);">
+      <div style="position:relative; z-index:1;">
+        <span class="hw-label" style="font-size:12px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#3B82F6; margin-bottom:8px; display:block;">03 //</span>
+        <div class="flex items-end gap-2">
+          <h3 class="hw-title" style="font-size:20px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#F6F6F6;">Wheeled<br>Robots</h3>
+          <span class="material-symbols-outlined hw-arrow" style="font-size:20px; color:#F6F6F6; opacity:0.5; margin-bottom:1px;">arrow_outward</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 04: ODM Customization Services -->
+    <a href="solutions.html#odm" class="hw-card border border-[#DFDFDF] rounded-[0.25rem] bg-[#DFDFDF] p-6 md:p-[32px] flex flex-col justify-end relative overflow-hidden" style="text-decoration:none; min-height:140px;">
+      <div style="position:relative; z-index:1;">
+        <span class="hw-label" style="font-size:12px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#3B82F6; margin-bottom:8px; display:block;">04 //</span>
+        <div class="flex items-end gap-2">
+          <h3 class="hw-title" style="font-size:20px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000;">ODM Customization Services</h3>
+          <span class="material-symbols-outlined hw-arrow" style="font-size:20px; color:#000; opacity:0.3; margin-bottom:1px; flex-shrink:0;">arrow_outward</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- Section 3: Teleoperation Network -->
+<section class="teleop-section w-full relative flex bg-[#F6F6F6]" style="font-family:'Inter',sans-serif;">
+
+  <!-- Left -->
+  <div class="teleop-left flex flex-col justify-center overflow-hidden relative" style="padding:32px;">
+    <div style="position:absolute; left:-5%; top:50%; transform:translateY(-50%); width:90%; pointer-events:none;">
+      <svg id="dotted-map-svg" viewBox="0 0 1100 700" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto;">
+      </svg>
+    </div>
+    <h2 id="tn-title" style="font-size:36px; font-weight:400; line-height:1; color:#000; letter-spacing:-0.05em; display:inline-block; overflow:hidden; white-space:nowrap; width:0; margin-bottom:24px; position:relative; z-index:1;">Teleoperation Network</h2>
+    <p style="font-size:14px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#666; max-width:480px; position:relative; z-index:1; margin-bottom:24px;">RealMan connects operators, cloud orchestration, and robot sites into one unified operational network.</p>
+    <a href="teleoperation-network.html" style="display:flex; align-items:center; gap:6px; position:relative; z-index:1; cursor:pointer; text-decoration:none;" class="group">
+      <span style="font-size:15px; font-weight:400; letter-spacing:-0.05em; color:#3B82F6;">Explore More</span>
+      <span class="material-symbols-outlined" style="font-size:20px; color:#3B82F6; opacity:0.5;">arrow_outward</span>
+    </a>
+    <img src="../../prop/teleop.png" alt="Teleoperation" class="hidden md:block" style="position:absolute; right:32px; bottom:0; max-width:80%; max-height:80%; object-fit:contain; pointer-events:none; z-index:1;">
+  </div>
+
+  <!-- Right: Fixed 3 rows -->
+  <div class="teleop-right grid" style="grid-template-rows:1fr 1fr 1fr;">
+
+    <div class="tn-row flex flex-col justify-end" style="padding:32px; border-bottom:1px solid #E5E5E5; opacity:0; transform:translateX(30px); transition: opacity 0.6s ease, transform 0.6s ease;">
+      <span style="font-size:12px; font-weight:400; line-height:1; letter-spacing:0.08em; text-transform:uppercase; color:#3B82F6; margin-bottom:12px; display:block;">What It Is</span>
+      <h3 style="font-size:18px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:12px;">A Distributed Teleoperation Network</h3>
+      <p style="font-size:12px; font-weight:400; line-height:1.8; letter-spacing:-0.02em; color:#999;">Operator Hubs &nbsp;/&nbsp; Cloud Orchestration &nbsp;/&nbsp; Robot Endpoints</p>
+    </div>
+
+    <div class="tn-row flex flex-col justify-end" style="padding:32px; border-bottom:1px solid #E5E5E5; opacity:0; transform:translateX(30px); transition: opacity 0.6s ease 0.15s, transform 0.6s ease 0.15s;">
+      <span style="font-size:12px; font-weight:400; line-height:1; letter-spacing:0.08em; text-transform:uppercase; color:#3B82F6; margin-bottom:12px; display:block;">How It Works</span>
+      <h3 style="font-size:18px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:12px;">Built for Real-World Execution</h3>
+      <p style="font-size:12px; font-weight:400; line-height:1.8; letter-spacing:-0.02em; color:#999;">Real-Time Remote Operation &nbsp;/&nbsp; Immersive Teleoperation Experience &nbsp;/&nbsp; Unified Multi-Device Management &nbsp;/&nbsp; Safety, Control &amp; Traceability</p>
+    </div>
+
+    <div class="tn-row flex flex-col justify-end" style="padding:32px; opacity:0; transform:translateX(30px); transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;">
+      <span style="font-size:12px; font-weight:400; line-height:1; letter-spacing:0.08em; text-transform:uppercase; color:#3B82F6; margin-bottom:12px; display:block;">Where It Applies</span>
+      <h3 style="font-size:18px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:12px;">Where Teleop Creates Value</h3>
+      <p style="font-size:12px; font-weight:400; line-height:1.8; letter-spacing:-0.02em; color:#999;">Industrial Operations &nbsp;/&nbsp; Energy &amp; Infrastructure &nbsp;/&nbsp; Commercial Services &nbsp;/&nbsp; Home &amp; Living &nbsp;/&nbsp; Data Collection &amp; Training</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- Section 4: Data Services -->
+<section class="w-full relative" style="font-family:'Inter',sans-serif; background:url('../../prop/background.jpg') center/cover no-repeat; min-height:320px; display:flex; flex-direction:column;">
+  <div class="ds-header" style="padding:32px 32px 0 32px; display:flex; align-items:baseline; justify-content:space-between;">
+    <h2 id="ds-title" style="font-size:36px; font-weight:400; line-height:1; color:#F6F6F6; letter-spacing:-0.05em; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">Data Services</h2>
+    <a href="data-services.html" style="display:flex; align-items:center; gap:6px; cursor:pointer; flex-shrink:0; text-decoration:none;">
+      <span style="font-size:15px; font-weight:400; letter-spacing:-0.05em; color:#F6F6F6;">Explore More</span>
+      <span class="material-symbols-outlined" style="font-size:20px; color:#F6F6F6; opacity:0.5;">arrow_outward</span>
+    </a>
+  </div>
+  <div class="ds-grid grid" style="grid-template-columns:repeat(3,1fr); gap:24px; padding:60px 32px 56px 32px;">
+    <div class="flex flex-col items-center text-center">
+      <div class="ds-num" style="font-size:72px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#F6F6F6; margin-bottom:16px;">
+        <span id="ds-num1">0</span><span style="color:#F6F6F6;">+</span>
+      </div>
+      <span style="font-size:12px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#F6F6F6; margin-bottom:8px; display:block;">Entries Per Day</span>
+      <span style="font-size:14px; font-weight:400; line-height:1.4; letter-spacing:-0.05em; color:#F6F6F6;">Scalable Data Delivery</span>
+    </div>
+    <div class="flex flex-col items-center text-center">
+      <div class="ds-num" style="font-size:72px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#F6F6F6; margin-bottom:16px;">
+        <span id="ds-num2">0</span><span style="font-size:0.67em; color:#F6F6F6;">D</span>
+      </div>
+      <span style="font-size:12px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#F6F6F6; margin-bottom:8px; display:block;">Robot State Vector</span>
+      <span style="font-size:14px; font-weight:400; line-height:1.4; letter-spacing:-0.05em; color:#F6F6F6;">Comprehensive Multimodal Data</span>
+    </div>
+    <div class="flex flex-col items-center text-center">
+      <div class="ds-num" style="font-size:72px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#F6F6F6; margin-bottom:16px;">
+        <span style="color:#F6F6F6;">&lt;</span><span id="ds-num3">0</span><span style="font-size:0.67em; color:#F6F6F6;">ms</span>
+      </div>
+      <span style="font-size:12px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#F6F6F6; margin-bottom:8px; display:block;">Hardware Synchronization Error</span>
+      <span style="font-size:14px; font-weight:400; line-height:1.4; letter-spacing:-0.05em; color:#F6F6F6;">Hardware-Level Synchronization</span>
+    </div>
+  </div>
+</section>
+
+<script src="../../prop/three.min.js"></script>
+<script src="../../prop/vanta.halo.min.js"></script>
+<script>
+(function(){
+  var svg = document.getElementById('dotted-map-svg');
+  if(!svg) return;
+  var cols=55, sp=20, r=2.8, ns='http://www.w3.org/2000/svg';
+  var cells=[19,20,21,73,74,75,76,77,123,124,127,128,129,130,131,132,177,178,179,181,182,183,184,185,186,187,188,228,229,230,231,232,233,234,237,238,239,240,241,242,243,283,284,285,286,287,288,289,293,294,295,296,297,332,333,334,337,339,340,341,342,343,348,349,350,351,352,387,388,389,390,391,392,393,394,395,396,397,398,399,404,405,406,407,441,442,443,444,445,446,447,448,449,450,451,452,453,454,455,459,460,497,498,499,500,501,502,503,504,505,506,507,509,510,511,514,552,553,554,555,556,557,558,559,560,561,562,564,565,566,607,610,611,612,613,614,615,616,619,620,621,622,666,667,668,669,670,671,672,674,675,676,722,723,724,725,726,727,728,729,730,731,778,779,780,781,782,783,784,785,786,834,835,836,837,838,839,889,890,891,892,893,894,944,945,946,947,948,949,1000,1001,1002,1005,1056,1057,1112,1113,1114,1169,1225,1226,1227,1228,1229,1281,1282,1283,1284,1285,1335,1336,1337,1338,1339,1340,1341,1342,1390,1391,1392,1393,1394,1395,1396,1397,1446,1447,1448,1449,1450,1451,1502,1503,1504,1505,1506,1557,1558,1559,1560,1612,1613,1614,1666,1667,1668,1721,1722,1776,1777,1831,1832,1887,251,311,312,361,362,365,415,416,417,418,421,469,470,471,472,473,474,475,476,477,519,520,523,524,525,527,528,529,530,531,578,579,580,582,583,584,585,586,631,632,634,636,637,638,639,640,641,686,687,688,689,690,691,692,693,694,695,696,742,743,744,745,746,747,748,749,750,751,795,796,797,798,799,800,801,802,803,804,805,850,851,854,856,857,911,961,962,963,965,1015,1016,1017,1018,1019,1020,1021,1069,1070,1071,1072,1073,1074,1075,1076,1077,1124,1125,1126,1127,1128,1129,1130,1131,1132,1133,1179,1180,1181,1182,1183,1184,1185,1186,1187,1188,1189,1235,1236,1237,1238,1239,1240,1241,1242,1243,1244,1293,1294,1295,1296,1297,1298,1348,1349,1350,1351,1352,1404,1405,1406,1407,1459,1460,1461,1462,1514,1515,1516,1518,1569,1570,1571,1573,1624,1625,154,208,209,210,262,263,264,265,314,315,316,317,318,319,320,321,322,323,325,326,369,370,371,372,373,374,375,376,377,378,379,380,381,382,423,424,425,426,427,428,429,430,431,432,433,434,435,436,437,438,439,440,478,479,480,481,482,483,484,485,486,487,488,489,490,491,492,493,494,495,532,533,534,535,536,537,538,539,540,541,542,543,544,545,546,547,548,549,550,587,588,589,590,591,592,593,594,595,596,597,598,599,600,601,603,642,643,644,645,646,647,648,649,650,651,652,653,654,657,658,697,698,699,700,701,702,703,704,705,706,707,708,709,712,752,753,754,755,756,757,758,759,760,761,762,763,764,807,808,809,810,811,812,813,814,815,816,817,818,819,821,859,860,861,862,863,864,865,866,867,868,869,870,871,872,873,876,913,914,916,917,918,919,920,921,922,923,924,925,926,928,930,967,968,969,970,972,973,974,975,976,977,978,979,980,981,982,1022,1023,1024,1025,1026,1027,1029,1030,1031,1034,1035,1036,1037,1079,1080,1081,1085,1089,1090,1135,1144,1145,1200,1202,1203,1255,1256,1257,1311,1206,1262,1263,1317,1369,1370,1372,1422,1423,1424,1425,1426,1427,1428,1476,1477,1478,1479,1480,1481,1482,1483,1531,1532,1533,1534,1535,1536,1537,1538,1586,1587,1590,1591,1592,1645,1646,1650,1705];
+  cells.forEach(function(c){
+    var x=((c-1)%cols)*sp+10, y=Math.floor((c-1)/cols)*sp+10;
+    var ci=document.createElementNS(ns,'circle');
+    ci.setAttribute('cx',x);ci.setAttribute('cy',y);ci.setAttribute('r',r);ci.setAttribute('fill','#D5D5D5');
+    svg.appendChild(ci);
+  });
+
+})();
+
+VANTA.HALO({
+  el: "#hero-vanta",
+  mouseControls: true,
+  touchControls: true,
+  gyroControls: false,
+  minHeight: 200.00,
+  minWidth: 200.00,
+  baseColor: 0x3b82f6,
+  backgroundColor: 0xf6f6f6,
+  amplitudeFactor: 0.80,
+  xOffset: 0.25,
+  yOffset: -0.10,
+  size: 1.00
+})
+
+function initTypewriter(id, text) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  let typed = false;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !typed) {
+        typed = true;
+        let i = 0;
+        el.style.width = 'auto';
+        el.textContent = '';
+        const type = () => {
+          if (i < text.length) {
+            el.textContent += text[i];
+            i++;
+            setTimeout(type, 80);
+          }
+        };
+        type();
+        obs.unobserve(el);
+      }
+    });
+  }, { threshold: 0.2 });
+  obs.observe(el);
+}
+
+initTypewriter('hw-title', 'Hardware');
+initTypewriter('tn-title', 'Teleoperation Network');
+initTypewriter('ds-title', 'Data Services');
+
+function animateCounter(id, start, end, duration, formatter) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  let triggered = false;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !triggered) {
+        triggered = true;
+        const startTime = performance.now();
+        const step = (now) => {
+          const elapsed = now - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const ease = 1 - Math.pow(1 - progress, 3);
+          const current = Math.round(start + (end - start) * ease);
+          el.textContent = formatter(current);
+          if (progress < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+        obs.unobserve(el);
+      }
+    });
+  }, { threshold: 0.3 });
+  obs.observe(el);
+}
+
+const tnObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateX(0)';
+      tnObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.2 });
+document.querySelectorAll('.tn-row').forEach(el => tnObs.observe(el));
+
+animateCounter('ds-num1', 0, 60000, 2500, v => v.toLocaleString('en-US'));
+animateCounter('ds-num2', 0, 71, 2000, v => String(v));
+animateCounter('ds-num3', 100, 1, 2200, v => String(v));
+</script>
+
+
+<!-- ============================================================ -->
+<!-- CTA + FOOTER: GET IN TOUCH -->
+<!-- ============================================================ -->
+<style>
+  .git-input, .git-select {
+    width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);
+    border-radius:0.25rem; padding:14px 16px; font-size:15px; font-weight:400;
+    letter-spacing:-0.05em; color:#fff; outline:none; font-family:Inter,sans-serif;
+    transition:border-color 0.3s, background 0.3s;
+  }
+  .git-input::placeholder { color:rgba(255,255,255,0.3); }
+  .git-input:focus, .git-select:focus {
+    border-color:#3B82F6; background:rgba(59,130,246,0.06);
+  }
+  .git-select { appearance:none; cursor:pointer;
+    background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='rgba(255,255,255,0.35)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:right 16px center;
+  }
+  .git-select option { background:#111; color:#fff; }
+</style>
+<section id="get-in-touch" class="w-full relative" style="font-family:Inter,sans-serif; min-height:calc(100vh - 56px); background:#000; display:flex; flex-direction:column;">
+  <div class="cta-wrap" style="padding:32px; flex:1; display:flex; flex-direction:column; max-width:1280px;">
+    <h2 id="git-title" style="font-size:36px; font-weight:400; line-height:1; color:#fff; letter-spacing:-0.05em; margin-bottom:12px; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">Get in Touch</h2>
+    <p style="font-size:14px; font-weight:400; letter-spacing:-0.05em; color:rgba(255,255,255,0.4); margin-bottom:36px;">Have a question or want to collaborate? We'd love to hear from you.</p>
+
+    <div class="cta-grid" style="flex:1; display:grid; grid-template-columns:1.6fr 0.7fr; gap:64px; align-content:start;">
+
+      <form id="contact-form" style="max-width:100%;" onsubmit="return false;">
+        <div class="cta-form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+          <input type="text" class="git-input" placeholder="Name *" required>
+          <input type="email" class="git-input" placeholder="Work Email *" required>
+        </div>
+        <div class="cta-form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+          <input type="text" class="git-input" placeholder="Company *" required>
+          <select class="git-select" required>
+            <option value="" disabled selected>Region *</option>
+            <option value="asia-pacific">Asia Pacific</option>
+            <option value="europe">Europe</option>
+            <option value="north-america">North America</option>
+            <option value="south-america">South America</option>
+            <option value="middle-east-africa">Middle East &amp; Africa</option>
+          </select>
+        </div>
+        <div style="margin-bottom:16px;">
+          <select class="git-select" required>
+            <option value="" disabled selected>Inquiry Type *</option>
+            <option value="partnership">Partnership</option>
+            <option value="sales">Sales Inquiry</option>
+            <option value="technical">Technical Support</option>
+            <option value="media">Media &amp; Press</option>
+            <option value="careers">Careers</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div style="margin-bottom:28px;">
+          <textarea class="git-input" placeholder="Additional Details (optional)" rows="4" style="resize:vertical; min-height:80px;"></textarea>
+        </div>
+        <button type="submit" style="display:inline-flex; align-items:center; gap:8px; padding:14px 32px; background:#3B82F6; color:#fff; border:none; border-radius:0.25rem; font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; font-family:Inter,sans-serif; cursor:pointer; transition:background 0.3s; width:100%; justify-content:center;" onmouseover="this.style.background='#2563EB'" onmouseout="this.style.background='#3B82F6'">
+          Submit Inquiry
+          <span class="material-symbols-outlined" style="font-size:16px;">arrow_outward</span>
+        </button>
+      </form>
+
+      <div style="display:flex; flex-direction:column; gap:36px; padding-top:0;">
+        <div style="display:flex; flex-direction:column; gap:24px;">
+          <div>
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.35); display:block; margin-bottom:10px;">General Inquiries</span>
+            <a href="mailto:info@realman-robot.com" style="font-size:16px; font-weight:400; letter-spacing:-0.05em; color:#fff; text-decoration:none; transition:color 0.3s; word-break:break-all;" onmouseover="this.style.color='#3B82F6'" onmouseout="this.style.color='#fff'">info@realman-robot.com</a>
+          </div>
+          <div>
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.35); display:block; margin-bottom:10px;">Sales</span>
+            <a href="mailto:Sales@realman-robot.com" style="font-size:16px; font-weight:400; letter-spacing:-0.05em; color:#fff; text-decoration:none; transition:color 0.3s; word-break:break-all;" onmouseover="this.style.color='#3B82F6'" onmouseout="this.style.color='#fff'">Sales@realman-robot.com</a>
+          </div>
+        </div>
+
+        <div>
+          <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.35); display:block; margin-bottom:16px;">Follow Us</span>
+          <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap;">
+            <a href="https://www.linkedin.com/company/realmanrobotics" target="_blank" rel="noopener" title="LinkedIn" style="display:flex; align-items:center; justify-content:center; opacity:0.5; transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#fff"/></svg>
+            </a>
+            <a href="https://x.com/RealmanRobotics" target="_blank" rel="noopener" title="X" style="display:flex; align-items:center; justify-content:center; opacity:0.5; transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="#fff"/></svg>
+            </a>
+            <a href="https://www.facebook.com/realmanrobotics2018/" target="_blank" rel="noopener" title="Facebook" style="display:flex; align-items:center; justify-content:center; opacity:0.5; transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#fff"/></svg>
+            </a>
+            <a href="https://www.instagram.com/realman_robotic/" target="_blank" rel="noopener" title="Instagram" style="display:flex; align-items:center; justify-content:center; opacity:0.5; transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" fill="#fff"/></svg>
+            </a>
+            <a href="https://www.youtube.com/@RealManRobotics" target="_blank" rel="noopener" title="YouTube" style="display:flex; align-items:center; justify-content:center; opacity:0.5; transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" fill="#fff"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@realmanrobotic" target="_blank" rel="noopener" title="TikTok" style="display:flex; align-items:center; justify-content:center; opacity:0.5; transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
+              <svg width="20" height="22" viewBox="0 0 448 512" fill="none"><path d="M448 209.91a210.06 210.06 0 01-122.77-39.25v178.72A162.55 162.55 0 11185 188.31v89.89a74.62 74.62 0 1052.23 71.18V0h88a121.18 121.18 0 001.86 22.17A122.18 122.18 0 00381 102.39a121.43 121.43 0 0067 20.14z" fill="#fff"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div style="margin-top:auto; padding-top:24px;">
+          <span style="font-size:12px; font-weight:400; letter-spacing:-0.05em; color:rgba(255,255,255,0.25);">&copy; 2026 RealMan Robotics. All rights reserved.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+<script>
+initTypewriter('git-title', 'Get in Touch');
+</script>
+
+
+<script src="../../prop/supabase-cta.js"></script>
+<script>function switchLang(){var h=location.href;if(h.indexOf("/en/")>-1){location.href=h.replace("/en/","/cn/")}else if(h.indexOf("/cn/")>-1){location.href=h.replace("/cn/","/en/")}}</script>
+</body>
+</html>

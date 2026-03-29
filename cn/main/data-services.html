@@ -1,0 +1,922 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>睿尔曼智能 | 数据服务</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          "headline": ["Inter", "sans-serif"],
+          "body": ["Inter", "sans-serif"],
+          "label": ["Inter", "sans-serif"],
+        },
+        borderRadius: {
+          "DEFAULT": "0.25rem",
+          "lg": "0.25rem",
+          "xl": "0.25rem",
+          "full": "9999px",
+        },
+      },
+    },
+  }
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow-x: hidden; font-family: 'Inter', sans-serif; }
+    html { scroll-behavior: smooth; }
+    .ds-fade { opacity:0; transform:translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .ds-fade.ds-visible { opacity:1; transform:translateY(0); }
+    .dao-card { cursor:pointer; }
+    .dao-card .dao-circle { transition: transform 0.6s cubic-bezier(0.22,1,0.36,1); }
+    .dao-card:hover .dao-circle { transform: scale(1.08); }
+    .dao-card .dao-circle svg { transition: transform 0.8s cubic-bezier(0.22,1,0.36,1); }
+    .dao-card:hover .dao-circle svg { transform: rotate(45deg); }
+    .dao-card .dao-cta { transition: color 0.3s ease, gap 0.3s ease; }
+    .dao-card:hover .dao-cta { color:#3B82F6; }
+    .dao-card:hover .dao-cta .material-symbols-outlined { transform:translate(2px,-2px); }
+    .dao-card .dao-cta .material-symbols-outlined { transition: transform 0.3s ease; }
+    .cdp-row { position:relative; transition: padding-left 0.3s ease; }
+    .cdp-row::before { content:''; position:absolute; top:0; bottom:0; left:-32px; right:0; background:transparent; transition:background 0.3s ease; pointer-events:none; border-radius:0.25rem; }
+    .cdp-row:hover { padding-left:12px; }
+    .cdp-row:hover::before { background:rgba(0,0,0,0.03); }
+    .cdp-row-last { transition: padding-left 0.3s ease, opacity 0.3s ease; }
+    .cdp-row-last:hover { padding-left:12px; opacity:0.9; }
+
+    /* ======== Responsive: mobile-first ======== */
+
+    /* --- Section titles --- */
+    .ds-title { padding: 20px 16px 0 !important; font-size: 28px !important; margin-top: 56px !important; }
+    @media (min-width: 768px) { .ds-title { padding: 32px 32px 0 32px !important; font-size: 36px !important; margin-top: 60px !important; } }
+    .ds-title-no-mt { margin-top: 0 !important; }
+
+    /* --- S1: 三种数据获取模式 --- */
+    .dao-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+    .dao-wrap { padding: 0 16px 20px !important; }
+    .dao-card h3 { font-size: 28px !important; }
+    .dao-circle { width: 140px !important; height: 140px !important; }
+    .dao-circle svg { width: 140px !important; height: 140px !important; }
+    @media (min-width: 768px) {
+      .dao-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 32px !important; }
+      .dao-wrap { padding: 0 32px 32px !important; }
+      .dao-card h3 { font-size: 36px !important; }
+      .dao-circle { width: 180px !important; height: 180px !important; }
+      .dao-circle svg { width: 180px !important; height: 180px !important; }
+    }
+
+    /* --- S2: 数据集架构 --- */
+    .da-section { padding: 20px 16px !important; }
+    .da-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 16px !important; }
+    .da-title-wrap { flex-direction: column !important; gap: 12px !important; }
+    #s2-title { font-size: 28px !important; }
+    @media (min-width: 768px) {
+      .da-section { padding: 32px !important; }
+      .da-grid { grid-template-columns: repeat(9, 1fr) !important; gap: 24px !important; }
+      .da-title-wrap { flex-direction: row !important; gap: 48px !important; }
+      #s2-title { font-size: 36px !important; }
+    }
+
+    /* --- S3: 核心优势 (CRITICAL: desktop untouched!) --- */
+    .rs-grid {
+      grid-template-columns: 1fr !important;
+      grid-template-rows: auto !important;
+      height: auto !important;
+    }
+    .rs-card {
+      grid-column: auto !important;
+      grid-row: auto !important;
+      min-height: 200px;
+    }
+    .rs-wrap { padding: 16px 16px 20px !important; }
+    #s3-title { font-size: 28px !important; padding: 20px 16px 0 !important; }
+    @media (min-width: 1024px) {
+      .rs-grid {
+        grid-template-columns: 1fr 1.2fr 1fr 1fr !important;
+        grid-template-rows: 1fr 1fr !important;
+        height: calc(100% - 0px) !important;
+      }
+      .rs-card { min-height: 0; }
+      .rs-card-1 { grid-column: 1 !important; grid-row: 1 !important; }
+      .rs-card-2 { grid-column: 2 !important; grid-row: 1/3 !important; }
+      .rs-card-3 { grid-column: 3 !important; grid-row: 1 !important; }
+      .rs-card-4 { grid-column: 4 !important; grid-row: 1 !important; }
+      .rs-card-5 { grid-column: 1 !important; grid-row: 2 !important; }
+      .rs-card-6 { grid-column: 3/5 !important; grid-row: 2 !important; }
+      .rs-wrap { padding: 32px 32px 32px !important; }
+      #s3-title { font-size: 36px !important; padding: 32px 32px 0 32px !important; }
+    }
+
+    /* --- S4: 行业标准与生态适配 --- */
+    .si-section { padding: 20px 16px !important; }
+    .si-strip { flex-direction: column !important; }
+    .si-divider { width: 100% !important; height: 1px !important; margin: 0 !important; }
+    #s4-title { font-size: 28px !important; }
+    @media (min-width: 768px) {
+      .si-section { padding: 32px !important; }
+      .si-strip { flex-direction: row !important; }
+      .si-divider { width: 1px !important; height: auto !important; margin: 24px 0 !important; }
+      #s4-title { font-size: 36px !important; }
+    }
+
+    /* --- S5: 定制化数据全链路服务 (CRITICAL: desktop untouched!) --- */
+    .cdp-outer { flex-direction: column !important; padding: 0 16px !important; }
+    .cdp-left {
+      position: static !important;
+      width: 100% !important;
+      height: auto !important;
+      padding: 20px 0 0 0 !important;
+    }
+    .cdp-right { width: 100% !important; padding: 0 0 20px !important; }
+    .cdp-row, .cdp-row-last { margin-left: 0 !important; }
+    #s5-title { font-size: 28px !important; }
+    @media (min-width: 1024px) {
+      .cdp-outer { flex-direction: row !important; padding: 0 32px !important; }
+      .cdp-left {
+        position: sticky !important;
+        top: 0 !important;
+        width: 33% !important;
+        height: 100vh !important;
+        padding: 0 48px 0 0 !important;
+      }
+      .cdp-right { width: 67% !important; padding: 32px 0 32px !important; }
+      .cdp-step-1 { margin-left: 0px !important; }
+      .cdp-step-2 { margin-left: 32px !important; }
+      .cdp-step-3 { margin-left: 64px !important; }
+      .cdp-step-4 { margin-left: 96px !important; }
+      .cdp-step-5 { margin-left: 128px !important; }
+      .cdp-step-6 { margin-left: 160px !important; }
+      .cdp-step-7 { margin-left: 192px !important; }
+      #s5-title { font-size: 36px !important; }
+    }
+
+    /* --- CTA + Footer --- */
+    .cta-grid-ds { grid-template-columns: 1fr !important; gap: 32px !important; }
+    .cta-form-row-ds { grid-template-columns: 1fr !important; }
+    .cta-wrap-ds { padding: 20px !important; }
+    #git-title { font-size: 28px !important; }
+    @media (min-width: 768px) {
+      .cta-grid-ds { grid-template-columns: 1.6fr 0.7fr !important; gap: 64px !important; }
+      .cta-form-row-ds { grid-template-columns: 1fr 1fr !important; }
+      .cta-wrap-ds { padding: 32px !important; }
+      #git-title { font-size: 36px !important; }
+    }
+    @media (min-width: 768px) {
+      #contact-form button[type="submit"] { width: auto !important; }
+      .cta-email-ds { font-size: 20px !important; }
+    }
+
+  </style>
+<style>
+  .git-input, .git-select {
+    width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);
+    border-radius:0.25rem; padding:14px 16px; font-size:15px; font-weight:400;
+    letter-spacing:-0.05em; color:#fff; outline:none; font-family:Inter,sans-serif;
+    transition:border-color 0.3s, background 0.3s;
+  }
+  .git-input::placeholder { color:rgba(255,255,255,0.3); }
+  .git-input:focus, .git-select:focus {
+    border-color:#3B82F6; background:rgba(59,130,246,0.06);
+  }
+  .git-select { appearance:none; cursor:pointer;
+    background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='rgba(255,255,255,0.35)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:right 16px center;
+  }
+  .git-select option { background:#111; color:#fff; }
+</style>
+
+</head>
+<body>
+
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full border-b border-[#DFDFDF] bg-[#F6F6F6]/80 backdrop-blur-xl z-[9999] grid items-center px-4 md:px-[32px] py-3 md:py-4" style="grid-template-columns:auto 1fr auto;">
+  <a href="home.html" style="text-decoration:none;"><img src="../../prop/logo.png" alt="REALMAN ROBOTICS" class="h-[20px] w-auto"></a>
+  <button class="md:hidden justify-self-end text-[#1a1a1a]/70 hover:text-[#3B82F6]" onclick="document.getElementById('mobile-menu-ds').classList.toggle('hidden')">
+    <span class="material-symbols-outlined text-[20px]">menu</span>
+  </button>
+  <div class="hidden md:flex items-center justify-center space-x-4">
+    <a href="home.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">首页</a>
+    <div class="relative group/cp flex items-center">
+      <a href="core-products.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">核心产品</a>
+      <div class="absolute top-full left-0 pt-3 hidden group-hover/cp:block">
+        <div class="bg-white/95 backdrop-blur-xl border border-[#DFDFDF] shadow-2xl shadow-black/10 rounded-[0.25rem]">
+          <div class="grid grid-cols-3 divide-x divide-[#DFDFDF]" style="min-width:660px;">
+            <div class="py-5 px-5">
+              <a href="core-products.html#joint-modules" class="block text-[12px] text-[#000] tracking-wider mb-3 pb-2 border-b border-[#DFDFDF]" style="text-decoration:none;">关节模组</a>
+              <a href="../products/whj-joint-modules.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">WHJ 系列</a>
+              <a href="../products/whj-torque-joint-modules.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">WHJ 力矩系列</a>
+              <a href="../products/whg-joint-modules.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">WHG 系列</a>
+            </div>
+            <div class="py-5 px-5">
+              <a href="core-products.html#robotic-arms" class="block text-[12px] text-[#000] tracking-wider mb-3 pb-2 border-b border-[#DFDFDF]" style="text-decoration:none;">机械臂</a>
+              <a href="core-products.html#robotic-arms" class="block text-[12px] text-[#000] tracking-wider mt-1 mb-1 hover:text-[#3B82F6]" style="text-decoration:none;">RM 系列</a>
+              <a href="../products/rm65.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">RM65</a>
+              <a href="../products/rm75.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">RM75</a>
+              <a href="core-products.html#robotic-arms" class="block text-[12px] text-[#000] tracking-wider mt-3 mb-1 hover:text-[#3B82F6]" style="text-decoration:none;">RML 系列</a>
+              <a href="../products/rml63.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">RML63</a>
+              <a href="core-products.html#robotic-arms" class="block text-[12px] text-[#000] tracking-wider mt-3 mb-1 hover:text-[#3B82F6]" style="text-decoration:none;">ECO 系列</a>
+              <a href="../products/eco65.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">ECO65</a>
+              <a href="../products/eco63.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">ECO63</a>
+              <a href="../products/eco62.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">ECO62</a>
+              <a href="core-products.html#robotic-arms" class="block text-[12px] text-[#000] tracking-wider mt-3 mb-1 hover:text-[#3B82F6]" style="text-decoration:none;">RX 系列</a>
+              <a href="../products/rx75.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">RX75</a>
+            </div>
+            <div class="py-5 px-5">
+              <a href="core-products.html#wheeled-robots" class="block text-[12px] text-[#000] tracking-wider mb-3 pb-2 border-b border-[#DFDFDF]" style="text-decoration:none;">轮式机器人</a>
+              <a href="../products/realbot-humanoid.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">RealBOT 人形机器人</a>
+              <a href="../products/single-arm-lift.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">单臂升降机器人</a>
+              <a href="../products/dual-arm-lift.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">双臂升降机器人</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="teleoperation-network.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">远程作业网络</a>
+    <a href="data-services.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">数据服务</a>
+    <div class="relative group/sol flex items-center">
+      <a href="solutions.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">解决方案</a>
+      <div class="absolute top-full left-0 pt-3 hidden group-hover/sol:block">
+        <div class="bg-white/95 backdrop-blur-xl border border-[#DFDFDF] shadow-2xl shadow-black/10 min-w-[240px] py-4 px-5 rounded-[0.25rem]">
+          <a href="solutions.html#industry" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">行业应用方案</a>
+          <a href="solutions.html#ecosystem" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">生态解决方案</a>
+          <a href="solutions.html#odm" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">ODM 定制化解决方案</a>
+          <a href="solutions.html#robotic-arm-odm" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">机械臂 ODM</a>
+          <a href="solutions.html#complete-robot-odm" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">机器人整机 ODM</a>
+          <a href="solutions.html#odm-pipeline" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">ODM 流程</a>
+        </div>
+      </div>
+    </div>
+    <div class="relative group/dev flex items-center">
+      <a href="developer-center.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">开发者中心</a>
+      <div class="absolute top-full left-0 pt-3 hidden group-hover/dev:block">
+        <div class="bg-white/95 backdrop-blur-xl border border-[#DFDFDF] shadow-2xl shadow-black/10 min-w-[220px] py-4 px-5 rounded-[0.25rem]">
+          <a href="developer-center.html#products-spec" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">产品手册</a>
+          <a href="developer-center.html#documentation" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">技术文档</a>
+          <a href="developer-center.html#faqs" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">常见问题</a>
+        </div>
+      </div>
+    </div>
+    <div class="relative group/about flex items-center">
+      <a href="about-us.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">关于我们</a>
+      <div class="absolute top-full left-0 pt-3 hidden group-hover/about:block">
+        <div class="bg-white/95 backdrop-blur-xl border border-[#DFDFDF] shadow-2xl shadow-black/10 min-w-[240px] py-4 px-5 rounded-[0.25rem]">
+          <a href="about-us.html#who-we-are" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">公司概览</a>
+          <a href="about-us.html#who-we-are" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">走进睿尔曼</a>
+          <a href="about-us.html#milestones" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">发展里程碑</a>
+          <a href="about-us.html#certifications" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">资质荣誉</a>
+          <a href="about-us.html#partners" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">合作伙伴</a>
+          <div class="border-t border-[#DFDFDF] my-2"></div>
+          <a href="about-us.html#news" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">新闻与活动</a>
+          <a href="about-us.html#careers" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">招贤纳士</a>
+          <a href="about-us.html#partnership" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">商务合作</a>
+          <a href="#get-in-touch" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">联系我们</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hidden md:block text-[12px] tracking-wider font-bold border border-[#3B82F6]/30 px-3 py-1 rounded-[0.25rem] cursor-pointer select-none" onclick="switchLang()"><span style="color:#3B82F6">CN</span><span style="color:rgba(59,130,246,0.25)">/</span><span style="color:rgba(59,130,246,0.4)">EN</span></div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu-ds" class="hidden fixed top-[52px] left-0 w-full bg-white/98 backdrop-blur-xl z-[9998] border-b border-[#DFDFDF] md:hidden overflow-y-auto max-h-[calc(100vh-52px)]">
+  <div class="flex flex-col py-4 px-4 md:px-[32px] space-y-3">
+    <a href="home.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">首页</a>
+    <a href="core-products.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">核心产品</a>
+    <a href="teleoperation-network.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">远程作业网络</a>
+    <a href="data-services.html" class="text-[#3B82F6] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">数据服务</a>
+    <a href="solutions.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">解决方案</a>
+    <a href="developer-center.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">开发者中心</a>
+    <a href="about-us.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">关于我们</a>
+    <div class="text-[12px] tracking-wider font-bold border border-[#3B82F6]/30 px-3 py-1 w-fit rounded-[0.25rem] cursor-pointer select-none" onclick="switchLang()"><span style="color:#3B82F6">CN</span><span style="color:rgba(59,130,246,0.25)">/</span><span style="color:rgba(59,130,246,0.4)">EN</span></div>
+  </div>
+</div>
+
+<!-- Section 1: 三种数据获取模式 -->
+<section id="data-access" class="w-full lg:h-screen bg-[#FFFFFF] relative flex flex-col" style="font-family:'Inter',sans-serif;">
+  <h2 id="s1-title" class="ds-title" style="padding:32px 32px 0 32px; margin-top:60px; font-size:36px; font-weight:400; line-height:1; color:#000; letter-spacing:-0.05em; flex-shrink:0; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">三种数据获取模式</h2>
+  <div class="flex-1 flex items-center dao-wrap" style="padding:0 32px 32px; min-height:0;">
+    <div class="w-full grid grid-cols-3 gap-8 dao-grid">
+
+      <!-- Option 1: 开源数据集 -->
+      <div class="ds-fade dao-card flex flex-col items-center text-center" style="transition-delay:0s;">
+        <div class="dao-circle" style="width:180px; height:180px; margin-bottom:32px;">
+          <svg viewBox="0 0 180 180" width="180" height="180">
+            <defs><clipPath id="circ1"><circle cx="90" cy="90" r="85"/></clipPath></defs>
+            <g clip-path="url(#circ1)">
+              <circle cx="30" cy="30" r="3" fill="#3B82F6" opacity="0.7"/>
+              <circle cx="55" cy="22" r="2.5" fill="#3B82F6" opacity="0.5"/>
+              <circle cx="78" cy="18" r="3" fill="#3B82F6" opacity="0.8"/>
+              <circle cx="105" cy="20" r="2" fill="#3B82F6" opacity="0.4"/>
+              <circle cx="130" cy="28" r="3" fill="#3B82F6" opacity="0.6"/>
+              <circle cx="150" cy="38" r="2.5" fill="#3B82F6" opacity="0.5"/>
+              <circle cx="20" cy="55" r="2" fill="#3B82F6" opacity="0.4"/>
+              <circle cx="45" cy="48" r="3.5" fill="#3B82F6" opacity="0.7"/>
+              <circle cx="70" cy="42" r="2.5" fill="#3B82F6" opacity="0.6"/>
+              <circle cx="95" cy="45" r="3" fill="#3B82F6" opacity="0.8"/>
+              <circle cx="120" cy="50" r="2" fill="#3B82F6" opacity="0.5"/>
+              <circle cx="145" cy="55" r="3" fill="#3B82F6" opacity="0.7"/>
+              <circle cx="160" cy="65" r="2" fill="#3B82F6" opacity="0.4"/>
+              <circle cx="15" cy="80" r="3" fill="#3B82F6" opacity="0.6"/>
+              <circle cx="38" cy="72" r="2.5" fill="#3B82F6" opacity="0.5"/>
+              <circle cx="60" cy="68" r="3" fill="#3B82F6" opacity="0.8"/>
+              <circle cx="85" cy="70" r="2" fill="#3B82F6" opacity="0.4"/>
+              <circle cx="110" cy="72" r="3.5" fill="#3B82F6" opacity="0.7"/>
+              <circle cx="135" cy="75" r="2.5" fill="#3B82F6" opacity="0.6"/>
+              <circle cx="158" cy="82" r="2" fill="#3B82F6" opacity="0.5"/>
+              <circle cx="12" cy="105" r="2.5" fill="#3B82F6" opacity="0.5"/>
+              <circle cx="35" cy="95" r="3" fill="#3B82F6" opacity="0.7"/>
+              <circle cx="58" cy="92" r="2" fill="#3B82F6" opacity="0.4"/>
+              <circle cx="82" cy="95" r="3" fill="#3B82F6" opacity="0.8"/>
+              <circle cx="108" cy="98" r="2.5" fill="#3B82F6" opacity="0.6"/>
+              <circle cx="132" cy="100" r="3" fill="#3B82F6" opacity="0.5"/>
+              <circle cx="155" cy="105" r="2" fill="#3B82F6" opacity="0.7"/>
+              <circle cx="168" cy="95" r="2.5" fill="#3B82F6" opacity="0.4"/>
+              <circle cx="25" cy="125" r="3" fill="#3B82F6" opacity="0.6"/>
+              <circle cx="50" cy="118" r="2.5" fill="#3B82F6" opacity="0.8"/>
+              <circle cx="75" cy="115" r="2" fill="#3B82F6" opacity="0.5"/>
+              <circle cx="100" cy="120" r="3" fill="#3B82F6" opacity="0.7"/>
+              <circle cx="125" cy="122" r="2.5" fill="#3B82F6" opacity="0.4"/>
+              <circle cx="148" cy="128" r="3" fill="#3B82F6" opacity="0.6"/>
+              <circle cx="40" cy="145" r="2" fill="#3B82F6" opacity="0.5"/>
+              <circle cx="65" cy="140" r="3" fill="#3B82F6" opacity="0.7"/>
+              <circle cx="90" cy="142" r="2.5" fill="#3B82F6" opacity="0.8"/>
+              <circle cx="115" cy="145" r="2" fill="#3B82F6" opacity="0.4"/>
+              <circle cx="140" cy="148" r="3" fill="#3B82F6" opacity="0.6"/>
+              <circle cx="55" cy="162" r="2.5" fill="#3B82F6" opacity="0.5"/>
+              <circle cx="80" cy="160" r="3" fill="#3B82F6" opacity="0.7"/>
+              <circle cx="105" cy="162" r="2" fill="#3B82F6" opacity="0.6"/>
+              <circle cx="128" cy="158" r="2.5" fill="#3B82F6" opacity="0.4"/>
+            </g>
+          </svg>
+        </div>
+        <h3 style="font-size:36px; font-weight:400; line-height:1.1; letter-spacing:-0.05em; color:#000; margin-bottom:20px;">开源数据集</h3>
+        <p style="font-size:12px; font-weight:400; line-height:1.7; letter-spacing:-0.05em; color:#999; max-width:300px; margin-bottom:28px;">官方发布的开源轨迹数据集，专为前瞻性研究与基准测试打造</p>
+        <a href="https://realmanrobot.github.io/real_source_dataset/#/index" target="_blank" class="dao-cta" style="display:flex; align-items:center; gap:6px; color:#000; text-decoration:none;">
+          <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase;">获取数据</span>
+          <span class="material-symbols-outlined" style="font-size:18px;">north_east</span>
+        </a>
+      </div>
+
+      <!-- Option 2: 标准数据集 -->
+      <div class="ds-fade dao-card flex flex-col items-center text-center" style="transition-delay:0.15s;">
+        <div class="dao-circle" style="width:180px; height:180px; margin-bottom:32px;">
+          <svg viewBox="0 0 180 180" width="180" height="180">
+            <defs><clipPath id="circ2"><circle cx="90" cy="90" r="85"/></clipPath></defs>
+            <g clip-path="url(#circ2)">
+              <line x1="90" y1="90" x2="90" y2="0" stroke="#3B82F6" stroke-width="1.2" opacity="0.7"/>
+              <line x1="90" y1="90" x2="113" y2="2" stroke="#3B82F6" stroke-width="1.2" opacity="0.65"/>
+              <line x1="90" y1="90" x2="135" y2="8" stroke="#3B82F6" stroke-width="1.2" opacity="0.6"/>
+              <line x1="90" y1="90" x2="155" y2="20" stroke="#3B82F6" stroke-width="1.2" opacity="0.55"/>
+              <line x1="90" y1="90" x2="170" y2="38" stroke="#3B82F6" stroke-width="1.2" opacity="0.5"/>
+              <line x1="90" y1="90" x2="178" y2="58" stroke="#3B82F6" stroke-width="1.2" opacity="0.45"/>
+              <line x1="90" y1="90" x2="180" y2="80" stroke="#3B82F6" stroke-width="1.2" opacity="0.4"/>
+              <line x1="90" y1="90" x2="180" y2="100" stroke="#3B82F6" stroke-width="1.2" opacity="0.4"/>
+              <line x1="90" y1="90" x2="178" y2="122" stroke="#3B82F6" stroke-width="1.2" opacity="0.45"/>
+              <line x1="90" y1="90" x2="170" y2="142" stroke="#3B82F6" stroke-width="1.2" opacity="0.5"/>
+              <line x1="90" y1="90" x2="155" y2="160" stroke="#3B82F6" stroke-width="1.2" opacity="0.55"/>
+              <line x1="90" y1="90" x2="135" y2="172" stroke="#3B82F6" stroke-width="1.2" opacity="0.6"/>
+              <line x1="90" y1="90" x2="113" y2="178" stroke="#3B82F6" stroke-width="1.2" opacity="0.65"/>
+              <line x1="90" y1="90" x2="90" y2="180" stroke="#3B82F6" stroke-width="1.2" opacity="0.7"/>
+              <line x1="90" y1="90" x2="67" y2="178" stroke="#3B82F6" stroke-width="1.2" opacity="0.65"/>
+              <line x1="90" y1="90" x2="45" y2="172" stroke="#3B82F6" stroke-width="1.2" opacity="0.6"/>
+              <line x1="90" y1="90" x2="25" y2="160" stroke="#3B82F6" stroke-width="1.2" opacity="0.55"/>
+              <line x1="90" y1="90" x2="10" y2="142" stroke="#3B82F6" stroke-width="1.2" opacity="0.5"/>
+              <line x1="90" y1="90" x2="2" y2="122" stroke="#3B82F6" stroke-width="1.2" opacity="0.45"/>
+              <line x1="90" y1="90" x2="0" y2="100" stroke="#3B82F6" stroke-width="1.2" opacity="0.4"/>
+              <line x1="90" y1="90" x2="0" y2="80" stroke="#3B82F6" stroke-width="1.2" opacity="0.4"/>
+              <line x1="90" y1="90" x2="2" y2="58" stroke="#3B82F6" stroke-width="1.2" opacity="0.45"/>
+              <line x1="90" y1="90" x2="10" y2="38" stroke="#3B82F6" stroke-width="1.2" opacity="0.5"/>
+              <line x1="90" y1="90" x2="25" y2="20" stroke="#3B82F6" stroke-width="1.2" opacity="0.55"/>
+              <line x1="90" y1="90" x2="45" y2="8" stroke="#3B82F6" stroke-width="1.2" opacity="0.6"/>
+              <line x1="90" y1="90" x2="67" y2="2" stroke="#3B82F6" stroke-width="1.2" opacity="0.65"/>
+              <circle cx="90" cy="90" r="3" fill="#3B82F6" opacity="0.8"/>
+            </g>
+          </svg>
+        </div>
+        <h3 style="font-size:36px; font-weight:400; line-height:1.1; letter-spacing:-0.05em; color:#000; margin-bottom:20px;">标准数据集</h3>
+        <p style="font-size:12px; font-weight:400; line-height:1.7; letter-spacing:-0.05em; color:#999; max-width:300px; margin-bottom:28px;">标准化任务与场景数据集，旨在加速模型的开发、训练与效能评估</p>
+        <a href="#get-in-touch" class="dao-cta" style="display:flex; align-items:center; gap:6px; color:#000; text-decoration:none;">
+          <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase;">详细参数</span>
+          <span class="material-symbols-outlined" style="font-size:18px;">north_east</span>
+        </a>
+      </div>
+
+      <!-- Option 3: 定制数据集 -->
+      <div class="ds-fade dao-card flex flex-col items-center text-center" style="transition-delay:0.3s;">
+        <div class="dao-circle" style="width:180px; height:180px; margin-bottom:32px;">
+          <svg viewBox="0 0 180 180" width="180" height="180">
+            <defs><clipPath id="circ3"><circle cx="90" cy="90" r="85"/></clipPath></defs>
+            <g clip-path="url(#circ3)">
+              <line x1="5" y1="12" x2="175" y2="12" stroke="#3B82F6" stroke-width="2.5" opacity="0.3"/>
+              <line x1="5" y1="20" x2="175" y2="20" stroke="#3B82F6" stroke-width="2.5" opacity="0.35"/>
+              <line x1="5" y1="28" x2="175" y2="28" stroke="#3B82F6" stroke-width="2.5" opacity="0.4"/>
+              <line x1="5" y1="36" x2="175" y2="36" stroke="#3B82F6" stroke-width="2.5" opacity="0.45"/>
+              <line x1="5" y1="44" x2="175" y2="44" stroke="#3B82F6" stroke-width="2.5" opacity="0.5"/>
+              <line x1="5" y1="52" x2="175" y2="52" stroke="#3B82F6" stroke-width="2.5" opacity="0.55"/>
+              <line x1="5" y1="60" x2="175" y2="60" stroke="#3B82F6" stroke-width="2.5" opacity="0.6"/>
+              <line x1="5" y1="68" x2="175" y2="68" stroke="#3B82F6" stroke-width="2.5" opacity="0.65"/>
+              <line x1="5" y1="76" x2="175" y2="76" stroke="#3B82F6" stroke-width="2.5" opacity="0.7"/>
+              <line x1="5" y1="84" x2="175" y2="84" stroke="#3B82F6" stroke-width="2.5" opacity="0.75"/>
+              <line x1="5" y1="92" x2="175" y2="92" stroke="#3B82F6" stroke-width="2.5" opacity="0.75"/>
+              <line x1="5" y1="100" x2="175" y2="100" stroke="#3B82F6" stroke-width="2.5" opacity="0.7"/>
+              <line x1="5" y1="108" x2="175" y2="108" stroke="#3B82F6" stroke-width="2.5" opacity="0.65"/>
+              <line x1="5" y1="116" x2="175" y2="116" stroke="#3B82F6" stroke-width="2.5" opacity="0.6"/>
+              <line x1="5" y1="124" x2="175" y2="124" stroke="#3B82F6" stroke-width="2.5" opacity="0.55"/>
+              <line x1="5" y1="132" x2="175" y2="132" stroke="#3B82F6" stroke-width="2.5" opacity="0.5"/>
+              <line x1="5" y1="140" x2="175" y2="140" stroke="#3B82F6" stroke-width="2.5" opacity="0.45"/>
+              <line x1="5" y1="148" x2="175" y2="148" stroke="#3B82F6" stroke-width="2.5" opacity="0.4"/>
+              <line x1="5" y1="156" x2="175" y2="156" stroke="#3B82F6" stroke-width="2.5" opacity="0.35"/>
+              <line x1="5" y1="164" x2="175" y2="164" stroke="#3B82F6" stroke-width="2.5" opacity="0.3"/>
+            </g>
+          </svg>
+        </div>
+        <h3 style="font-size:36px; font-weight:400; line-height:1.1; letter-spacing:-0.05em; color:#000; margin-bottom:20px;">定制数据集</h3>
+        <p style="font-size:12px; font-weight:400; line-height:1.7; letter-spacing:-0.05em; color:#999; max-width:300px; margin-bottom:28px;">针对特定研究目标、机器人配置及作业场景，提供深度定制的数据采集工作流</p>
+        <a href="#get-in-touch" class="dao-cta" style="display:flex; align-items:center; gap:6px; color:#000; text-decoration:none;">
+          <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase;">商务咨询</span>
+          <span class="material-symbols-outlined" style="font-size:18px;">north_east</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Section 2: 数据集架构 -->
+<section id="dataset-architecture" class="w-full relative da-section" style="font-family:'Inter',sans-serif; padding:32px; background:url('../../prop/background-1.jpg') center/cover no-repeat;">
+  <div class="da-title-wrap" style="display:flex; align-items:flex-start; gap:48px;">
+    <h2 id="s2-title" style="font-size:36px; font-weight:400; line-height:1; color:#F6F6F6; letter-spacing:-0.05em; flex-shrink:0; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">数据集架构</h2>
+  </div>
+  <div class="da-grid" style="margin-top:24px; display:grid; grid-template-columns:repeat(9,1fr); gap:24px;">
+    <div class="ds-fade flex flex-col items-center text-center" style="transition-delay:0s;">
+      <span class="material-symbols-outlined" style="font-size:24px; color:#F6F6F6; margin-bottom:8px;">image</span>
+      <span style="font-size:12px; font-weight:400; letter-spacing:-0.03em; color:#F6F6F6; line-height:1.4;">图像数据</span>
+    </div>
+    <div class="ds-fade flex flex-col items-center text-center" style="transition-delay:0.05s;">
+      <span class="material-symbols-outlined" style="font-size:24px; color:#F6F6F6; margin-bottom:8px;">precision_manufacturing</span>
+      <span style="font-size:12px; font-weight:400; letter-spacing:-0.03em; color:#F6F6F6; line-height:1.4;">关节位置</span>
+    </div>
+    <div class="ds-fade flex flex-col items-center text-center" style="transition-delay:0.1s;">
+      <span class="material-symbols-outlined" style="font-size:24px; color:#F6F6F6; margin-bottom:8px;">speed</span>
+      <span style="font-size:12px; font-weight:400; letter-spacing:-0.03em; color:#F6F6F6; line-height:1.4;">关节速度</span>
+    </div>
+    <div class="ds-fade flex flex-col items-center text-center" style="transition-delay:0.15s;">
+      <span class="material-symbols-outlined" style="font-size:24px; color:#F6F6F6; margin-bottom:8px;">fitness_center</span>
+      <span style="font-size:12px; font-weight:400; letter-spacing:-0.03em; color:#F6F6F6; line-height:1.4;">末端六维力</span>
+    </div>
+    <div class="ds-fade flex flex-col items-center text-center" style="transition-delay:0.2s;">
+      <span class="material-symbols-outlined" style="font-size:24px; color:#F6F6F6; margin-bottom:8px;">3d_rotation</span>
+      <span style="font-size:12px; font-weight:400; letter-spacing:-0.03em; color:#F6F6F6; line-height:1.4;">末端位姿</span>
+    </div>
+    <div class="ds-fade flex flex-col items-center text-center" style="transition-delay:0.25s;">
+      <span class="material-symbols-outlined" style="font-size:24px; color:#F6F6F6; margin-bottom:8px;">terminal</span>
+      <span style="font-size:12px; font-weight:400; letter-spacing:-0.03em; color:#F6F6F6; line-height:1.4;">动作指令</span>
+    </div>
+    <div class="ds-fade flex flex-col items-center text-center" style="transition-delay:0.3s;">
+      <span class="material-symbols-outlined" style="font-size:24px; color:#F6F6F6; margin-bottom:8px;">schedule</span>
+      <span style="font-size:12px; font-weight:400; letter-spacing:-0.03em; color:#F6F6F6; line-height:1.4;">时间戳</span>
+    </div>
+    <div class="ds-fade flex flex-col items-center text-center" style="transition-delay:0.35s;">
+      <span class="material-symbols-outlined" style="font-size:24px; color:#F6F6F6; margin-bottom:8px;">photo_camera</span>
+      <span style="font-size:12px; font-weight:400; letter-spacing:-0.03em; color:#F6F6F6; line-height:1.4;">相机参数</span>
+    </div>
+    <div class="ds-fade flex flex-col items-center text-center" style="transition-delay:0.4s;">
+      <span class="material-symbols-outlined" style="font-size:24px; color:#F6F6F6; margin-bottom:8px;">smart_toy</span>
+      <span style="font-size:12px; font-weight:400; letter-spacing:-0.03em; color:#F6F6F6; line-height:1.4;">底盘数据</span>
+    </div>
+  </div>
+</section>
+
+<!-- Section 3: 核心优势 -->
+<section id="why-realsource" class="w-full lg:h-screen bg-[#F6F6F6] relative flex flex-col" style="font-family:'Inter',sans-serif;">
+  <h2 id="s3-title" style="padding:32px 32px 0 32px; font-size:36px; font-weight:400; line-height:1; color:#000; letter-spacing:-0.05em; flex-shrink:0; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">核心优势</h2>
+  <div class="flex-1 flex items-end rs-wrap" style="padding:32px 32px 32px; min-height:0;">
+    <div class="w-full rs-grid" style="display:grid; grid-template-columns:1fr 1.2fr 1fr 1fr; grid-template-rows:1fr 1fr; gap:6px; height:calc(100% - 0px);">
+
+      <!-- 0x01 — (1,1) White text card -->
+      <div class="ds-fade rounded-[0.25rem] bg-white flex flex-col justify-end rs-card rs-card-1" style="padding:24px; transition-delay:0s; grid-column:1; grid-row:1;">
+        <span style="font-size:11px; font-weight:500; letter-spacing:0.12em; color:#3B82F6; margin-bottom:auto;">0x01</span>
+        <div style="margin-bottom:10px;">
+          <span style="font-size:40px; font-weight:300; line-height:1; letter-spacing:-0.05em; color:#000;">3</span>
+          <span style="font-size:15px; font-weight:300; letter-spacing:-0.03em; color:#999; margin-left:4px;">路相机视角</span>
+        </div>
+        <h3 style="font-size:18px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:6px;">时空硬同步技术</h3>
+        <span style="font-size:10px; font-weight:400; letter-spacing:-0.02em; color:#3B82F6; margin-bottom:10px;">3 路相机视角 · 硬件级同步 · 精准时间戳</span>
+        <p style="font-size:11px; font-weight:400; line-height:1.6; letter-spacing:-0.03em; color:#999;">高度对齐的多视角视觉流，为感知、融合与动作学习提供一致的时空一致性基础</p>
+      </div>
+
+      <!-- 0x03 — (1-2, 2) Blue tall card spanning 2 rows -->
+      <div class="ds-fade rounded-[0.25rem] flex flex-col justify-end rs-card rs-card-2" style="padding:28px; background:#3B82F6; transition-delay:0.06s; grid-column:2; grid-row:1/3;">
+        <span style="font-size:11px; font-weight:500; letter-spacing:0.12em; color:rgba(255,255,255,0.5); margin-bottom:auto;">0x03</span>
+        <div style="margin-bottom:16px;">
+          <span style="font-size:64px; font-weight:300; line-height:1; letter-spacing:-0.05em; color:#fff;">71-D</span>
+        </div>
+        <h3 style="font-size:20px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#fff; margin-bottom:8px;">全维度机器人状态信号</h3>
+        <span style="font-size:10px; font-weight:400; letter-spacing:-0.02em; color:rgba(255,255,255,0.6); margin-bottom:12px;">71 维状态空间 · 1400 万+ 帧数据 · 30 FPS 视觉观测</span>
+        <p style="font-size:11px; font-weight:400; line-height:1.6; letter-spacing:-0.03em; color:rgba(255,255,255,0.7);">将高密度机器人本体感知与大规模视觉示教深度融合，完美支持训练与评估流程</p>
+      </div>
+
+      <!-- 0x04 — (1,3) White card -->
+      <div class="ds-fade rounded-[0.25rem] bg-white flex flex-col justify-end rs-card rs-card-3" style="padding:24px; transition-delay:0.12s; grid-column:3; grid-row:1;">
+        <span style="font-size:11px; font-weight:500; letter-spacing:0.12em; color:#3B82F6; margin-bottom:auto;">0x04</span>
+        <h3 style="font-size:18px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:10px;">出厂级高精度标定</h3>
+        <p style="font-size:11px; font-weight:400; line-height:1.6; letter-spacing:-0.03em; color:#999;">每台机器人与传感器均经过严格的出厂标定，提供完整的相机标定参数，用户无需二次标定即可直接部署</p>
+      </div>
+
+      <!-- 0x05 — (1,4) Dark card -->
+      <div class="ds-fade rounded-[0.25rem] flex flex-col justify-end rs-card rs-card-4" style="padding:24px; background:#0a0f1a; transition-delay:0.18s; grid-column:4; grid-row:1;">
+        <span style="font-size:11px; font-weight:500; letter-spacing:0.12em; color:rgba(255,255,255,0.4); margin-bottom:auto;">0x05</span>
+        <h3 style="font-size:18px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#F6F6F6; margin-bottom:10px;">深度泛化数据采集</h3>
+        <p style="font-size:11px; font-weight:400; line-height:1.6; letter-spacing:-0.03em; color:rgba(246,246,246,0.6);">围绕同一任务，在物体属性、环境上下文、运动轨迹与视角等多种变量下开展大规模示教，支撑更强的算法泛化能力</p>
+      </div>
+
+      <!-- 0x02 — (2,1) White text card -->
+      <div class="ds-fade rounded-[0.25rem] bg-white flex flex-col justify-end rs-card rs-card-5" style="padding:24px; transition-delay:0.24s; grid-column:1; grid-row:2;">
+        <span style="font-size:11px; font-weight:500; letter-spacing:0.12em; color:#3B82F6; margin-bottom:auto;">0x02</span>
+        <div style="margin-bottom:10px;">
+          <span style="font-size:40px; font-weight:300; line-height:1; letter-spacing:-0.05em; color:#000;">&lt;0.5%</span>
+        </div>
+        <h3 style="font-size:18px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:6px;">超低丢帧率</h3>
+        <span style="font-size:10px; font-weight:400; letter-spacing:-0.02em; color:#3B82F6; margin-bottom:10px;">多通道采集丢帧率 < 0.5%</span>
+        <p style="font-size:11px; font-weight:400; line-height:1.6; letter-spacing:-0.03em; color:#999;">经过优化的传输、缓存与处理链路，即使在高强度采集条件下，也能确保示教数据的完整性与连续性</p>
+      </div>
+
+      <!-- 0x06 — (2, 3-4) Wide card spanning 2 cols -->
+      <div class="ds-fade rounded-[0.25rem] flex flex-col justify-end rs-card rs-card-6" style="padding:24px; background:#DFDFDF; transition-delay:0.3s; grid-column:3/5; grid-row:2;">
+        <span style="font-size:11px; font-weight:500; letter-spacing:0.12em; color:#3B82F6; margin-bottom:auto;">0x06</span>
+        <div style="margin-bottom:10px;">
+          <span style="font-size:40px; font-weight:300; line-height:1; letter-spacing:-0.05em; color:#000;">7 自由度</span>
+        </div>
+        <h3 style="font-size:18px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:6px;">源头级人类式示教</h3>
+        <span style="font-size:10px; font-weight:400; letter-spacing:-0.02em; color:#3B82F6; margin-bottom:10px;">外骨骼遥操 · 7 自由度 · 0.088° · 100 Hz</span>
+        <p style="font-size:11px; font-weight:400; line-height:1.6; letter-spacing:-0.03em; color:#666;">高度还原人类操作员的双臂协同与专家动作意图，生成更适用于真实具身任务的高质量轨迹数据</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Section 4: 行业标准与生态适配 -->
+<section id="standards" class="w-full bg-[#F6F6F6] relative si-section" style="font-family:'Inter',sans-serif; padding:32px 32px 32px;">
+  <h2 id="s4-title" style="font-size:36px; font-weight:400; line-height:1; color:#000; letter-spacing:-0.05em; display:inline-block; overflow:hidden; white-space:nowrap; width:0; margin-bottom:32px;">行业标准与生态适配</h2>
+  <div class="ds-fade rounded-[0.25rem] bg-white si-strip" style="padding:0; display:flex; transition-delay:0s;">
+    <div style="flex:1; padding:32px 28px; display:flex; align-items:flex-start; gap:16px;">
+      <span class="material-symbols-outlined" style="font-size:22px; color:#3B82F6; margin-top:2px; flex-shrink:0;">workspace_premium</span>
+      <div>
+        <h4 style="font-size:15px; font-weight:400; line-height:1.3; letter-spacing:-0.05em; color:#000; margin-bottom:8px;">行业标准引领</h4>
+        <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999;">睿尔曼牵头制定 3 项面向人形机器人数据系统的 CR 标准</p>
+      </div>
+    </div>
+    <div class="si-divider" style="width:1px; background:#DFDFDF; margin:24px 0; flex-shrink:0;"></div>
+    <div style="flex:1; padding:32px 28px; display:flex; align-items:flex-start; gap:16px;">
+      <span class="material-symbols-outlined" style="font-size:22px; color:#3B82F6; margin-top:2px; flex-shrink:0;">description</span>
+      <div>
+        <h4 style="font-size:15px; font-weight:400; line-height:1.3; letter-spacing:-0.05em; color:#000; margin-bottom:8px;">格式兼容性</h4>
+        <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999;">支持 MCAP、HDF5 与 LeRobot，深度兼容主流研究工具链，实现数据的轻松接入与高效利用</p>
+      </div>
+    </div>
+    <div class="si-divider" style="width:1px; background:#DFDFDF; margin:24px 0; flex-shrink:0;"></div>
+    <div style="flex:1; padding:32px 28px; display:flex; align-items:flex-start; gap:16px;">
+      <span class="material-symbols-outlined" style="font-size:22px; color:#3B82F6; margin-top:2px; flex-shrink:0;">hub</span>
+      <div>
+        <h4 style="font-size:15px; font-weight:400; line-height:1.3; letter-spacing:-0.05em; color:#000; margin-bottom:8px;">工作流集成</h4>
+        <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999;">专为强化学习验证、模型开发与真实场景部署而生，打通研发全链路</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 5: 定制化数据全链路服务 -->
+<section id="custom-pipeline" class="w-full relative" style="font-family:'Inter',sans-serif; background:#FFFFFF;">
+  <div class="cdp-outer" style="display:flex; align-items:flex-start; gap:0; padding:0 32px;">
+    <!-- Left: Sticky title -->
+    <div class="cdp-left" style="position:sticky; top:0; width:33%; flex-shrink:0; height:100vh; display:flex; flex-direction:column; justify-content:center; padding-right:48px;">
+      <h2 id="s5-title" style="font-size:36px; font-weight:400; line-height:1.1; color:#000; letter-spacing:-0.05em; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">定制化数据全链路服务</h2>
+    </div>
+    <!-- Right: Scrolling steps -->
+    <div class="cdp-right" style="width:67%; padding:32px 0 32px;">
+      <!-- Step 01 -->
+      <div class="ds-fade cdp-row cdp-step-1" style="padding:40px 0; border-bottom:1px solid rgba(0,0,0,0.1); display:flex; align-items:flex-start; gap:20px; transition-delay:0s; margin-left:0;">
+        <span style="font-size:20px; font-weight:400; letter-spacing:-0.05em; color:rgba(59,130,246,0.4); flex-shrink:0; width:32px;">01</span>
+        <div style="flex:1; min-width:0;">
+          <h3 style="font-size:20px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000; margin-bottom:10px;">明确任务目标</h3>
+          <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999;">深度锁定目标任务与应用场景，定义核心数据维度与交付验收标准</p>
+        </div>
+      </div>
+      <!-- Step 02 -->
+      <div class="ds-fade cdp-row cdp-step-2" style="padding:40px 0; border-bottom:1px solid rgba(0,0,0,0.1); display:flex; align-items:flex-start; gap:20px; transition-delay:0.06s; margin-left:32px;">
+        <span style="font-size:20px; font-weight:400; letter-spacing:-0.05em; color:rgba(59,130,246,0.4); flex-shrink:0; width:32px;">02</span>
+        <div style="flex:1; min-width:0;">
+          <h3 style="font-size:20px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000; margin-bottom:10px;">构建采集方案</h3>
+          <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999;">统筹机器人选型、传感器配置及环境部署，制定最优的数据采集策略</p>
+        </div>
+      </div>
+      <!-- Step 03 -->
+      <div class="ds-fade cdp-row cdp-step-3" style="padding:40px 0; border-bottom:1px solid rgba(0,0,0,0.1); display:flex; align-items:flex-start; gap:20px; transition-delay:0.12s; margin-left:64px;">
+        <span style="font-size:20px; font-weight:400; letter-spacing:-0.05em; color:rgba(59,130,246,0.4); flex-shrink:0; width:32px;">03</span>
+        <div style="flex:1; min-width:0;">
+          <h3 style="font-size:20px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000; margin-bottom:10px;">规模化数据采集</h3>
+          <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999;">依托高并行遥操作作业，实现真实场景下大规模、可扩展的数据采集</p>
+        </div>
+      </div>
+      <!-- Step 04 -->
+      <div class="ds-fade cdp-row cdp-step-4" style="padding:40px 0; border-bottom:1px solid rgba(0,0,0,0.1); display:flex; align-items:flex-start; gap:20px; transition-delay:0.18s; margin-left:96px;">
+        <span style="font-size:20px; font-weight:400; letter-spacing:-0.05em; color:rgba(59,130,246,0.4); flex-shrink:0; width:32px;">04</span>
+        <div style="flex:1; min-width:0;">
+          <h3 style="font-size:20px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000; margin-bottom:10px;">严苛质量把控</h3>
+          <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999;">结合自动化逻辑检查与专家人工复核，确保数据的高一致性与可用性</p>
+        </div>
+      </div>
+      <!-- Step 05 -->
+      <div class="ds-fade cdp-row cdp-step-5" style="padding:40px 0; border-bottom:1px solid rgba(0,0,0,0.1); display:flex; align-items:flex-start; gap:20px; transition-delay:0.24s; margin-left:128px;">
+        <span style="font-size:20px; font-weight:400; letter-spacing:-0.05em; color:rgba(59,130,246,0.4); flex-shrink:0; width:32px;">05</span>
+        <div style="flex:1; min-width:0;">
+          <h3 style="font-size:20px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000; margin-bottom:10px;">格式标准化处理</h3>
+          <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999;">根据下游需求，将原始 MCAP 数据转化为 HDF5 或 LeRobot 等标准格式</p>
+        </div>
+      </div>
+      <!-- Step 06 -->
+      <div class="ds-fade cdp-row cdp-step-6" style="padding:40px 0; border-bottom:1px solid rgba(0,0,0,0.1); display:flex; align-items:flex-start; gap:20px; transition-delay:0.3s; margin-left:160px;">
+        <span style="font-size:20px; font-weight:400; letter-spacing:-0.05em; color:rgba(59,130,246,0.4); flex-shrink:0; width:32px;">06</span>
+        <div style="flex:1; min-width:0;">
+          <h3 style="font-size:20px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000; margin-bottom:10px;">精细化标注与结构化</h3>
+          <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999;">注入语义标签与任务元数据，构建分层级、结构化的训练数据集</p>
+        </div>
+      </div>
+      <!-- Step 07 -->
+      <div class="ds-fade cdp-row-last cdp-step-7 rounded-[0.25rem]" style="padding:40px 24px; margin-top:2px; margin-left:192px; background:#3B82F6; display:flex; align-items:flex-start; gap:20px; transition-delay:0.36s;">
+        <span style="font-size:20px; font-weight:400; letter-spacing:-0.05em; color:rgba(255,255,255,0.4); flex-shrink:0; width:32px;">07</span>
+        <div style="flex:1; min-width:0;">
+          <h3 style="font-size:20px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#fff; margin-bottom:10px;">高效交付与集成</h3>
+          <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:rgba(255,255,255,0.7);">交付封装完毕的数据集，支持在研究、训练与部署工作流中无缝集成</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+function initTypewriter(id, text) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  let typed = false;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !typed) {
+        typed = true;
+        let i = 0;
+        el.style.width = 'auto';
+        el.textContent = '';
+        const type = () => {
+          if (i < text.length) {
+            el.textContent += text[i];
+            i++;
+            setTimeout(type, 80);
+          }
+        };
+        type();
+        obs.unobserve(el);
+      }
+    });
+  }, { threshold: 0.2 });
+  obs.observe(el);
+}
+
+initTypewriter('s1-title', '三种数据获取模式');
+initTypewriter('s2-title', '数据集架构');
+initTypewriter('s3-title', '核心优势');
+initTypewriter('s4-title', '行业标准与生态适配');
+initTypewriter('s5-title', '定制化数据全链路服务');
+
+(function() {
+  const cards = document.querySelectorAll('.ds-fade');
+  if (!cards.length) return;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('ds-visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  cards.forEach(c => obs.observe(c));
+})();
+</script>
+
+
+<!-- ============================================================ -->
+<!-- CTA + FOOTER: GET IN TOUCH -->
+<!-- ============================================================ -->
+<style>
+  .git-input, .git-select {
+    width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);
+    border-radius:0.25rem; padding:14px 16px; font-size:15px; font-weight:400;
+    letter-spacing:-0.05em; color:#fff; outline:none; font-family:Inter,sans-serif;
+    transition:border-color 0.3s, background 0.3s;
+  }
+  .git-input::placeholder { color:rgba(255,255,255,0.3); }
+  .git-input:focus, .git-select:focus {
+    border-color:#3B82F6; background:rgba(59,130,246,0.06);
+  }
+  .git-select { appearance:none; cursor:pointer;
+    background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='rgba(255,255,255,0.35)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:right 16px center;
+  }
+  .git-select option { background:#111; color:#fff; }
+
+  .cta-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .cta-form-row { grid-template-columns: 1fr !important; }
+  .cta-wrap { padding: 20px !important; }
+  #git-title { font-size: 28px !important; }
+  #contact-form button[type="submit"] { width: 100%; justify-content: center; }
+  @media (min-width: 768px) {
+    .cta-grid { grid-template-columns: 1.6fr 0.7fr !important; gap: 64px !important; }
+    .cta-form-row { grid-template-columns: 1fr 1fr !important; }
+    .cta-wrap { padding: 32px !important; }
+    #git-title { font-size: 36px !important; }
+    #contact-form button[type="submit"] { width: auto !important; }
+    .cta-grid a[href^="mailto:"], .cta-grid a[href^="tel:"] { font-size: 20px !important; }
+  }
+</style>
+<section id="get-in-touch" class="w-full relative" style="font-family:Inter,sans-serif; min-height:calc(100vh - 56px); background:#000; display:flex; flex-direction:column;">
+  <div class="cta-wrap" style="padding:32px; flex:1; display:flex; flex-direction:column; max-width:1280px;">
+    <h2 id="git-title" style="font-size:36px; font-weight:400; line-height:1; color:#fff; letter-spacing:-0.05em; margin-bottom:12px; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">联系我们</h2>
+    <p style="font-size:14px; font-weight:400; letter-spacing:-0.05em; color:rgba(255,255,255,0.4); margin-bottom:36px;">如有任何疑问或合作意向，欢迎随时与我们联系</p>
+
+    <div class="cta-grid" style="flex:1; display:grid; grid-template-columns:1.6fr 0.7fr; gap:64px; align-content:start;">
+
+      <form id="contact-form" style="max-width:100%;" onsubmit="return false;">
+        <div class="cta-form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+          <input type="text" class="git-input" placeholder="姓名 *" required>
+          <input type="email" class="git-input" placeholder="工作邮箱 *" required>
+        </div>
+        <div class="cta-form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+          <input type="text" class="git-input" placeholder="公司名称 *" required>
+          <select id="region-select" class="git-select" required onchange="handleRegionChange(this.value)">
+            <option value="" disabled selected>所在地区 *</option>
+            <option value="china">中国地区</option>
+            <option value="overseas">海外地区</option>
+          </select>
+        </div>
+        <div id="sub-region-wrap" style="display:none; margin-bottom:16px;">
+          <select id="province-select" class="git-select" style="display:none;">
+            <option value="" disabled selected>省 / 自治区 / 直辖市 *</option>
+            <optgroup label="直辖市">
+              <option value="beijing">北京市</option>
+              <option value="tianjin">天津市</option>
+              <option value="shanghai">上海市</option>
+              <option value="chongqing">重庆市</option>
+            </optgroup>
+            <optgroup label="省">
+              <option value="hebei">河北省</option>
+              <option value="shanxi">山西省</option>
+              <option value="liaoning">辽宁省</option>
+              <option value="jilin">吉林省</option>
+              <option value="heilongjiang">黑龙江省</option>
+              <option value="jiangsu">江苏省</option>
+              <option value="zhejiang">浙江省</option>
+              <option value="anhui">安徽省</option>
+              <option value="fujian">福建省</option>
+              <option value="jiangxi">江西省</option>
+              <option value="shandong">山东省</option>
+              <option value="henan">河南省</option>
+              <option value="hubei">湖北省</option>
+              <option value="hunan">湖南省</option>
+              <option value="guangdong">广东省</option>
+              <option value="hainan">海南省</option>
+              <option value="sichuan">四川省</option>
+              <option value="guizhou">贵州省</option>
+              <option value="yunnan">云南省</option>
+              <option value="shaanxi">陕西省</option>
+              <option value="gansu">甘肃省</option>
+              <option value="qinghai">青海省</option>
+              <option value="taiwan">台湾省</option>
+            </optgroup>
+            <optgroup label="自治区">
+              <option value="neimenggu">内蒙古自治区</option>
+              <option value="guangxi">广西壮族自治区</option>
+              <option value="xizang">西藏自治区</option>
+              <option value="ningxia">宁夏回族自治区</option>
+              <option value="xinjiang">新疆维吾尔自治区</option>
+            </optgroup>
+            <optgroup label="特别行政区">
+              <option value="hongkong">香港特别行政区</option>
+              <option value="macao">澳门特别行政区</option>
+            </optgroup>
+          </select>
+          <select id="overseas-select" class="git-select" style="display:none;">
+            <option value="" disabled selected>海外区域 *</option>
+            <option value="asia-pacific">亚太</option>
+            <option value="europe">欧洲</option>
+            <option value="north-america">北美</option>
+            <option value="south-america">南美</option>
+            <option value="middle-east-africa">中东和非洲</option>
+          </select>
+        </div>
+        <div style="margin-bottom:16px;">
+          <select class="git-select" required>
+            <option value="" disabled selected>咨询类型 *</option>
+            <option value="partnership">合作洽谈</option>
+            <option value="sales">销售咨询</option>
+            <option value="technical">技术支持</option>
+            <option value="media">媒体垂询</option>
+            <option value="careers">招聘相关</option>
+            <option value="other">其他</option>
+          </select>
+        </div>
+        <div style="margin-bottom:28px;">
+          <textarea class="git-input" placeholder="详细需求（选填）" rows="4" style="resize:vertical; min-height:80px;"></textarea>
+        </div>
+        <button type="submit" style="display:inline-flex; align-items:center; gap:8px; padding:14px 32px; background:#3B82F6; color:#fff; border:none; border-radius:0.25rem; font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; font-family:Inter,sans-serif; cursor:pointer; transition:background 0.3s; width:100%; justify-content:center;" onmouseover="this.style.background='#2563EB'" onmouseout="this.style.background='#3B82F6'">
+          立即提交
+          <span class="material-symbols-outlined" style="font-size:16px;">arrow_outward</span>
+        </button>
+      </form>
+
+      <div style="display:flex; flex-direction:column; gap:36px; padding-top:0;">
+        <div style="display:flex; flex-direction:column; gap:24px;">
+          <div>
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.35); display:block; margin-bottom:10px;">通用咨询</span>
+            <a href="mailto:info@realman-robot.com" style="font-size:16px; font-weight:400; letter-spacing:-0.05em; color:#fff; text-decoration:none; transition:color 0.3s; word-break:break-all;" onmouseover="this.style.color='#3B82F6'" onmouseout="this.style.color='#fff'">info@realman-robot.com</a>
+          </div>
+          <div>
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.35); display:block; margin-bottom:10px;">销售咨询</span>
+            <a href="mailto:Sales@realman-robot.com" style="font-size:16px; font-weight:400; letter-spacing:-0.05em; color:#fff; text-decoration:none; transition:color 0.3s; word-break:break-all;" onmouseover="this.style.color='#3B82F6'" onmouseout="this.style.color='#fff'">Sales@realman-robot.com</a>
+          </div>
+          <div>
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.35); display:block; margin-bottom:10px;">服务热线</span>
+            <a href="tel:400-898-2018" style="font-size:16px; font-weight:400; letter-spacing:-0.05em; color:#fff; text-decoration:none; transition:color 0.3s; word-break:break-all;" onmouseover="this.style.color='#3B82F6'" onmouseout="this.style.color='#fff'">400-898-2018</a>
+          </div>
+        </div>
+
+        <div>
+          <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.35); display:block; margin-bottom:16px;">关注我们</span>
+          <span style="font-size:13px; font-weight:400; letter-spacing:-0.02em; color:rgba(255,255,255,0.3);">平台二维码即将上线</span>
+        </div>
+
+        <div style="margin-top:auto; padding-top:24px;">
+          <span style="font-size:12px; font-weight:400; letter-spacing:-0.05em; color:rgba(255,255,255,0.25);">&copy; 2026 睿尔曼智能 版权所有</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+if (typeof initTypewriter === 'undefined') {
+  function initTypewriter(id, text) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var typed = false;
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting && !typed) {
+          typed = true;
+          var i = 0;
+          el.style.width = 'auto';
+          el.textContent = '';
+          var typeChar = function() {
+            if (i < text.length) {
+              el.textContent += text[i];
+              i++;
+              setTimeout(typeChar, 80);
+            }
+          };
+          typeChar();
+          obs.unobserve(el);
+        }
+      });
+    }, { threshold: 0.2 });
+    obs.observe(el);
+  }
+}
+initTypewriter('git-title', '联系我们');
+
+function handleRegionChange(val) {
+  var wrap = document.getElementById('sub-region-wrap');
+  var prov = document.getElementById('province-select');
+  var over = document.getElementById('overseas-select');
+  wrap.style.display = 'block';
+  if (val === 'china') {
+    prov.style.display = ''; prov.required = true; prov.selectedIndex = 0;
+    over.style.display = 'none'; over.required = false;
+  } else if (val === 'overseas') {
+    over.style.display = ''; over.required = true; over.selectedIndex = 0;
+    prov.style.display = 'none'; prov.required = false;
+  } else {
+    wrap.style.display = 'none';
+    prov.required = false; over.required = false;
+  }
+}
+</script>
+
+<script src="../../prop/supabase-cta-cn.js"></script>
+<script>function switchLang(){var h=location.href;if(h.indexOf("/en/")>-1){location.href=h.replace("/en/","/cn/")}else if(h.indexOf("/cn/")>-1){location.href=h.replace("/cn/","/en/")}}</script>
+</body>
+</html>

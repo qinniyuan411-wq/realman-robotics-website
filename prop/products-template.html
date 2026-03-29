@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>REALMAN | PRODUCT NAME</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          "headline": ["Inter", "sans-serif"],
+          "body": ["Inter", "sans-serif"],
+          "label": ["Inter", "sans-serif"],
+        },
+        borderRadius: {
+          "DEFAULT": "0.25rem",
+          "lg": "0.25rem",
+          "xl": "0.25rem",
+          "full": "9999px",
+        },
+      },
+    },
+  }
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; overflow-x: hidden; font-family: 'Inter', sans-serif; background: #FFFFFF; color: #000; }
+
+    .gallery-item { cursor: pointer; overflow: hidden; border-radius: 0.25rem; }
+    .gallery-item img { transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
+    .gallery-item:hover img { transform: scale(1.04); }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- TopNavBar (links cut — href="#") -->
+<!-- ============================================================ -->
+<nav class="fixed top-0 w-full border-b border-[#DFDFDF] bg-[#F6F6F6]/80 backdrop-blur-xl z-[9999] flex justify-between items-center px-[32px] py-3 md:py-4">
+  <a href="#" style="text-decoration:none;"><img src="../prop/logo.png" alt="REALMAN ROBOTICS" class="h-[20px] w-auto"></a>
+  <button class="md:hidden text-[#1a1a1a]/70 hover:text-[#3B82F6]" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+    <span class="material-symbols-outlined text-[20px]">menu</span>
+  </button>
+  <div class="hidden md:flex items-center space-x-4">
+    <a href="#" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem]" style="text-decoration:none;">Home</a>
+    <a href="#" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem]" style="text-decoration:none;">Core Products</a>
+    <a href="#" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem]" style="text-decoration:none;">Teleoperation Network</a>
+    <a href="#" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem]" style="text-decoration:none;">Data Services</a>
+    <a href="#" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem]" style="text-decoration:none;">Solutions</a>
+    <a href="#" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem]" style="text-decoration:none;">Developer Center</a>
+    <a href="#" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem]" style="text-decoration:none;">About Us</a>
+  </div>
+  <div class="hidden md:block text-[12px] tracking-wider text-[#3B82F6] font-bold border border-[#3B82F6]/30 px-3 py-1 rounded-[0.25rem]">CN/EN</div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="hidden fixed top-[52px] left-0 w-full bg-white/98 backdrop-blur-xl z-[9998] border-b border-[#DFDFDF] md:hidden overflow-y-auto max-h-[calc(100vh-52px)]">
+  <div class="flex flex-col py-4 px-[32px] space-y-3">
+    <a href="#" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">Home</a>
+    <a href="#" class="text-[#3B82F6] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">Core Products</a>
+    <a href="#" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">Teleoperation Network</a>
+    <a href="#" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">Data Services</a>
+    <a href="#" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">Solutions</a>
+    <a href="#" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">Developer Center</a>
+    <a href="#" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">About Us</a>
+    <div class="text-[12px] tracking-wider text-[#3B82F6] font-bold border border-[#3B82F6]/30 px-3 py-1 w-fit rounded-[0.25rem]">CN/EN</div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SECTION 1: PRODUCT NAME + PHOTO GALLERY -->
+<!-- ============================================================ -->
+<section class="w-full bg-[#FFFFFF]" style="padding-top:80px;">
+
+  <!-- Product Title -->
+  <div style="padding:32px 32px 0 32px;">
+    <h1 style="font-size:36px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000;">Product Name</h1>
+    <p style="font-size:15px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:rgba(0,0,0,0.4); margin-top:16px; max-width:640px;">
+      Brief product description placeholder — replace with key specs summary such as DOF, payload, reach, and weight.
+    </p>
+  </div>
+
+  <!-- Photo Gallery -->
+  <div style="padding:32px;">
+
+    <!-- Variant A Label (for products with multiple variants) -->
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+      <div style="width:8px; height:8px; border-radius:50%; background:#3B82F6;"></div>
+      <span style="font-size:12px; font-weight:400; letter-spacing:0.08em; text-transform:uppercase; color:rgba(0,0,0,0.4);">Standard Version</span>
+    </div>
+
+    <!-- Hero Image (full width) -->
+    <div class="gallery-item" style="width:100%; aspect-ratio:21/9; background:transparent; margin-bottom:16px; position:relative;">
+      <img src="" alt="Product Hero" style="width:100%; height:100%; object-fit:contain; padding:3%;">
+      <div style="position:absolute; top:0; left:0; right:0; padding:20px 24px; background:linear-gradient(to bottom, rgba(0,0,0,0.04), transparent);">
+        <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:rgba(0,0,0,0.5);">Product Name — Main View</span>
+      </div>
+    </div>
+
+    <!-- Detail Strip: 4 images -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="gallery-item" style="aspect-ratio:4/3; background:transparent;">
+        <img src="" alt="Angle 1" style="width:100%; height:100%; object-fit:contain; padding:5%;">
+      </div>
+      <div class="gallery-item" style="aspect-ratio:4/3; background:transparent;">
+        <img src="" alt="Angle 2" style="width:100%; height:100%; object-fit:contain; padding:5%;">
+      </div>
+      <div class="gallery-item" style="aspect-ratio:4/3; background:transparent;">
+        <img src="" alt="Angle 3" style="width:100%; height:100%; object-fit:contain; padding:5%;">
+      </div>
+      <div class="gallery-item" style="aspect-ratio:4/3; background:transparent;">
+        <img src="" alt="Angle 4" style="width:100%; height:100%; object-fit:contain; padding:5%;">
+      </div>
+    </div>
+
+    <!-- Variant B Label (optional — for products with a second variant) -->
+    <div style="display:flex; align-items:center; gap:10px; margin-top:32px; margin-bottom:16px;">
+      <div style="width:8px; height:8px; border-radius:50%; background:#3B82F6; opacity:0.5;"></div>
+      <span style="font-size:12px; font-weight:400; letter-spacing:0.08em; text-transform:uppercase; color:rgba(0,0,0,0.4);">Six-Axis Force Version (optional)</span>
+    </div>
+
+    <!-- Variant B Detail Strip: 4 images (optional) -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="gallery-item" style="aspect-ratio:4/3; background:transparent;">
+        <img src="" alt="Variant B - 1" style="width:100%; height:100%; object-fit:contain; padding:5%;">
+      </div>
+      <div class="gallery-item" style="aspect-ratio:4/3; background:transparent;">
+        <img src="" alt="Variant B - 2" style="width:100%; height:100%; object-fit:contain; padding:5%;">
+      </div>
+      <div class="gallery-item" style="aspect-ratio:4/3; background:transparent;">
+        <img src="" alt="Variant B - 3" style="width:100%; height:100%; object-fit:contain; padding:5%;">
+      </div>
+      <div class="gallery-item" style="aspect-ratio:4/3; background:transparent;">
+        <img src="" alt="Variant B - 4" style="width:100%; height:100%; object-fit:contain; padding:5%;">
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- SECTION 2: CORE ADVANTAGES -->
+<!-- ============================================================ -->
+<section class="w-full bg-[#F6F6F6]">
+  <div style="padding:32px;">
+    <h2 style="font-size:36px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000; margin-bottom:48px;">Core Advantages</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-0 border-t border-[#DFDFDF]">
+
+      <!-- Advantage 1 -->
+      <div style="padding:32px 24px; border-bottom:1px solid #DFDFDF; border-right:1px solid #DFDFDF;" class="md:border-r">
+        <span class="material-symbols-outlined" style="font-size:28px; color:#3B82F6; display:block; margin-bottom:20px;">precision_manufacturing</span>
+        <h3 style="font-size:20px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:12px;">Advantage Title</h3>
+        <p style="font-size:12px; font-weight:400; line-height:1.7; letter-spacing:-0.02em; color:rgba(0,0,0,0.4);">Brief description of this core advantage. Replace with actual product benefit text.</p>
+      </div>
+
+      <!-- Advantage 2 -->
+      <div style="padding:32px 24px; border-bottom:1px solid #DFDFDF; border-right:1px solid #DFDFDF;">
+        <span class="material-symbols-outlined" style="font-size:28px; color:#3B82F6; display:block; margin-bottom:20px;">scale</span>
+        <h3 style="font-size:20px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:12px;">Advantage Title</h3>
+        <p style="font-size:12px; font-weight:400; line-height:1.7; letter-spacing:-0.02em; color:rgba(0,0,0,0.4);">Brief description of this core advantage. Replace with actual product benefit text.</p>
+      </div>
+
+      <!-- Advantage 3 -->
+      <div style="padding:32px 24px; border-bottom:1px solid #DFDFDF; border-right:1px solid #DFDFDF;">
+        <span class="material-symbols-outlined" style="font-size:28px; color:#3B82F6; display:block; margin-bottom:20px;">sensors</span>
+        <h3 style="font-size:20px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:12px;">Advantage Title</h3>
+        <p style="font-size:12px; font-weight:400; line-height:1.7; letter-spacing:-0.02em; color:rgba(0,0,0,0.4);">Brief description of this core advantage. Replace with actual product benefit text.</p>
+      </div>
+
+      <!-- Advantage 4 -->
+      <div style="padding:32px 24px; border-bottom:1px solid #DFDFDF; border-right:1px solid #DFDFDF;">
+        <span class="material-symbols-outlined" style="font-size:28px; color:#3B82F6; display:block; margin-bottom:20px;">bolt</span>
+        <h3 style="font-size:20px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:12px;">Advantage Title</h3>
+        <p style="font-size:12px; font-weight:400; line-height:1.7; letter-spacing:-0.02em; color:rgba(0,0,0,0.4);">Brief description of this core advantage. Replace with actual product benefit text.</p>
+      </div>
+
+      <!-- Advantage 5 -->
+      <div style="padding:32px 24px; border-bottom:1px solid #DFDFDF;">
+        <span class="material-symbols-outlined" style="font-size:28px; color:#3B82F6; display:block; margin-bottom:20px;">deployed_code</span>
+        <h3 style="font-size:20px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:12px;">Advantage Title</h3>
+        <p style="font-size:12px; font-weight:400; line-height:1.7; letter-spacing:-0.02em; color:rgba(0,0,0,0.4);">Brief description of this core advantage. Replace with actual product benefit text.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- SECTION 3: TECHNICAL SPECIFICATIONS -->
+<!-- ============================================================ -->
+<section class="w-full bg-[#FFFFFF]">
+  <div style="padding:32px;">
+    <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:48px;">
+      <h2 style="font-size:36px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000;">Technical Specifications</h2>
+      <span style="font-size:12px; font-weight:400; letter-spacing:0.08em; text-transform:uppercase; color:rgba(0,0,0,0.25);">SPEC_SHEET // PRODUCT NAME</span>
+    </div>
+
+    <!-- Spec Table: Single-model layout (use for products with one variant) -->
+    <div class="overflow-x-auto">
+      <div style="border:1px solid #DFDFDF; border-radius:0.25rem; min-width:560px;">
+
+        <!-- Table Header -->
+        <div class="grid grid-cols-2" style="background:#3B82F6; border-radius:0.25rem 0.25rem 0 0;">
+          <div style="padding:14px 24px;">
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:#fff;">Parameter</span>
+          </div>
+          <div style="padding:14px 24px; text-align:center; border-left:1px solid rgba(255,255,255,0.15);">
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:#fff;">Product Name</span>
+          </div>
+        </div>
+
+        <!-- Table Rows -->
+        <div class="grid grid-cols-2" style="border-bottom:1px solid #DFDFDF;">
+          <div style="padding:14px 24px; background:#FFFFFF;">
+            <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:rgba(0,0,0,0.5);">Degrees of Freedom</span>
+          </div>
+          <div style="padding:14px 24px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;">
+            <span style="font-size:12px; font-weight:500; letter-spacing:-0.02em; color:#000;">6 DOF</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2" style="border-bottom:1px solid #DFDFDF;">
+          <div style="padding:14px 24px; background:#F6F6F6;">
+            <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:rgba(0,0,0,0.5);">Working Radius</span>
+          </div>
+          <div style="padding:14px 24px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;">
+            <span style="font-size:12px; font-weight:500; letter-spacing:-0.02em; color:#000;">— mm</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2" style="border-bottom:1px solid #DFDFDF;">
+          <div style="padding:14px 24px; background:#FFFFFF;">
+            <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:rgba(0,0,0,0.5);">Payload</span>
+          </div>
+          <div style="padding:14px 24px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;">
+            <span style="font-size:12px; font-weight:500; letter-spacing:-0.02em; color:#000;">— kg</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2" style="border-bottom:1px solid #DFDFDF;">
+          <div style="padding:14px 24px; background:#F6F6F6;">
+            <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:rgba(0,0,0,0.5);">Net Weight</span>
+          </div>
+          <div style="padding:14px 24px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;">
+            <span style="font-size:12px; font-weight:500; letter-spacing:-0.02em; color:#000;">— kg</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2" style="border-bottom:1px solid #DFDFDF;">
+          <div style="padding:14px 24px; background:#FFFFFF;">
+            <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:rgba(0,0,0,0.5);">Repeatability</span>
+          </div>
+          <div style="padding:14px 24px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;">
+            <span style="font-size:12px; font-weight:500; letter-spacing:-0.02em; color:#000;">±0.05 mm</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2" style="border-bottom:1px solid #DFDFDF;">
+          <div style="padding:14px 24px; background:#F6F6F6;">
+            <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:rgba(0,0,0,0.5);">TCP Linear Speed</span>
+          </div>
+          <div style="padding:14px 24px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;">
+            <span style="font-size:12px; font-weight:500; letter-spacing:-0.02em; color:#000;">— m/s</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2" style="border-bottom:1px solid #DFDFDF;">
+          <div style="padding:14px 24px; background:#FFFFFF;">
+            <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:rgba(0,0,0,0.5);">Typical Power</span>
+          </div>
+          <div style="padding:14px 24px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;">
+            <span style="font-size:12px; font-weight:500; letter-spacing:-0.02em; color:#000;">— W</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2" style="border-bottom:1px solid #DFDFDF;">
+          <div style="padding:14px 24px; background:#F6F6F6;">
+            <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:rgba(0,0,0,0.5);">Peak Power</span>
+          </div>
+          <div style="padding:14px 24px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;">
+            <span style="font-size:12px; font-weight:500; letter-spacing:-0.02em; color:#000;">— W</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2" style="border-bottom:1px solid #DFDFDF;">
+          <div style="padding:14px 24px; background:#FFFFFF;">
+            <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:rgba(0,0,0,0.5);">Operating Temperature</span>
+          </div>
+          <div style="padding:14px 24px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;">
+            <span style="font-size:12px; font-weight:500; letter-spacing:-0.02em; color:#000;">0–50 °C</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2">
+          <div style="padding:14px 24px; background:#F6F6F6; border-radius:0 0 0 0.25rem;">
+            <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:rgba(0,0,0,0.5);">Power Supply</span>
+          </div>
+          <div style="padding:14px 24px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6; border-radius:0 0 0.25rem 0;">
+            <span style="font-size:12px; font-weight:500; letter-spacing:-0.02em; color:#000;">DC 24V</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!--
+    ============================================================
+    MULTI-MODEL TABLE (use this instead for products with 2+ variants)
+    Replace the single-model table above when needed.
+    ============================================================
+
+    <div class="overflow-x-auto">
+      <div style="border:1px solid #DFDFDF; border-radius:0.25rem; min-width:700px;">
+        <div class="grid grid-cols-3" style="background:#3B82F6; border-radius:0.25rem 0.25rem 0 0;">
+          <div style="padding:14px 24px;">
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:#fff;">Parameter</span>
+          </div>
+          <div style="padding:14px 24px; text-align:center; border-left:1px solid rgba(255,255,255,0.15);">
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:#fff;">Standard</span>
+          </div>
+          <div style="padding:14px 24px; text-align:center; border-left:1px solid rgba(255,255,255,0.15);">
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:#fff;">Six-Axis Force</span>
+          </div>
+        </div>
+        <div class="grid grid-cols-3" style="border-bottom:1px solid #DFDFDF;">
+          <div style="padding:14px 24px; background:#FFFFFF;">
+            <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:rgba(0,0,0,0.5);">Degrees of Freedom</span>
+          </div>
+          <div style="padding:14px 24px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;">
+            <span style="font-size:12px; font-weight:500; letter-spacing:-0.02em; color:#000;">6 DOF</span>
+          </div>
+          <div style="padding:14px 24px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;">
+            <span style="font-size:12px; font-weight:500; letter-spacing:-0.02em; color:#000;">6 DOF</span>
+          </div>
+        </div>
+        <div class="grid grid-cols-3" style="border-bottom:1px solid #DFDFDF;">
+          <div style="padding:14px 24px; background:#F6F6F6;">
+            <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:rgba(0,0,0,0.5);">Working Radius</span>
+          </div>
+          <div style="padding:14px 24px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;">
+            <span style="font-size:12px; font-weight:500; letter-spacing:-0.02em; color:#000;">— mm</span>
+          </div>
+          <div style="padding:14px 24px; text-align:center; border-left:1px solid #DFDFDF; background:#F6F6F6;">
+            <span style="font-size:12px; font-weight:500; letter-spacing:-0.02em; color:#000;">— mm</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    ============================================================
+    MULTI-PRODUCT TABLE (use for product lines like WHG/WHJ with 3-6 models)
+    ============================================================
+
+    <div class="overflow-x-auto">
+      <div style="border:1px solid #DFDFDF; border-radius:0.25rem; min-width:800px;">
+        <div class="grid grid-cols-6" style="background:#3B82F6; border-radius:0.25rem 0.25rem 0 0;">
+          <div style="padding:14px 16px;">
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:#fff;">Parameter</span>
+          </div>
+          <div style="padding:14px 16px; text-align:center; border-left:1px solid rgba(255,255,255,0.15);">
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.02em; color:#fff;">Model A</span>
+          </div>
+          <div style="padding:14px 16px; text-align:center; border-left:1px solid rgba(255,255,255,0.15);">
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.02em; color:#fff;">Model B</span>
+          </div>
+          <div style="padding:14px 16px; text-align:center; border-left:1px solid rgba(255,255,255,0.15);">
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.02em; color:#fff;">Model C</span>
+          </div>
+          <div style="padding:14px 16px; text-align:center; border-left:1px solid rgba(255,255,255,0.15);">
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.02em; color:#fff;">Model D</span>
+          </div>
+          <div style="padding:14px 16px; text-align:center; border-left:1px solid rgba(255,255,255,0.15);">
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.02em; color:#fff;">Model E</span>
+          </div>
+        </div>
+        <div class="grid grid-cols-6" style="border-bottom:1px solid #DFDFDF;">
+          <div style="padding:12px 16px; background:#FFFFFF;">
+            <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:rgba(0,0,0,0.5);">Weight</span>
+          </div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;">
+            <span style="font-size:12px; font-weight:500; color:#000;">—</span>
+          </div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;">
+            <span style="font-size:12px; font-weight:500; color:#000;">—</span>
+          </div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;">
+            <span style="font-size:12px; font-weight:500; color:#000;">—</span>
+          </div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;">
+            <span style="font-size:12px; font-weight:500; color:#000;">—</span>
+          </div>
+          <div style="padding:12px 16px; text-align:center; border-left:1px solid #DFDFDF; background:#FFFFFF;">
+            <span style="font-size:12px; font-weight:500; color:#000;">—</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    -->
+
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- CTA + FOOTER: GET IN TOUCH -->
+<!-- ============================================================ -->
+<style>
+  .git-input, .git-select {
+    width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);
+    border-radius:0.25rem; padding:14px 16px; font-size:15px; font-weight:400;
+    letter-spacing:-0.05em; color:#fff; outline:none; font-family:Inter,sans-serif;
+    transition:border-color 0.3s, background 0.3s;
+  }
+  .git-input::placeholder { color:rgba(255,255,255,0.3); }
+  .git-input:focus, .git-select:focus {
+    border-color:#3B82F6; background:rgba(59,130,246,0.06);
+  }
+  .git-select { appearance:none; cursor:pointer;
+    background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='rgba(255,255,255,0.35)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:right 16px center;
+  }
+  .git-select option { background:#111; color:#fff; }
+</style>
+<section id="get-in-touch" class="w-full relative" style="font-family:Inter,sans-serif; min-height:calc(100vh - 56px); background:#000; display:flex; flex-direction:column;">
+  <div style="padding:32px 32px; flex:1; display:flex; flex-direction:column; max-width:1280px;">
+    <h2 style="font-size:36px; font-weight:400; line-height:1; color:#fff; letter-spacing:-0.05em; margin-bottom:12px;">Get in Touch</h2>
+    <p style="font-size:15px; font-weight:400; letter-spacing:-0.05em; color:rgba(255,255,255,0.4); margin-bottom:48px;">Have a question or want to collaborate? We'd love to hear from you.</p>
+
+    <div style="flex:1; display:grid; grid-template-columns:1.6fr 0.7fr; gap:64px; align-content:start;">
+      <form style="max-width:100%;" onsubmit="return false;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+          <input type="text" class="git-input" placeholder="Name *" required>
+          <input type="email" class="git-input" placeholder="Work Email *" required>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+          <input type="text" class="git-input" placeholder="Company *" required>
+          <select class="git-select" required>
+            <option value="" disabled selected>Region *</option>
+            <option value="asia-pacific">Asia Pacific</option>
+            <option value="europe">Europe</option>
+            <option value="north-america">North America</option>
+            <option value="south-america">South America</option>
+            <option value="middle-east-africa">Middle East &amp; Africa</option>
+          </select>
+        </div>
+        <div style="margin-bottom:16px;">
+          <select class="git-select" required>
+            <option value="" disabled selected>Inquiry Type *</option>
+            <option value="partnership">Partnership</option>
+            <option value="sales">Sales Inquiry</option>
+            <option value="technical">Technical Support</option>
+            <option value="media">Media &amp; Press</option>
+            <option value="careers">Careers</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div style="margin-bottom:28px;">
+          <textarea class="git-input" placeholder="Additional Details (optional)" rows="4" style="resize:vertical; min-height:80px;"></textarea>
+        </div>
+        <button type="submit" style="display:inline-flex; align-items:center; gap:8px; padding:14px 32px; background:#3B82F6; color:#fff; border:none; border-radius:0.25rem; font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; font-family:Inter,sans-serif; cursor:pointer; transition:background 0.3s;" onmouseover="this.style.background='#2563EB'" onmouseout="this.style.background='#3B82F6'">
+          Submit Inquiry
+          <span class="material-symbols-outlined" style="font-size:16px;">arrow_outward</span>
+        </button>
+      </form>
+
+      <div style="display:flex; flex-direction:column; gap:48px; padding-top:36px;">
+        <div style="display:flex; flex-direction:column; gap:32px;">
+          <div>
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.35); display:block; margin-bottom:10px;">General Inquiries</span>
+            <a href="mailto:info@realman-robot.com" style="font-size:20px; font-weight:400; letter-spacing:-0.05em; color:#fff; text-decoration:none;">info@realman-robot.com</a>
+          </div>
+          <div>
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.35); display:block; margin-bottom:10px;">Sales</span>
+            <a href="mailto:Sales@realman-robot.com" style="font-size:20px; font-weight:400; letter-spacing:-0.05em; color:#fff; text-decoration:none;">Sales@realman-robot.com</a>
+          </div>
+        </div>
+        <div style="margin-top:auto; padding-top:32px;">
+          <span style="font-size:12px; font-weight:400; letter-spacing:-0.05em; color:rgba(255,255,255,0.25);">&copy; 2026 RealMan Robotics. All rights reserved.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

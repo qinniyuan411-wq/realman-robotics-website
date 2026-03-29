@@ -1,0 +1,772 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>REALMAN | TELEOPERATION NETWORK</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          "headline": ["Inter", "sans-serif"],
+          "body": ["Inter", "sans-serif"],
+          "label": ["Inter", "sans-serif"],
+        },
+        borderRadius: {
+          "DEFAULT": "0.25rem",
+          "lg": "0.25rem",
+          "xl": "0.25rem",
+          "full": "9999px",
+        },
+      },
+    },
+  }
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow-x: hidden; font-family: 'Inter', sans-serif; }
+    html { scroll-behavior: smooth; }
+    .oi-card { opacity:0; transform:translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .oi-card.oi-visible { opacity:1; transform:translateY(0); }
+    .oi-card .oi-img-wrap { transition: transform 0.6s ease; }
+    .oi-card:hover .oi-img-wrap { transform: scale(1.05); }
+    .sc-card { opacity:0; transform:translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .sc-card.sc-visible { opacity:1; transform:translateY(0); }
+    .sc-card img { transition: transform 0.6s ease; }
+    .sc-card:hover img { transform: scale(1.05); }
+
+    /* ======== Responsive: mobile-first ======== */
+
+    /* --- Section titles --- */
+    .tn-title {
+      padding: 20px 20px 0 !important;
+      font-size: 28px !important;
+      margin-top: 56px !important;
+    }
+    @media (min-width: 768px) {
+      .tn-title {
+        padding: 32px 32px 0 32px !important;
+        font-size: 36px !important;
+        margin-top: 60px !important;
+      }
+    }
+    .tn-title-no-mt { margin-top: 0 !important; }
+
+    /* --- Operational Infrastructure: 5-col → 1-col --- */
+    .oi-grid {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 16px !important;
+      padding: 16px 16px 20px !important;
+    }
+    .oi-grid .oi-card { min-height: 280px; }
+    .oi-arrows { display: none !important; }
+    @media (min-width: 1024px) {
+      .oi-grid {
+        display: grid !important;
+        flex-direction: unset !important;
+        grid-template-columns: 1fr 90px 1fr 90px 1fr !important;
+        gap: 0 !important;
+        padding: 20px 32px 32px !important;
+      }
+      .oi-grid .oi-card { min-height: 0; }
+      .oi-arrows { display: flex !important; }
+    }
+
+    /* --- Platform Capabilities: 3-col → 1-col --- */
+    .pc-top { grid-template-columns: 1fr !important; gap: 12px !important; padding: 16px 16px 0 !important; }
+    .pc-bottom { padding: 16px 16px 48px !important; }
+    .pc-strip { flex-direction: column !important; }
+    .pc-strip-divider { width: 100% !important; height: 1px !important; background: linear-gradient(to right, transparent 15%, #3B82F6 50%, transparent 85%) !important; }
+    .pc-card-pad { padding: 20px !important; }
+    @media (min-width: 768px) {
+      .pc-top { grid-template-columns: repeat(3, 1fr) !important; gap: 16px !important; padding: 32px 32px 0 !important; }
+      .pc-bottom { padding: 32px 32px 80px !important; }
+      .pc-strip { flex-direction: row !important; }
+      .pc-strip-divider { width: 1px !important; height: auto !important; background: linear-gradient(to bottom, transparent 15%, #3B82F6 50%, transparent 85%) !important; }
+      .pc-card-pad { padding: 32px !important; }
+    }
+
+    /* --- Teleoperation to Autonomy: 3-col → 1-col --- */
+    .ta-phases { grid-template-columns: 1fr !important; gap: 40px !important; }
+    .ta-line-wrap { display: none !important; }
+    .ta-wrap { padding: 32px 16px 48px !important; }
+    @media (min-width: 768px) {
+      .ta-phases { grid-template-columns: repeat(3, 1fr) !important; gap: 0 !important; }
+      .ta-line-wrap { display: block !important; }
+      .ta-wrap { padding: 48px 32px 80px !important; }
+    }
+
+    /* --- Key Scenarios: 2+3 → 1-col --- */
+    .sc-row { flex-direction: column !important; gap: 12px !important; }
+    .sc-row .sc-card { min-height: 320px; }
+    .sc-content { padding: 12px 16px 20px !important; gap: 12px !important; }
+    @media (min-width: 768px) {
+      .sc-row { flex-direction: row !important; gap: 16px !important; }
+      .sc-row .sc-card { min-height: 0; }
+      .sc-content { padding: 20px 32px 32px !important; gap: 16px !important; }
+    }
+
+    /* --- CTA + Footer --- */
+    .cta-grid-tn { grid-template-columns: 1fr !important; gap: 32px !important; }
+    .cta-form-row-tn { grid-template-columns: 1fr !important; }
+    .cta-wrap-tn { padding: 20px !important; }
+    #git-title { font-size: 28px !important; }
+    @media (min-width: 768px) {
+      .cta-grid-tn { grid-template-columns: 1.6fr 0.7fr !important; gap: 64px !important; }
+      .cta-form-row-tn { grid-template-columns: 1fr 1fr !important; }
+      .cta-wrap-tn { padding: 32px !important; }
+      #git-title { font-size: 36px !important; }
+    }
+    @media (min-width: 768px) {
+      #contact-form button[type="submit"] { width: auto !important; }
+    }
+
+  </style>
+<style>
+  .git-input, .git-select {
+    width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);
+    border-radius:0.25rem; padding:14px 16px; font-size:15px; font-weight:400;
+    letter-spacing:-0.05em; color:#fff; outline:none; font-family:Inter,sans-serif;
+    transition:border-color 0.3s, background 0.3s;
+  }
+  .git-input::placeholder { color:rgba(255,255,255,0.3); }
+  .git-input:focus, .git-select:focus {
+    border-color:#3B82F6; background:rgba(59,130,246,0.06);
+  }
+  .git-select { appearance:none; cursor:pointer;
+    background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='rgba(255,255,255,0.35)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:right 16px center;
+  }
+  .git-select option { background:#111; color:#fff; }
+</style>
+
+</head>
+<body>
+
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full border-b border-[#DFDFDF] bg-[#F6F6F6]/80 backdrop-blur-xl z-[9999] grid items-center px-4 md:px-[32px] py-3 md:py-4" style="grid-template-columns:auto 1fr auto;">
+  <a href="home.html" style="text-decoration:none;"><img src="../../prop/logo.png" alt="REALMAN ROBOTICS" class="h-[20px] w-auto"></a>
+  <button class="md:hidden justify-self-end text-[#1a1a1a]/70 hover:text-[#3B82F6]" onclick="document.getElementById('mobile-menu-tn').classList.toggle('hidden')">
+    <span class="material-symbols-outlined text-[20px]">menu</span>
+  </button>
+  <div class="hidden md:flex items-center justify-center space-x-4">
+    <a href="home.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">Home</a>
+    <div class="relative group/cp flex items-center">
+      <a href="core-products.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">Core Products</a>
+      <div class="absolute top-full left-0 pt-3 hidden group-hover/cp:block">
+        <div class="bg-white/95 backdrop-blur-xl border border-[#DFDFDF] shadow-2xl shadow-black/10 rounded-[0.25rem]">
+          <div class="grid grid-cols-3 divide-x divide-[#DFDFDF]" style="min-width:660px;">
+            <div class="py-5 px-5">
+              <a href="core-products.html#joint-modules" class="block text-[12px] text-[#000] tracking-wider mb-3 pb-2 border-b border-[#DFDFDF]" style="text-decoration:none;">Joint Modules</a>
+              <a href="../products/whj-joint-modules.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">WHJ Series</a>
+              <a href="../products/whj-torque-joint-modules.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">WHJ Torque Series</a>
+              <a href="../products/whg-joint-modules.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">WHG Series</a>
+            </div>
+            <div class="py-5 px-5">
+              <a href="core-products.html#robotic-arms" class="block text-[12px] text-[#000] tracking-wider mb-3 pb-2 border-b border-[#DFDFDF]" style="text-decoration:none;">Robotic Arms</a>
+              <a href="core-products.html#robotic-arms" class="block text-[12px] text-[#000] tracking-wider mt-1 mb-1 hover:text-[#3B82F6]" style="text-decoration:none;">RM Series</a>
+              <a href="../products/rm65.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">RM65</a>
+              <a href="../products/rm75.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">RM75</a>
+              <a href="core-products.html#robotic-arms" class="block text-[12px] text-[#000] tracking-wider mt-3 mb-1 hover:text-[#3B82F6]" style="text-decoration:none;">RML Series</a>
+              <a href="../products/rml63.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">RML63</a>
+              <a href="core-products.html#robotic-arms" class="block text-[12px] text-[#000] tracking-wider mt-3 mb-1 hover:text-[#3B82F6]" style="text-decoration:none;">ECO Series</a>
+              <a href="../products/eco65.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">ECO65</a>
+              <a href="../products/eco63.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">ECO63</a>
+              <a href="../products/eco62.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">ECO62</a>
+              <a href="core-products.html#robotic-arms" class="block text-[12px] text-[#000] tracking-wider mt-3 mb-1 hover:text-[#3B82F6]" style="text-decoration:none;">RX Series</a>
+              <a href="../products/rx75.html" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">RX75</a>
+            </div>
+            <div class="py-5 px-5">
+              <a href="core-products.html#wheeled-robots" class="block text-[12px] text-[#000] tracking-wider mb-3 pb-2 border-b border-[#DFDFDF]" style="text-decoration:none;">Wheeled Robots</a>
+              <a href="../products/realbot-humanoid.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">RealBOT Humanoid</a>
+              <a href="../products/single-arm-lift.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Single-Arm Lift</a>
+              <a href="../products/dual-arm-lift.html" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Dual-Arm Lift</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="teleoperation-network.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">Teleoperation Network</a>
+    <a href="data-services.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">Data Services</a>
+    <div class="relative group/sol flex items-center">
+      <a href="solutions.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">Solutions</a>
+      <div class="absolute top-full left-0 pt-3 hidden group-hover/sol:block">
+        <div class="bg-white/95 backdrop-blur-xl border border-[#DFDFDF] shadow-2xl shadow-black/10 min-w-[240px] py-4 px-5 rounded-[0.25rem]">
+          <a href="solutions.html#industry" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Industry Solutions</a>
+          <a href="solutions.html#ecosystem" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Ecosystem Solutions</a>
+          <a href="solutions.html#odm" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">ODM Services</a>
+          <a href="solutions.html#robotic-arm-odm" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Robotic Arm ODM</a>
+          <a href="solutions.html#complete-robot-odm" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Complete Robot ODM</a>
+          <a href="solutions.html#odm-pipeline" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">ODM Pipeline</a>
+        </div>
+      </div>
+    </div>
+    <div class="relative group/dev flex items-center">
+      <a href="developer-center.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">Developer Center</a>
+      <div class="absolute top-full left-0 pt-3 hidden group-hover/dev:block">
+        <div class="bg-white/95 backdrop-blur-xl border border-[#DFDFDF] shadow-2xl shadow-black/10 min-w-[220px] py-4 px-5 rounded-[0.25rem]">
+          <a href="developer-center.html#products-spec" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Product Specs</a>
+          <a href="developer-center.html#documentation" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Technical Documentation</a>
+          <a href="developer-center.html#faqs" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">FAQs</a>
+        </div>
+      </div>
+    </div>
+    <div class="relative group/about flex items-center">
+      <a href="about-us.html" class="text-[#000] font-bold text-[12px] tracking-wider hover:bg-[#000]/10 px-2 py-1 rounded-[0.25rem] cursor-pointer" style="text-decoration:none;">About Us</a>
+      <div class="absolute top-full left-0 pt-3 hidden group-hover/about:block">
+        <div class="bg-white/95 backdrop-blur-xl border border-[#DFDFDF] shadow-2xl shadow-black/10 min-w-[240px] py-4 px-5 rounded-[0.25rem]">
+          <a href="about-us.html#who-we-are" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Company Overview</a>
+          <a href="about-us.html#who-we-are" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Who We Are</a>
+          <a href="about-us.html#milestones" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Milestones</a>
+          <a href="about-us.html#certifications" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Certifications</a>
+          <a href="about-us.html#partners" class="block py-1 pl-4 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Partners</a>
+          <div class="border-t border-[#DFDFDF] my-2"></div>
+          <a href="about-us.html#news" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">News &amp; Events</a>
+          <a href="about-us.html#careers" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Careers</a>
+          <a href="about-us.html#partnership" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Partnership</a>
+          <a href="#get-in-touch" class="block py-1.5 text-[12px] text-[#000] tracking-wider hover:text-[#3B82F6]" style="text-decoration:none;">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hidden md:block text-[12px] tracking-wider font-bold border border-[#3B82F6]/30 px-3 py-1 rounded-[0.25rem] cursor-pointer select-none" onclick="switchLang()"><span style="color:rgba(59,130,246,0.4)">CN</span><span style="color:rgba(59,130,246,0.25)">/</span><span style="color:#3B82F6">EN</span></div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu-tn" class="hidden fixed top-[52px] left-0 w-full bg-white/98 backdrop-blur-xl z-[9998] border-b border-[#DFDFDF] md:hidden overflow-y-auto max-h-[calc(100vh-52px)]">
+  <div class="flex flex-col py-4 px-4 md:px-[32px] space-y-3">
+    <a href="home.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">Home</a>
+    <a href="core-products.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">Core Products</a>
+    <a href="teleoperation-network.html" class="text-[#3B82F6] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">Teleoperation Network</a>
+    <a href="data-services.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">Data Services</a>
+    <a href="solutions.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">Solutions</a>
+    <a href="developer-center.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">Developer Center</a>
+    <a href="about-us.html" class="text-[#000] font-bold text-[12px] tracking-wider py-2" style="text-decoration:none;">About Us</a>
+    <div class="text-[12px] tracking-wider font-bold border border-[#3B82F6]/30 px-3 py-1 w-fit rounded-[0.25rem] cursor-pointer select-none" onclick="switchLang()"><span style="color:rgba(59,130,246,0.4)">CN</span><span style="color:rgba(59,130,246,0.25)">/</span><span style="color:#3B82F6">EN</span></div>
+  </div>
+</div>
+
+<!-- Section 1: Operational Infrastructure -->
+<section id="operational-infrastructure" class="w-full lg:h-screen relative flex flex-col" style="font-family:'Inter',sans-serif; background:#FFFFFF;">
+  <h2 id="s1-title" class="tn-title" style="padding:32px 32px 0 32px; margin-top:60px; font-size:36px; font-weight:400; line-height:1; color:#000; letter-spacing:-0.05em; flex-shrink:0; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">Operational Infrastructure</h2>
+  <div class="oi-grid flex-1" style="padding:20px 32px 32px; min-height:0; display:grid; grid-template-columns:1fr 90px 1fr 90px 1fr; gap:0; align-items:stretch;">
+
+    <!-- Card 1: Operator Station -->
+    <div class="oi-card rounded-[0.25rem] relative overflow-hidden" style="transition-delay:0s;">
+      <div class="oi-img-wrap" style="position:absolute; inset:0;">
+        <img src="../../prop/operator-station.png" alt="" style="width:100%; height:100%; object-fit:cover; object-position:center 30%;">
+      </div>
+      <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.25) 55%, rgba(0,0,0,0.05) 100%);"></div>
+      <div style="position:relative; z-index:1; height:100%; display:flex; flex-direction:column; justify-content:flex-end; padding:28px;">
+        <span style="font-size:20px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#F6F6F6; display:block; margin-bottom:14px;">Operator Station</span>
+        <div style="display:flex; flex-direction:column; gap:0;">
+          <div style="padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.1);">
+            <span style="font-size:15px; font-weight:400; letter-spacing:-0.05em; color:rgba(246,246,246,0.85);">Operators</span>
+          </div>
+          <div style="padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.1);">
+            <span style="font-size:15px; font-weight:400; letter-spacing:-0.05em; color:rgba(246,246,246,0.85);">Display Systems</span>
+          </div>
+          <div style="padding:8px 0;">
+            <span style="font-size:15px; font-weight:400; letter-spacing:-0.05em; color:rgba(246,246,246,0.85);">Teleoperation Controls</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Arrows 1→2 / 2→1 -->
+    <div class="oi-arrows" style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:32px;">
+      <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
+        <span style="font-size:9px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:#3B82F6; white-space:nowrap;">Behavior</span>
+        <span style="font-size:9px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:#3B82F6; white-space:nowrap;">Control</span>
+        <svg width="48" height="20" viewBox="-4 -2 56 24" fill="none" style="margin-top:4px; overflow:visible;">
+          <defs>
+            <filter id="glow-r1" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <linearGradient id="trail-r1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#3B82F6" stop-opacity="0"/><stop offset="60%" stop-color="#3B82F6" stop-opacity="0.6"/><stop offset="100%" stop-color="#3B82F6" stop-opacity="1"/></linearGradient>
+          </defs>
+          <line x1="0" y1="10" x2="38" y2="10" stroke="rgba(59,130,246,0.15)" stroke-width="1"/>
+          <path d="M34 5 L42 10 L34 15" stroke="#3B82F6" stroke-width="1" fill="none" stroke-linejoin="round"/>
+          <g filter="url(#glow-r1)"><rect width="18" height="3" rx="1.5" y="8.5" fill="url(#trail-r1)"><animateMotion dur="1.8s" repeatCount="indefinite" path="M-18,0 L42,0" calcMode="linear"/></rect></g>
+        </svg>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
+        <svg width="48" height="20" viewBox="-4 -2 56 24" fill="none" style="margin-bottom:4px; overflow:visible;">
+          <defs>
+            <filter id="glow-l1" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <linearGradient id="trail-l1" x1="1" y1="0" x2="0" y2="0"><stop offset="0%" stop-color="#aaa" stop-opacity="0"/><stop offset="60%" stop-color="#bbb" stop-opacity="0.4"/><stop offset="100%" stop-color="#ccc" stop-opacity="0.8"/></linearGradient>
+          </defs>
+          <line x1="48" y1="10" x2="10" y2="10" stroke="rgba(0,0,0,0.08)" stroke-width="1" stroke-dasharray="3 3"/>
+          <path d="M14 5 L6 10 L14 15" stroke="#DFDFDF" stroke-width="1" fill="none" stroke-linejoin="round"/>
+          <g filter="url(#glow-l1)"><rect width="14" height="2" rx="1" y="9" fill="url(#trail-l1)"><animateMotion dur="2.2s" repeatCount="indefinite" path="M48,0 L-4,0" calcMode="linear"/></rect></g>
+        </svg>
+        <span style="font-size:9px; font-weight:400; letter-spacing:0.06em; text-transform:uppercase; color:#999; white-space:nowrap;">Video &</span>
+        <span style="font-size:9px; font-weight:400; letter-spacing:0.06em; text-transform:uppercase; color:#999; white-space:nowrap;">Robot Status</span>
+      </div>
+    </div>
+
+    <!-- Card 2: Cloud Services -->
+    <div class="oi-card rounded-[0.25rem] relative overflow-hidden" style="transition-delay:0.12s;">
+      <div class="oi-img-wrap" style="position:absolute; inset:0;">
+        <img src="../../prop/cloud-services-3.png" alt="" style="width:100%; height:100%; object-fit:cover; object-position:center 30%;">
+      </div>
+      <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.25) 55%, rgba(0,0,0,0.05) 100%);"></div>
+      <div style="position:relative; z-index:1; height:100%; display:flex; flex-direction:column; justify-content:flex-end; padding:28px;">
+        <span style="font-size:20px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#F6F6F6; display:block; margin-bottom:14px;">Cloud Services</span>
+        <div style="display:flex; flex-direction:column; gap:0;">
+          <div style="padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.1);">
+            <span style="font-size:15px; font-weight:400; letter-spacing:-0.05em; color:rgba(246,246,246,0.85);">Data Storage</span>
+          </div>
+          <div style="padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.1);">
+            <span style="font-size:15px; font-weight:400; letter-spacing:-0.05em; color:rgba(246,246,246,0.85);">Device Management</span>
+          </div>
+          <div style="padding:8px 0;">
+            <span style="font-size:15px; font-weight:400; letter-spacing:-0.05em; color:rgba(246,246,246,0.85);">AI Services</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Arrows 2→3 / 3→2 -->
+    <div class="oi-arrows" style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:32px;">
+      <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
+        <span style="font-size:9px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:#3B82F6; white-space:nowrap;">Robot</span>
+        <span style="font-size:9px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:#3B82F6; white-space:nowrap;">Scheduling</span>
+        <svg width="48" height="20" viewBox="-4 -2 56 24" fill="none" style="margin-top:4px; overflow:visible;">
+          <defs>
+            <filter id="glow-r2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <linearGradient id="trail-r2" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#3B82F6" stop-opacity="0"/><stop offset="60%" stop-color="#3B82F6" stop-opacity="0.6"/><stop offset="100%" stop-color="#3B82F6" stop-opacity="1"/></linearGradient>
+          </defs>
+          <line x1="0" y1="10" x2="38" y2="10" stroke="rgba(59,130,246,0.15)" stroke-width="1"/>
+          <path d="M34 5 L42 10 L34 15" stroke="#3B82F6" stroke-width="1" fill="none" stroke-linejoin="round"/>
+          <g filter="url(#glow-r2)"><rect width="18" height="3" rx="1.5" y="8.5" fill="url(#trail-r2)"><animateMotion dur="1.8s" repeatCount="indefinite" path="M-18,0 L42,0" calcMode="linear"/></rect></g>
+        </svg>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
+        <svg width="48" height="20" viewBox="-4 -2 56 24" fill="none" style="margin-bottom:4px; overflow:visible;">
+          <defs>
+            <filter id="glow-l2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <linearGradient id="trail-l2" x1="1" y1="0" x2="0" y2="0"><stop offset="0%" stop-color="#aaa" stop-opacity="0"/><stop offset="60%" stop-color="#bbb" stop-opacity="0.4"/><stop offset="100%" stop-color="#ccc" stop-opacity="0.8"/></linearGradient>
+          </defs>
+          <line x1="48" y1="10" x2="10" y2="10" stroke="rgba(0,0,0,0.08)" stroke-width="1" stroke-dasharray="3 3"/>
+          <path d="M14 5 L6 10 L14 15" stroke="#DFDFDF" stroke-width="1" fill="none" stroke-linejoin="round"/>
+          <g filter="url(#glow-l2)"><rect width="14" height="2" rx="1" y="9" fill="url(#trail-l2)"><animateMotion dur="2.2s" repeatCount="indefinite" path="M48,0 L-4,0" calcMode="linear"/></rect></g>
+        </svg>
+        <span style="font-size:9px; font-weight:400; letter-spacing:0.06em; text-transform:uppercase; color:#999; white-space:nowrap;">Data</span>
+        <span style="font-size:9px; font-weight:400; letter-spacing:0.06em; text-transform:uppercase; color:#999; white-space:nowrap;">Collection</span>
+      </div>
+    </div>
+
+    <!-- Card 3: Robot Site -->
+    <div class="oi-card rounded-[0.25rem] relative overflow-hidden" style="transition-delay:0.24s;">
+      <div class="oi-img-wrap" style="position:absolute; inset:0;">
+        <img src="../../prop/robot-site.png" alt="" style="width:100%; height:100%; object-fit:cover; object-position:center 30%;">
+      </div>
+      <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.25) 55%, rgba(0,0,0,0.05) 100%);"></div>
+      <div style="position:relative; z-index:1; height:100%; display:flex; flex-direction:column; justify-content:flex-end; padding:28px;">
+        <span style="font-size:20px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#F6F6F6; display:block; margin-bottom:14px;">Robot Site</span>
+        <div style="display:flex; flex-direction:column; gap:0;">
+          <div style="padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.1);">
+            <span style="font-size:15px; font-weight:400; letter-spacing:-0.05em; color:rgba(246,246,246,0.85);">Task Execution</span>
+          </div>
+          <div style="padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.1);">
+            <span style="font-size:15px; font-weight:400; letter-spacing:-0.05em; color:rgba(246,246,246,0.85);">Data Collection</span>
+          </div>
+          <div style="padding:8px 0;">
+            <span style="font-size:15px; font-weight:400; letter-spacing:-0.05em; color:rgba(246,246,246,0.85);">Status Feedback</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Section 2: Platform Capabilities -->
+<section id="platform-capabilities" class="w-full bg-[#FFFFFF] relative flex flex-col" style="font-family:'Inter',sans-serif;">
+  <h2 id="s2-title" class="tn-title tn-title-no-mt" style="padding:32px 32px 0 32px; font-size:36px; font-weight:400; line-height:1; color:#000; letter-spacing:-0.05em; flex-shrink:0; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">Platform Capabilities</h2>
+
+  <!-- Top: 3 Core Capabilities -->
+  <div class="pc-top grid" style="grid-template-columns:repeat(3,1fr); gap:16px; padding:32px 32px 0;">
+    <div class="pc-card-pad rounded-[0.25rem] bg-[#F6F6F6] flex flex-col" style="padding:32px;">
+      <span style="font-size:12px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:#3B82F6; display:block; margin-bottom:20px;">01</span>
+      <h3 style="font-size:20px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:16px;">Real-Time Remote Operation</h3>
+      <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999;">Enables the remote execution of high-dexterity tasks, extending human capability across distance to complete precise operations from anywhere.</p>
+    </div>
+    <div class="pc-card-pad rounded-[0.25rem] bg-[#F6F6F6] flex flex-col" style="padding:32px;">
+      <span style="font-size:12px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:#3B82F6; display:block; margin-bottom:20px;">02</span>
+      <h3 style="font-size:20px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:16px;">Immersive Teleoperation Experience</h3>
+      <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999;">Combines multimodal input with real-time feedback to improve control intuitiveness, operational stability, and task quality.</p>
+    </div>
+    <div class="pc-card-pad rounded-[0.25rem] bg-[#F6F6F6] flex flex-col" style="padding:32px;">
+      <span style="font-size:12px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:#3B82F6; display:block; margin-bottom:20px;">03</span>
+      <h3 style="font-size:20px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:16px;">Unified Multi-Device Management</h3>
+      <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999;">Connects, manages, and orchestrates robot endpoints and task nodes distributed across different locations through one unified platform.</p>
+    </div>
+  </div>
+
+  <div class="pc-bottom" style="padding:32px 32px 80px;">
+    <span style="font-size:12px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:#3B82F6; display:block; margin-bottom:24px;">Safety, Control & Traceability</span>
+    <div class="pc-strip rounded-[0.25rem] overflow-hidden" style="background:#F6F6F6; display:flex; align-items:stretch;">
+      <div style="flex:1; padding:28px 24px;">
+        <span class="material-symbols-outlined" style="font-size:24px; color:#3B82F6; display:block; margin-bottom:16px;">admin_panel_settings</span>
+        <h4 style="font-size:15px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:10px;">Multi-level Access Control</h4>
+        <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999;">Role-based accounts and permission management for secure, scope-defined operation access.</p>
+      </div>
+      <div class="pc-strip-divider" style="width:1px; background:linear-gradient(to bottom, transparent 15%, #3B82F6 50%, transparent 85%); flex-shrink:0;"></div>
+      <div style="flex:1; padding:28px 24px;">
+        <span class="material-symbols-outlined" style="font-size:24px; color:#3B82F6; display:block; margin-bottom:16px;">monitor_heart</span>
+        <h4 style="font-size:15px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:10px;">Real-Time Device Monitoring</h4>
+        <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999;">Continuous visibility into robot status, component health, and network conditions.</p>
+      </div>
+      <div class="pc-strip-divider" style="width:1px; background:linear-gradient(to bottom, transparent 15%, #3B82F6 50%, transparent 85%); flex-shrink:0;"></div>
+      <div style="flex:1; padding:28px 24px;">
+        <span class="material-symbols-outlined" style="font-size:24px; color:#3B82F6; display:block; margin-bottom:16px;">history_edu</span>
+        <h4 style="font-size:15px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:10px;">Traceable & Replayable Execution</h4>
+        <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999;">Task processes are recorded for traceability, playback, review, and optimization.</p>
+      </div>
+      <div class="pc-strip-divider" style="width:1px; background:linear-gradient(to bottom, transparent 15%, #3B82F6 50%, transparent 85%); flex-shrink:0;"></div>
+      <div style="flex:1; padding:28px 24px;">
+        <span class="material-symbols-outlined" style="font-size:24px; color:#3B82F6; display:block; margin-bottom:16px;">emergency_home</span>
+        <h4 style="font-size:15px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:10px;">Interruption Response & Safety Protection</h4>
+        <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999;">Built-in protection mechanisms for network loss, abnormal interruption, and operational risk.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section: Teleoperation to Autonomy -->
+<style>
+@keyframes ta-line-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes ta-node-in { from { transform: scale(0); opacity:0; } to { transform: scale(1); opacity:1; } }
+@keyframes ta-fade-up { from { transform: translateY(16px); opacity:0; } to { transform: translateY(0); opacity:1; } }
+.ta-line { transform-origin: right; transform: scaleX(0); }
+.ta-node { transform: scale(0); opacity:0; }
+.ta-text { opacity:0; transform: translateY(16px); }
+.ta-animate .ta-line { animation: ta-line-grow 0.8s cubic-bezier(0.22,1,0.36,1) forwards; }
+.ta-animate .ta-node-1 { animation: ta-node-in 0.5s cubic-bezier(0.22,1,0.36,1) 0.7s forwards; }
+.ta-animate .ta-node-2 { animation: ta-node-in 0.5s cubic-bezier(0.22,1,0.36,1) 1.0s forwards; }
+.ta-animate .ta-node-3 { animation: ta-node-in 0.5s cubic-bezier(0.22,1,0.36,1) 1.3s forwards; }
+.ta-animate .ta-text-1 { animation: ta-fade-up 0.5s ease 0.9s forwards; }
+.ta-animate .ta-text-2 { animation: ta-fade-up 0.5s ease 1.2s forwards; }
+.ta-animate .ta-text-3 { animation: ta-fade-up 0.5s ease 1.5s forwards; }
+@keyframes ta-pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(59,130,246,0.3); } 50% { box-shadow: 0 0 0 10px rgba(59,130,246,0); } }
+.ta-pulse { animation: ta-pulse 2.5s ease-in-out infinite; }
+</style>
+<section id="teleop-to-autonomy" class="w-full bg-[#FFFFFF] relative flex flex-col" style="font-family:'Inter',sans-serif;">
+  <h2 id="s4-title" class="tn-title tn-title-no-mt" style="padding:32px 32px 0 32px; font-size:36px; font-weight:400; line-height:1; color:#000; letter-spacing:-0.05em; flex-shrink:0; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">Teleoperation to Autonomy</h2>
+  <div id="ta-container" class="ta-wrap" style="padding:48px 32px 80px;">
+    <div class="ta-phases w-full grid" style="grid-template-columns:repeat(3,1fr); gap:0; position:relative;">
+      <div class="ta-line ta-line-wrap" style="position:absolute; top:28px; left:16.6%; right:16.6%; height:2px; background:linear-gradient(to right, #DFDFDF, #DFDFDF 48%, #3B82F6 52%, #3B82F6); z-index:0;"></div>
+      <!-- Phase 1 -->
+      <div class="flex flex-col items-center text-center" style="position:relative; z-index:1;">
+        <div class="ta-node ta-node-1" style="width:56px; height:56px; border-radius:50%; border:2px solid #DFDFDF; background:#F6F6F6; display:flex; align-items:center; justify-content:center; margin-bottom:24px;">
+          <span style="font-size:20px; font-weight:400; color:#999;">01</span>
+        </div>
+        <div class="ta-text ta-text-1">
+          <h3 style="font-size:20px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000; margin-bottom:12px;">Full Teleoperation</h3>
+          <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999; max-width:280px; margin:0 auto;">Human operators control every robot action in real time, generating rich real-world data from the start.</p>
+        </div>
+      </div>
+      <!-- Phase 2 -->
+      <div class="flex flex-col items-center text-center" style="position:relative; z-index:1;">
+        <div class="ta-node ta-node-2" style="width:56px; height:56px; border-radius:50%; background:rgba(59,130,246,0.5); display:flex; align-items:center; justify-content:center; margin-bottom:24px;">
+          <span style="font-size:20px; font-weight:400; color:#fff;">02</span>
+        </div>
+        <div class="ta-text ta-text-2">
+          <h3 style="font-size:20px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000; margin-bottom:12px;">Assisted Autonomy</h3>
+          <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999; max-width:280px; margin:0 auto;">As teleoperation data continues to accumulate, robots begin to handle routine subtasks autonomously, with human intervention when needed.</p>
+        </div>
+      </div>
+      <!-- Phase 3 -->
+      <div class="flex flex-col items-center text-center" style="position:relative; z-index:1;">
+        <div class="ta-node ta-node-3 ta-pulse" style="width:56px; height:56px; border-radius:50%; background:#3B82F6; display:flex; align-items:center; justify-content:center; margin-bottom:24px;">
+          <span style="font-size:20px; font-weight:400; color:#fff;">03</span>
+        </div>
+        <div class="ta-text ta-text-3">
+          <h3 style="font-size:20px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000; margin-bottom:12px;">Scaled Autonomy</h3>
+          <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999; max-width:280px; margin:0 auto;">With continuous data collection and iterative learning, robots achieve autonomous execution at scale, while human oversight remains available on demand.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 3: Key Application Scenarios -->
+<section id="key-scenarios" class="w-full lg:h-screen relative flex flex-col" style="font-family:'Inter',sans-serif; background:#FFFFFF;">
+  <h2 id="s3-title" class="tn-title tn-title-no-mt" style="padding:32px 32px 0 32px; font-size:36px; font-weight:400; line-height:1; color:#000; letter-spacing:-0.05em; flex-shrink:0; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">Key Application Scenarios</h2>
+  <div class="flex-1 flex flex-col sc-content" style="padding:20px 32px 32px; gap:16px; min-height:0;">
+    <!-- Top row: 2 cards -->
+    <div class="sc-row flex" style="gap:16px; flex:1; min-height:0;">
+      <!-- 1: Industrial Operations -->
+      <div class="sc-card rounded-[0.25rem] relative overflow-hidden flex-1" style="transition-delay:0s;">
+        <img src="../../prop/scenario-1.png" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 30%;">
+        <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.15) 100%);"></div>
+        <div style="position:relative; z-index:1; height:100%; display:flex; flex-direction:column; justify-content:flex-end; padding:28px;">
+          <span class="material-symbols-outlined" style="font-size:28px; color:#3B82F6; display:block; margin-bottom:16px;">construction</span>
+          <h3 style="font-size:20px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#F6F6F6; margin-bottom:12px;">Industrial Operations</h3>
+          <p style="font-size:12px; font-weight:400; line-height:1.7; letter-spacing:-0.05em; color:rgba(246,246,246,0.5); margin-bottom:16px;">For equipment maintenance, inspection, assembly, and complex workstation assistance, enabling high-quality operations with reduced on-site manpower.</p>
+          <div style="border-top:1px solid rgba(255,255,255,0.1); padding-top:12px;">
+            <p style="font-size:12px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:rgba(246,246,246,0.25);">Manufacturing &nbsp;/&nbsp; Mining &nbsp;/&nbsp; Construction &nbsp;/&nbsp; Logistics</p>
+          </div>
+        </div>
+      </div>
+      <!-- 2: Energy & Infrastructure -->
+      <div class="sc-card rounded-[0.25rem] relative overflow-hidden flex-1" style="transition-delay:0.12s;">
+        <img src="../../prop/scenario-2.png" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 30%;">
+        <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.15) 100%);"></div>
+        <div style="position:relative; z-index:1; height:100%; display:flex; flex-direction:column; justify-content:flex-end; padding:28px;">
+          <span class="material-symbols-outlined" style="font-size:28px; color:#3B82F6; display:block; margin-bottom:16px;">bolt</span>
+          <h3 style="font-size:20px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#F6F6F6; margin-bottom:12px;">Energy & Infrastructure</h3>
+          <p style="font-size:12px; font-weight:400; line-height:1.7; letter-spacing:-0.05em; color:rgba(246,246,246,0.5); margin-bottom:16px;">Built for power systems, energy sites, hazardous environments, and remote facilities, providing remote support for dangerous, distributed, and complex tasks.</p>
+          <div style="border-top:1px solid rgba(255,255,255,0.1); padding-top:12px;">
+            <p style="font-size:12px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:rgba(246,246,246,0.25);">Oil & Gas &nbsp;/&nbsp; Power Plants &nbsp;/&nbsp; Renewables &nbsp;/&nbsp; Utilities</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Bottom row: 3 cards -->
+    <div class="sc-row flex" style="gap:16px; flex:1; min-height:0;">
+      <!-- 3: Commercial Services -->
+      <div class="sc-card rounded-[0.25rem] relative overflow-hidden flex-1" style="transition-delay:0.24s;">
+        <img src="../../prop/scenario-3.png" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 40%;">
+        <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.15) 100%);"></div>
+        <div style="position:relative; z-index:1; height:100%; display:flex; flex-direction:column; justify-content:flex-end; padding:28px;">
+          <span class="material-symbols-outlined" style="font-size:28px; color:#3B82F6; display:block; margin-bottom:16px;">storefront</span>
+          <h3 style="font-size:20px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#F6F6F6; margin-bottom:12px;">Commercial Services</h3>
+          <p style="font-size:12px; font-weight:400; line-height:1.7; letter-spacing:-0.05em; color:rgba(246,246,246,0.5); margin-bottom:16px;">Supports exception handling, routine operational assistance, and service execution in commercial environments, improving service continuity and operational efficiency.</p>
+          <div style="border-top:1px solid rgba(255,255,255,0.1); padding-top:12px;">
+            <p style="font-size:12px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:rgba(246,246,246,0.25);">Retail &nbsp;/&nbsp; Hospitality &nbsp;/&nbsp; Healthcare &nbsp;/&nbsp; Logistics</p>
+          </div>
+        </div>
+      </div>
+      <!-- 4: Home & Living -->
+      <div class="sc-card rounded-[0.25rem] relative overflow-hidden flex-1" style="transition-delay:0.36s;">
+        <img src="../../prop/scenario-4.png" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 40%;">
+        <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.15) 100%);"></div>
+        <div style="position:relative; z-index:1; height:100%; display:flex; flex-direction:column; justify-content:flex-end; padding:28px;">
+          <span class="material-symbols-outlined" style="font-size:28px; color:#3B82F6; display:block; margin-bottom:16px;">home_health</span>
+          <h3 style="font-size:20px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#F6F6F6; margin-bottom:12px;">Home & Living</h3>
+          <p style="font-size:12px; font-weight:400; line-height:1.7; letter-spacing:-0.05em; color:rgba(246,246,246,0.5); margin-bottom:16px;">Designed for assistive services, daily support, and companionship-oriented tasks, creating a remote enablement path for future home robotics.</p>
+          <div style="border-top:1px solid rgba(255,255,255,0.1); padding-top:12px;">
+            <p style="font-size:12px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:rgba(246,246,246,0.25);">Elderly Care &nbsp;/&nbsp; Daily Assistance &nbsp;/&nbsp; Companionship &nbsp;/&nbsp; Rehabilitation</p>
+          </div>
+        </div>
+      </div>
+      <!-- 5: Data Collection & Training -->
+      <div class="sc-card rounded-[0.25rem] relative overflow-hidden flex-1" style="transition-delay:0.48s;">
+        <img src="../../prop/scenario-5.png" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 40%;">
+        <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.15) 100%);"></div>
+        <div style="position:relative; z-index:1; height:100%; display:flex; flex-direction:column; justify-content:flex-end; padding:28px;">
+          <span class="material-symbols-outlined" style="font-size:28px; color:#3B82F6; display:block; margin-bottom:16px;">model_training</span>
+          <h3 style="font-size:20px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#F6F6F6; margin-bottom:12px;">Data Collection & Training</h3>
+          <p style="font-size:12px; font-weight:400; line-height:1.7; letter-spacing:-0.05em; color:rgba(246,246,246,0.5); margin-bottom:16px;">Captures demonstration data, interaction data, and environmental feedback from real teleoperation workflows, accelerating model training and intelligence upgrades.</p>
+          <div style="border-top:1px solid rgba(255,255,255,0.1); padding-top:12px;">
+            <p style="font-size:12px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:rgba(246,246,246,0.25);">Demonstration &nbsp;/&nbsp; Simulation &nbsp;/&nbsp; Annotation &nbsp;/&nbsp; Model Iteration</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script>
+function initTypewriter(id, text) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  let typed = false;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !typed) {
+        typed = true;
+        let i = 0;
+        el.style.width = 'auto';
+        el.textContent = '';
+        const type = () => {
+          if (i < text.length) {
+            el.textContent += text[i];
+            i++;
+            setTimeout(type, 80);
+          }
+        };
+        type();
+        obs.unobserve(el);
+      }
+    });
+  }, { threshold: 0.2 });
+  obs.observe(el);
+}
+
+initTypewriter('s1-title', 'Operational Infrastructure');
+initTypewriter('s2-title', 'Platform Capabilities');
+initTypewriter('s3-title', 'Key Application Scenarios');
+initTypewriter('s4-title', 'Teleoperation to Autonomy');
+
+(function() {
+  const taCont = document.getElementById('ta-container');
+  if (!taCont) return;
+  let fired = false;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !fired) {
+        fired = true;
+        taCont.classList.add('ta-animate');
+        obs.unobserve(taCont);
+      }
+    });
+  }, { threshold: 0.3 });
+  obs.observe(taCont);
+})();
+
+(function() {
+  const oiCards = document.querySelectorAll('.oi-card');
+  if (oiCards.length) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('oi-visible'); obs.unobserve(entry.target); }
+      });
+    }, { threshold: 0.15 });
+    oiCards.forEach(c => obs.observe(c));
+  }
+})();
+
+(function() {
+  const cards = document.querySelectorAll('.sc-card');
+  if (!cards.length) return;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('sc-visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  cards.forEach(c => obs.observe(c));
+})();
+</script>
+
+
+<!-- ============================================================ -->
+<!-- CTA + FOOTER: GET IN TOUCH -->
+<!-- ============================================================ -->
+<style>
+  .git-input, .git-select {
+    width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);
+    border-radius:0.25rem; padding:14px 16px; font-size:15px; font-weight:400;
+    letter-spacing:-0.05em; color:#fff; outline:none; font-family:Inter,sans-serif;
+    transition:border-color 0.3s, background 0.3s;
+  }
+  .git-input::placeholder { color:rgba(255,255,255,0.3); }
+  .git-input:focus, .git-select:focus {
+    border-color:#3B82F6; background:rgba(59,130,246,0.06);
+  }
+  .git-select { appearance:none; cursor:pointer;
+    background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='rgba(255,255,255,0.35)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:right 16px center;
+  }
+  .git-select option { background:#111; color:#fff; }
+</style>
+<section id="get-in-touch" class="w-full relative" style="font-family:Inter,sans-serif; min-height:calc(100vh - 56px); background:#000; display:flex; flex-direction:column;">
+  <div class="cta-wrap-tn" style="padding:32px; flex:1; display:flex; flex-direction:column; max-width:1280px;">
+    <h2 id="git-title" style="font-size:36px; font-weight:400; line-height:1; color:#fff; letter-spacing:-0.05em; margin-bottom:12px; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">Get in Touch</h2>
+    <p style="font-size:14px; font-weight:400; letter-spacing:-0.05em; color:rgba(255,255,255,0.4); margin-bottom:36px;">Have a question or want to collaborate? We'd love to hear from you.</p>
+
+    <div class="cta-grid-tn" style="flex:1; display:grid; grid-template-columns:1.6fr 0.7fr; gap:64px; align-content:start;">
+
+      <form id="contact-form" style="max-width:100%;" onsubmit="return false;">
+        <div class="cta-form-row-tn" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+          <input type="text" class="git-input" placeholder="Name *" required>
+          <input type="email" class="git-input" placeholder="Work Email *" required>
+        </div>
+        <div class="cta-form-row-tn" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+          <input type="text" class="git-input" placeholder="Company *" required>
+          <select class="git-select" required>
+            <option value="" disabled selected>Region *</option>
+            <option value="asia-pacific">Asia Pacific</option>
+            <option value="europe">Europe</option>
+            <option value="north-america">North America</option>
+            <option value="south-america">South America</option>
+            <option value="middle-east-africa">Middle East &amp; Africa</option>
+          </select>
+        </div>
+        <div style="margin-bottom:16px;">
+          <select class="git-select" required>
+            <option value="" disabled selected>Inquiry Type *</option>
+            <option value="partnership">Partnership</option>
+            <option value="sales">Sales Inquiry</option>
+            <option value="technical">Technical Support</option>
+            <option value="media">Media &amp; Press</option>
+            <option value="careers">Careers</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div style="margin-bottom:28px;">
+          <textarea class="git-input" placeholder="Additional Details (optional)" rows="4" style="resize:vertical; min-height:80px;"></textarea>
+        </div>
+        <button type="submit" style="display:inline-flex; align-items:center; gap:8px; padding:14px 32px; background:#3B82F6; color:#fff; border:none; border-radius:0.25rem; font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; font-family:Inter,sans-serif; cursor:pointer; transition:background 0.3s; width:100%; justify-content:center;" onmouseover="this.style.background='#2563EB'" onmouseout="this.style.background='#3B82F6'">
+          Submit Inquiry
+          <span class="material-symbols-outlined" style="font-size:16px;">arrow_outward</span>
+        </button>
+      </form>
+
+      <div style="display:flex; flex-direction:column; gap:36px; padding-top:0;">
+        <div style="display:flex; flex-direction:column; gap:24px;">
+          <div>
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.35); display:block; margin-bottom:10px;">General Inquiries</span>
+            <a href="mailto:info@realman-robot.com" style="font-size:16px; font-weight:400; letter-spacing:-0.05em; color:#fff; text-decoration:none; transition:color 0.3s; word-break:break-all;" onmouseover="this.style.color='#3B82F6'" onmouseout="this.style.color='#fff'">info@realman-robot.com</a>
+          </div>
+          <div>
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.35); display:block; margin-bottom:10px;">Sales</span>
+            <a href="mailto:Sales@realman-robot.com" style="font-size:16px; font-weight:400; letter-spacing:-0.05em; color:#fff; text-decoration:none; transition:color 0.3s; word-break:break-all;" onmouseover="this.style.color='#3B82F6'" onmouseout="this.style.color='#fff'">Sales@realman-robot.com</a>
+          </div>
+        </div>
+
+        <div>
+          <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.35); display:block; margin-bottom:16px;">Follow Us</span>
+          <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap;">
+            <a href="https://www.linkedin.com/company/realmanrobotics" target="_blank" rel="noopener" title="LinkedIn" style="display:flex; align-items:center; justify-content:center; opacity:0.5; transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#fff"/></svg>
+            </a>
+            <a href="https://x.com/RealmanRobotics" target="_blank" rel="noopener" title="X" style="display:flex; align-items:center; justify-content:center; opacity:0.5; transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="#fff"/></svg>
+            </a>
+            <a href="https://www.facebook.com/realmanrobotics2018/" target="_blank" rel="noopener" title="Facebook" style="display:flex; align-items:center; justify-content:center; opacity:0.5; transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#fff"/></svg>
+            </a>
+            <a href="https://www.instagram.com/realman_robotic/" target="_blank" rel="noopener" title="Instagram" style="display:flex; align-items:center; justify-content:center; opacity:0.5; transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" fill="#fff"/></svg>
+            </a>
+            <a href="https://www.youtube.com/@RealManRobotics" target="_blank" rel="noopener" title="YouTube" style="display:flex; align-items:center; justify-content:center; opacity:0.5; transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" fill="#fff"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@realmanrobotic" target="_blank" rel="noopener" title="TikTok" style="display:flex; align-items:center; justify-content:center; opacity:0.5; transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
+              <svg width="20" height="22" viewBox="0 0 448 512" fill="none"><path d="M448 209.91a210.06 210.06 0 01-122.77-39.25v178.72A162.55 162.55 0 11185 188.31v89.89a74.62 74.62 0 1052.23 71.18V0h88a121.18 121.18 0 001.86 22.17A122.18 122.18 0 00381 102.39a121.43 121.43 0 0067 20.14z" fill="#fff"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div style="margin-top:auto; padding-top:24px;">
+          <span style="font-size:12px; font-weight:400; letter-spacing:-0.05em; color:rgba(255,255,255,0.25);">&copy; 2026 RealMan Robotics. All rights reserved.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+<script>
+initTypewriter('git-title', 'Get in Touch');
+</script>
+
+
+<script src="../../prop/supabase-cta.js"></script>
+<script>function switchLang(){var h=location.href;if(h.indexOf("/en/")>-1){location.href=h.replace("/en/","/cn/")}else if(h.indexOf("/cn/")>-1){location.href=h.replace("/cn/","/en/")}}</script>
+</body>
+</html>
