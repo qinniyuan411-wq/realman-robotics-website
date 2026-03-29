@@ -5,8 +5,8 @@ __pycache__
 .DS_Store
 Thumbs.db
 
-# Large files excluded from GitHub (deployed via Vercel directly)
-prop/realman-robotics-specs-cn.pdf
+# Large files excluded from GitHub
+# (none currently)
 
 # Full-size originals — keep local only
 prop-full-size/
