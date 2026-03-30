@@ -43,7 +43,7 @@
     }
 
     .hero {
-      width: 100vw;
+      width: 100%;
       height: 100vh;
       background-color: #F6F6F6;
       display: flex;
@@ -259,7 +259,24 @@
       .orb-white { width: 380px; height: 380px; }
     }
 
-  </style>
+  
+    /* ---- Ultra-wide viewport constraint ---- */
+    body {
+      max-width: 1920px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    html {
+      background: #F6F6F6;
+    }
+    nav {
+      max-width: 1920px;
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto;
+    }
+</style>
 </head>
 <body>
 
