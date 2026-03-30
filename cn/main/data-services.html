@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -57,7 +57,7 @@
     @media (min-width: 768px) { .ds-title { padding: 32px 32px 0 32px !important; font-size: 36px !important; margin-top: 60px !important; } }
     .ds-title-no-mt { margin-top: 0 !important; }
 
-    /* --- S1: 三种数据获取模式 --- */
+    /* --- S1: 数据资源矩阵 --- */
     .dao-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
     .dao-wrap { padding: 0 16px 20px !important; }
     .dao-card h3 { font-size: 28px !important; }
@@ -297,9 +297,9 @@
   </div>
 </div>
 
-<!-- Section 1: 三种数据获取模式 -->
+<!-- Section 1: 数据资源矩阵 -->
 <section id="data-access" class="w-full lg:h-screen bg-[#FFFFFF] relative flex flex-col" style="font-family:'Inter',sans-serif;">
-  <h2 id="s1-title" class="ds-title" style="padding:32px 32px 0 32px; margin-top:60px; font-size:36px; font-weight:400; line-height:1; color:#000; letter-spacing:-0.05em; flex-shrink:0; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">三种数据获取模式</h2>
+  <h2 id="s1-title" class="ds-title" style="padding:32px 32px 0 32px; margin-top:60px; font-size:36px; font-weight:400; line-height:1; color:#000; letter-spacing:-0.05em; flex-shrink:0; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">数据资源矩阵</h2>
   <div class="flex-1 flex items-center dao-wrap" style="padding:0 32px 32px; min-height:0;">
     <div class="w-full grid grid-cols-3 gap-8 dao-grid">
 
@@ -508,7 +508,7 @@
         </div>
         <h3 style="font-size:18px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:6px;">时空硬同步技术</h3>
         <span style="font-size:10px; font-weight:400; letter-spacing:-0.02em; color:#3B82F6; margin-bottom:10px;">3 路相机视角 · 硬件级同步 · 精准时间戳</span>
-        <p style="font-size:11px; font-weight:400; line-height:1.6; letter-spacing:-0.03em; color:#999;">高度对齐的多视角视觉流，为感知、融合与动作学习提供一致的时空一致性基础</p>
+        <p style="font-size:11px; font-weight:400; line-height:1.6; letter-spacing:-0.03em; color:#999;">高度对齐的多视角视觉流，为感知融合与动作学习提供一致的时空一致性基础</p>
       </div>
 
       <!-- 0x03 — (1-2, 2) Blue tall card spanning 2 rows -->
@@ -519,7 +519,7 @@
         </div>
         <h3 style="font-size:20px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#fff; margin-bottom:8px;">全维度机器人状态信号</h3>
         <span style="font-size:10px; font-weight:400; letter-spacing:-0.02em; color:rgba(255,255,255,0.6); margin-bottom:12px;">71 维状态空间 · 1400 万+ 帧数据 · 30 FPS 视觉观测</span>
-        <p style="font-size:11px; font-weight:400; line-height:1.6; letter-spacing:-0.03em; color:rgba(255,255,255,0.7);">将高密度机器人本体感知与大规模视觉示教深度融合，完美支持训练与评估流程</p>
+        <p style="font-size:11px; font-weight:400; line-height:1.6; letter-spacing:-0.03em; color:rgba(255,255,255,0.7);">将高密度机器人本体感知与大规模视觉数据深度融合，完美支持训练与评估流程</p>
       </div>
 
       <!-- 0x04 — (1,3) White card -->
@@ -533,7 +533,7 @@
       <div class="ds-fade rounded-[0.25rem] flex flex-col justify-end rs-card rs-card-4" style="padding:24px; background:#0a0f1a; transition-delay:0.18s; grid-column:4; grid-row:1;">
         <span style="font-size:11px; font-weight:500; letter-spacing:0.12em; color:rgba(255,255,255,0.4); margin-bottom:auto;">0x05</span>
         <h3 style="font-size:18px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#F6F6F6; margin-bottom:10px;">深度泛化数据采集</h3>
-        <p style="font-size:11px; font-weight:400; line-height:1.6; letter-spacing:-0.03em; color:rgba(246,246,246,0.6);">围绕同一任务，在物体属性、环境上下文、运动轨迹与视角等多种变量下开展大规模示教，支撑更强的算法泛化能力</p>
+        <p style="font-size:11px; font-weight:400; line-height:1.6; letter-spacing:-0.03em; color:rgba(246,246,246,0.6);">围绕同一任务，在物体属性、环境上下文、运动轨迹与视角等多种变量下开展大规模泛化采集，支撑更强的算法泛化能力</p>
       </div>
 
       <!-- 0x02 — (2,1) White text card -->
@@ -544,18 +544,18 @@
         </div>
         <h3 style="font-size:18px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:6px;">超低丢帧率</h3>
         <span style="font-size:10px; font-weight:400; letter-spacing:-0.02em; color:#3B82F6; margin-bottom:10px;">多通道采集丢帧率 < 0.5%</span>
-        <p style="font-size:11px; font-weight:400; line-height:1.6; letter-spacing:-0.03em; color:#999;">经过优化的传输、缓存与处理链路，即使在高强度采集条件下，也能确保示教数据的完整性与连续性</p>
+        <p style="font-size:11px; font-weight:400; line-height:1.6; letter-spacing:-0.03em; color:#999;">经过优化的传输、缓存与处理链路，即使在高强度采集条件下，也能确保数据的完整性与连续性</p>
       </div>
 
       <!-- 0x06 — (2, 3-4) Wide card spanning 2 cols -->
       <div class="ds-fade rounded-[0.25rem] flex flex-col justify-end rs-card rs-card-6" style="padding:24px; background:#DFDFDF; transition-delay:0.3s; grid-column:3/5; grid-row:2;">
         <span style="font-size:11px; font-weight:500; letter-spacing:0.12em; color:#3B82F6; margin-bottom:auto;">0x06</span>
         <div style="margin-bottom:10px;">
-          <span style="font-size:40px; font-weight:300; line-height:1; letter-spacing:-0.05em; color:#000;">7 自由度</span>
+          <span style="font-size:40px; font-weight:300; line-height:1; letter-spacing:-0.05em; color:#000;">7 DoF 外骨骼遥操</span>
         </div>
         <h3 style="font-size:18px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:6px;">源头级人类式示教</h3>
         <span style="font-size:10px; font-weight:400; letter-spacing:-0.02em; color:#3B82F6; margin-bottom:10px;">外骨骼遥操 · 7 自由度 · 0.088° · 100 Hz</span>
-        <p style="font-size:11px; font-weight:400; line-height:1.6; letter-spacing:-0.03em; color:#666;">高度还原人类操作员的双臂协同与专家动作意图，生成更适用于真实具身任务的高质量轨迹数据</p>
+        <p style="font-size:11px; font-weight:400; line-height:1.6; letter-spacing:-0.03em; color:#666;">高度还原人类操作员的双臂协同动作意图及决策过程，生成更适用于真实具身任务的高质量轨迹数据</p>
       </div>
 
     </div>
@@ -688,7 +688,7 @@ function initTypewriter(id, text) {
   obs.observe(el);
 }
 
-initTypewriter('s1-title', '三种数据获取模式');
+initTypewriter('s1-title', '数据资源矩阵');
 initTypewriter('s2-title', '数据集架构');
 initTypewriter('s3-title', '核心优势');
 initTypewriter('s4-title', '行业标准与生态适配');
@@ -857,7 +857,20 @@ initTypewriter('s5-title', '定制化数据全链路服务');
 
         <div>
           <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.35); display:block; margin-bottom:16px;">关注我们</span>
-          <img src="../../prop/qr_code_official-wechat-account.png" alt="微信公众号二维码" style="width:120px; height:120px; border-radius:0.25rem;">
+          <div style="display:flex; gap:24px;">
+            <div style="text-align:center;">
+              <img src="../../prop/qr-code-official-wechat-account.jpg" alt="微信公众号二维码" style="width:120px; border-radius:0.25rem;">
+              <span style="font-size:11px; font-weight:400; color:rgba(255,255,255,0.5); display:block; margin-top:8px;">微信公众号</span>
+            </div>
+            <div style="text-align:center;">
+              <img src="../../prop/qr-code-official-wechat-channels.jpg" alt="微信视频号二维码" style="width:120px; border-radius:0.25rem;">
+              <span style="font-size:11px; font-weight:400; color:rgba(255,255,255,0.5); display:block; margin-top:8px;">微信视频号</span>
+            </div>
+            <div style="text-align:center;">
+              <img src="../../prop/qr-code-official-douyin.jpg" alt="官方抖音号二维码" style="width:120px; border-radius:0.25rem;">
+              <span style="font-size:11px; font-weight:400; color:rgba(255,255,255,0.5); display:block; margin-top:8px;">官方抖音号</span>
+            </div>
+          </div>
         </div>
 
         <div style="margin-top:auto; padding-top:24px;">
