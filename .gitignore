@@ -6,9 +6,8 @@ __pycache__
 Thumbs.db
 
 # Large videos excluded from GitHub (>100MB)
-prop/ecosystem-solutions-video-new/stage-performance.mp4
-prop/ecosystem-solutions-video-new/massage-moxibustion.mp4
-prop/ecosystem-solutions-video-new/motion-capture-teleoperation.mp4
+prop/industry-solutions-video-new/autonomous-delivery.mp4
+prop/industry-solutions-video-new/home-assistant.mp4
 
 # Full-size originals — keep local only
 prop-full-size/

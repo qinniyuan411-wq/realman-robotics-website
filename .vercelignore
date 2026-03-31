@@ -1,5 +1,6 @@
-# Large files exceeding Vercel's 100MB limit
-# (none currently)
+# Large videos exceeding Vercel's 100MB limit
+prop/industry-solutions-video-new/autonomous-delivery.mp4
+prop/industry-solutions-video-new/home-assistant.mp4
 
 # Full-size originals — not needed for deployment
 prop-full-size/
