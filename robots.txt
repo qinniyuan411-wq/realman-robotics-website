@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /main/
+Allow: /products/
+Allow: /industry-solutions/
+Allow: /ecosystem-solutions/
+Disallow: /prop/
+
+Sitemap: https://www.realman-robotics.cn/sitemap.xml
+Sitemap: https://www.realman-robotics.com/sitemap.xml
