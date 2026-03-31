@@ -166,7 +166,7 @@
 <section class="w-full bg-[#FFFFFF]" style="padding-top:60px;">
 
   <div style="padding:32px 32px 0 32px;">
-    <h1 style="font-size:36px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000;">RML63 系列</h1>
+    <h1 id="prod-title" style="display:inline-block; overflow:hidden; white-space:nowrap; width:0; font-size:36px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000;">RML63 系列</h1>
     <p style="font-size:15px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:rgba(0,0,0,0.4); margin-top:16px; max-width:640px;">
       6 自由度长臂展仿人机械臂工作半径达 900–917 mm，具备 3 kg 负载、±0.05 mm 重复定位精度及最高 2.8 m/s 的末端速度，提供标准版与六维力版可选
     </p>
@@ -245,7 +245,7 @@
 <!-- ============================================================ -->
 <section class="w-full bg-[#F6F6F6]">
   <div style="padding:32px;">
-    <h2 style="font-size:36px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000; margin-bottom:48px;">核心优势</h2>
+    <h2 id="adv-title" style="display:inline-block; overflow:hidden; white-space:nowrap; width:0; font-size:36px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000; margin-bottom:48px;">核心优势</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-5 gap-0 border-t border-[#DFDFDF]">
 
@@ -290,7 +290,7 @@
 <section class="w-full bg-[#FFFFFF]">
   <div style="padding:32px;">
     <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:48px;">
-      <h2 style="font-size:36px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000;">技术参数</h2>
+      <h2 id="spec-title" style="display:inline-block; overflow:hidden; white-space:nowrap; width:0; font-size:36px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000;">技术参数</h2>
 
     </div>
 
@@ -607,6 +607,9 @@ if (typeof initTypewriter === 'undefined') {
     obs.observe(el);
   }
 }
+initTypewriter('prod-title', 'RML63 系列');
+initTypewriter('adv-title', '核心优势');
+initTypewriter('spec-title', '技术参数');
 initTypewriter('git-title', '联系我们');
 
 function handleRegionChange(val) {

@@ -208,7 +208,7 @@
 
   <!-- Product Title -->
   <div class="prod-title-wrap" style="padding:32px 32px 0 32px;">
-    <h1 class="prod-h1" style="font-size:36px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000;">Single-Arm Lift</h1>
+    <h1 class="prod-h1" id="prod-title" style="display:inline-block; overflow:hidden; white-space:nowrap; width:0; font-size:36px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000;">Single-Arm Lift</h1>
     <p style="font-size:15px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:rgba(0,0,0,0.4); margin-top:16px; max-width:640px;">
       Vertical lift mobile robot with RM65-B-V arm, 900 mm lifting stroke, 5 kg payload, compact 505 mm circular base, and autonomous SLAM navigation.
     </p>
@@ -253,7 +253,7 @@
 <!-- ============================================================ -->
 <section class="w-full bg-[#F6F6F6]">
   <div class="adv-wrap" style="padding:32px;">
-    <h2 class="adv-h2" style="font-size:36px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000; margin-bottom:48px;">Core Advantages</h2>
+    <h2 class="adv-h2" id="adv-title" style="display:inline-block; overflow:hidden; white-space:nowrap; width:0; font-size:36px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000; margin-bottom:48px;">Core Advantages</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-5 gap-0 border-t border-[#DFDFDF]">
 
@@ -298,7 +298,7 @@
 <section class="w-full bg-[#FFFFFF]">
   <div class="spec-wrap" style="padding:32px;">
     <div class="spec-header" style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:48px;">
-      <h2 class="spec-h2" style="font-size:36px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000;">Technical Specifications</h2>
+      <h2 class="spec-h2" id="spec-title" style="display:inline-block; overflow:hidden; white-space:nowrap; width:0; font-size:36px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000;">Technical Specifications</h2>
 
     </div>
 
@@ -612,6 +612,9 @@ function initTypewriter(id, text) {
   }, { threshold: 0.2 });
   obs.observe(el);
 }
+initTypewriter('prod-title', 'Single-Arm Lift');
+initTypewriter('adv-title', 'Core Advantages');
+initTypewriter('spec-title', 'Technical Specifications');
 initTypewriter('git-title', 'Get in Touch');
 </script>
 
