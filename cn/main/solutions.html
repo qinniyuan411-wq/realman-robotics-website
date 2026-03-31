@@ -61,17 +61,17 @@
     .odm-card {}
     .odm-card .odm-img { transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94); }
     .odm-card:hover .odm-img { transform: scale(1.04); }
-    .odm-case { transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; border:1px solid transparent; }
-    .odm-case:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.06); border-color: rgba(59,130,246,0.25); }
-    .odm-case .odm-case-bar { transition: width 0.4s ease; width:40%; }
+    .odm-case { transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.35s ease, background 0.35s ease; }
+    .odm-case:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); background: #F9FBFF; }
+    .odm-case .odm-case-bar { transition: width 0.5s cubic-bezier(0.25,0.46,0.45,0.94); width:30%; }
     .odm-case:hover .odm-case-bar { width:100%; }
     .mod-cell { transition: background 0.3s ease, transform 0.2s ease; }
     .mod-cell:hover { background: rgba(59,130,246,0.04); transform: translateY(-2px); }
     .mod-cell:hover span:first-child { text-decoration: underline; text-underline-offset:3px; }
     .odm-result { transition: background 0.3s ease; }
     .odm-result:hover { background: rgba(59,130,246,0.06); }
-    .pipe-card { transition: border-color 0.3s ease, transform 0.3s ease; }
-    .pipe-card:hover { border-color: #3B82F6; transform: translateY(-4px); }
+    .pipe-card { transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; }
+    .pipe-card:hover { border-color: #3B82F6; transform: translateY(-4px); box-shadow: 0 4px 12px rgba(59,130,246,0.1); }
 
     /* ======== Responsive: mobile-first ======== */
 
@@ -80,10 +80,10 @@
     @media (min-width: 768px) { .sol-title { padding: 32px 32px 24px 32px !important; margin-top: 60px !important; font-size: 36px !important; } }
     .sol-title-no-mt { margin-top: 0 !important; padding-top: 0 !important; }
 
-    /* --- S1: Industry Solutions: 6-col → 2-col (mobile) → 3-col (tablet) → 6-col --- */
+    /* --- S1: Industry Solutions: 7-col → 2-col (mobile) → 3-col (tablet) → 7-col --- */
     .ind-grid { padding: 0 16px 16px !important; grid-template-columns: repeat(2, 1fr) !important; }
     @media (min-width: 768px) { .ind-grid { padding: 0 32px 32px !important; grid-template-columns: repeat(3, 1fr) !important; } }
-    @media (min-width: 1024px) { .ind-grid { grid-template-columns: repeat(6, 1fr) !important; } }
+    @media (min-width: 1024px) { .ind-grid { grid-template-columns: repeat(7, 1fr) !important; } }
 
     /* --- S2: Ecosystem Solutions --- */
     .eco-section { padding: 20px 16px !important; }
@@ -110,10 +110,14 @@
       .eco-stagger .eco-card img { height: 192px !important; }
     }
 
-    /* Eco list: 5-col → 2-col (mobile) → 3-col (tablet) → 5-col */
+    /* Eco list: 3-col → 2-col (mobile) → 3-col */
     .eco-list { grid-template-columns: repeat(2, 1fr) !important; }
     @media (min-width: 768px) { .eco-list { grid-template-columns: repeat(3, 1fr) !important; } }
-    @media (min-width: 1024px) { .eco-list { grid-template-columns: repeat(5, 1fr) !important; } }
+    .eco-list .eco-img { transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94); }
+    .eco-list .eco-overlay { transition: opacity 0.35s ease; }
+    .eco-list > div:hover .eco-img { transform: scale(1.08); }
+    .eco-list > div:hover .eco-overlay { opacity: 0; }
+    @media (min-width: 1024px) { .eco-list { grid-template-columns: repeat(6, 1fr) !important; } }
 
     /* --- S3: ODM Services --- */
     .odm-section { padding: 20px 16px !important; }
@@ -306,7 +310,7 @@
 <!-- SECTION 01: INDUSTRY SOLUTIONS -->
 <section id="industry" class="w-full bg-[#FFFFFF] relative" style="font-family:'Inter',sans-serif;">
   <h2 id="s1-title" class="sol-title" style="padding:32px 32px 24px 32px; margin-top:60px; font-size:36px; font-weight:400; line-height:1; color:#000; letter-spacing:-0.05em; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">行业应用方案</h2>
-  <div style="padding:0 32px 32px;" class="grid grid-cols-6 gap-[2px] ind-grid">
+  <div style="padding:0 32px 32px;" class="grid grid-cols-7 gap-[2px] ind-grid">
     <!-- Row 1 -->
     <div class="sol-fade ind-card rounded-[0.25rem]" style="min-height:180px; transition-delay:0s;">
       <a href="../industry-solutions/3c-industry.html" style="position:absolute;inset:0;z-index:20;"></a><img src="../../prop/industry-solutions/3c-industry.jpg" alt="" class="absolute inset-0 w-full h-full object-cover rounded-[0.25rem]">
@@ -354,6 +358,14 @@
       <div class="relative z-10 p-6 flex flex-col justify-between h-full">
         <span class="material-symbols-outlined ind-icon" style="font-size:20px; color:rgba(255,255,255,0.6);">health_and_safety</span>
         <span style="font-size:12px; font-weight:400; letter-spacing:-0.05em; color:#fff; margin-top:auto;">康养</span>
+      </div>
+    </div>
+    <div class="sol-fade ind-card rounded-[0.25rem]" style="min-height:180px; transition-delay:0.24s;">
+      <a href="../industry-solutions/placeholder-1.html" style="position:absolute;inset:0;z-index:20;"></a><div class="absolute inset-0 bg-[#DFDFDF] rounded-[0.25rem]"></div>
+      <div class="ind-overlay absolute inset-0 bg-black/60 rounded-[0.25rem]"></div>
+      <div class="relative z-10 p-6 flex flex-col justify-between h-full">
+        <span class="material-symbols-outlined ind-icon" style="font-size:20px; color:rgba(255,255,255,0.6);">more_horiz</span>
+        <span style="font-size:12px; font-weight:400; letter-spacing:-0.05em; color:#fff; margin-top:auto;">待定</span>
       </div>
     </div>
     <!-- Row 2 -->
@@ -405,6 +417,14 @@
         <span style="font-size:12px; font-weight:400; letter-spacing:-0.05em; color:#fff; margin-top:auto;">新餐饮</span>
       </div>
     </div>
+    <div class="sol-fade ind-card rounded-[0.25rem]" style="min-height:180px; transition-delay:0.3s;">
+      <a href="../industry-solutions/placeholder-2.html" style="position:absolute;inset:0;z-index:20;"></a><div class="absolute inset-0 bg-[#DFDFDF] rounded-[0.25rem]"></div>
+      <div class="ind-overlay absolute inset-0 bg-black/60 rounded-[0.25rem]"></div>
+      <div class="relative z-10 p-6 flex flex-col justify-between h-full">
+        <span class="material-symbols-outlined ind-icon" style="font-size:20px; color:rgba(255,255,255,0.6);">more_horiz</span>
+        <span style="font-size:12px; font-weight:400; letter-spacing:-0.05em; color:#fff; margin-top:auto;">待定</span>
+      </div>
+    </div>
     <!-- Row 3 -->
     <div class="sol-fade ind-card rounded-[0.25rem]" style="min-height:180px; transition-delay:0.12s;">
       <a href="../industry-solutions/retail.html" style="position:absolute;inset:0;z-index:20;"></a><img src="../../prop/industry-solutions/retail.jpg" alt="" class="absolute inset-0 w-full h-full object-cover rounded-[0.25rem]">
@@ -454,6 +474,14 @@
         <span style="font-size:12px; font-weight:400; letter-spacing:-0.05em; color:#fff; margin-top:auto;">智能巡检</span>
       </div>
     </div>
+    <div class="sol-fade ind-card rounded-[0.25rem]" style="min-height:180px; transition-delay:0.36s;">
+      <a href="../industry-solutions/placeholder-3.html" style="position:absolute;inset:0;z-index:20;"></a><div class="absolute inset-0 bg-[#DFDFDF] rounded-[0.25rem]"></div>
+      <div class="ind-overlay absolute inset-0 bg-black/60 rounded-[0.25rem]"></div>
+      <div class="relative z-10 p-6 flex flex-col justify-between h-full">
+        <span class="material-symbols-outlined ind-icon" style="font-size:20px; color:rgba(255,255,255,0.6);">more_horiz</span>
+        <span style="font-size:12px; font-weight:400; letter-spacing:-0.05em; color:#fff; margin-top:auto;">待定</span>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -461,73 +489,81 @@
 <section id="ecosystem" class="w-full bg-[#FFFFFF] relative eco-section" style="font-family:'Inter',sans-serif; padding:32px;">
   <h2 id="s2-title" style="font-size:36px; font-weight:400; line-height:1; color:#000; letter-spacing:-0.05em; display:inline-block; overflow:hidden; white-space:nowrap; width:0; margin-bottom:24px;">生态解决方案</h2>
 
-  <!-- Staggered Overlapping Cards -->
+  <!-- Staggered Overlapping Cards (Top 4) -->
   <div class="eco-stagger" style="display:flex; align-items:flex-start; margin-bottom:40px; padding-top:16px;">
     <div class="sol-fade eco-card eco-stag-1 rounded-[0.25rem] bg-[#F6F6F6] overflow-hidden" style="padding:48px 48px 120px 48px; margin-top:0; flex:1; min-width:0; z-index:20; position:relative; box-shadow:0 8px 32px rgba(0,0,0,0.08); transition-delay:0s;">
       <h3 style="font-size:20px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:24px;">咖啡机器人</h3>
-      <a href="../ecosystem-solutions/coffee-robot.html" style="position:absolute;inset:0;z-index:20;"></a><img class="w-full rounded-[0.25rem] object-cover eco-img" style="height:192px;" src="../../prop/ecosystem-solutions/coffee-robot.png" alt="">
+      <a href="../ecosystem-solutions/coffee-robot.html" style="position:absolute;inset:0;z-index:20;"></a><img class="w-full rounded-[0.25rem] object-cover eco-img" style="height:192px;" src="../../prop/ecosystem-solutions-new/coffee-robot.png" alt="">
     </div>
-    <a href="../ecosystem-solutions/medical-massage.html" class="sol-fade eco-card eco-stag-2 rounded-[0.25rem] bg-[#DFDFDF] overflow-hidden" style="text-decoration:none; color:inherit; padding:48px 48px 72px 48px; margin-top:48px; margin-left:-48px; flex:1; min-width:0; z-index:30; position:relative; box-shadow:0 8px 32px rgba(0,0,0,0.08); transition-delay:0.08s;">
-      <h3 style="font-size:20px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:24px;">医疗按摩艾灸</h3>
-      <img class="w-full rounded-[0.25rem] object-cover eco-img" style="height:192px;" src="../../prop/ecosystem-solutions/medical-massage.jpg" alt="">
+    <a href="../ecosystem-solutions/ai-physical-therapy.html" class="sol-fade eco-card eco-stag-2 rounded-[0.25rem] bg-[#DFDFDF] overflow-hidden" style="text-decoration:none; color:inherit; padding:48px 48px 72px 48px; margin-top:48px; margin-left:-48px; flex:1; min-width:0; z-index:30; position:relative; box-shadow:0 8px 32px rgba(0,0,0,0.08); transition-delay:0.08s;">
+      <h3 style="font-size:20px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:24px;">AI 理疗</h3>
+      <img class="w-full rounded-[0.25rem] object-cover eco-img" style="height:192px;" src="../../prop/ecosystem-solutions-new/ai-physical-therapy.jpg" alt="">
     </a>
     <div class="sol-fade eco-card eco-stag-3 rounded-[0.25rem] bg-[#F6F6F6] overflow-hidden" style="padding:48px 48px 136px 48px; margin-top:-16px; margin-left:-48px; flex:1; min-width:0; z-index:40; position:relative; box-shadow:0 8px 32px rgba(0,0,0,0.08); transition-delay:0.16s;">
-      <h3 style="font-size:20px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:24px;">高校实验室</h3>
-      <a href="../ecosystem-solutions/uni-labs.html" style="position:absolute;inset:0;z-index:20;"></a><img class="w-full rounded-[0.25rem] object-cover eco-img" style="height:192px;" src="../../prop/ecosystem-solutions/uni-labs.jpg" alt="">
+      <h3 style="font-size:20px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:24px;">新零售</h3>
+      <a href="../ecosystem-solutions/new-retail.html" style="position:absolute;inset:0;z-index:20;"></a><img class="w-full rounded-[0.25rem] object-cover eco-img" style="height:192px;" src="../../prop/ecosystem-solutions-new/new-retail.jpg" alt="">
     </div>
     <div class="sol-fade eco-card eco-stag-4 rounded-[0.25rem] bg-[#DFDFDF] overflow-hidden" style="padding:48px; margin-top:72px; margin-left:-48px; flex:1; min-width:0; z-index:10; position:relative; box-shadow:0 8px 32px rgba(0,0,0,0.08); transition-delay:0.24s;">
-      <h3 style="font-size:20px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:24px;">货架整理</h3>
-      <a href="../ecosystem-solutions/shelf-organization.html" style="position:absolute;inset:0;z-index:20;"></a><img class="w-full rounded-[0.25rem] object-cover eco-img" style="height:192px;" src="../../prop/ecosystem-solutions/shelf-organization.jpg" alt="">
+      <h3 style="font-size:20px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:24px;">厨房作业</h3>
+      <a href="../ecosystem-solutions/kitchen-tasks.html" style="position:absolute;inset:0;z-index:20;"></a><img class="w-full rounded-[0.25rem] object-cover eco-img" style="height:192px;" src="../../prop/ecosystem-solutions-new/kitchen-tasks.jpg" alt="">
     </div>
   </div>
 
-  <!-- Ecosystem List -->
-  <div class="grid grid-cols-5 gap-[2px] eco-list">
-    <div class="sol-fade eco-item rounded-[0.25rem] bg-[#F6F6F6] border-t-2 border-transparent cursor-pointer" style="padding:20px; transition-delay:0s;">
-      <span class="material-symbols-outlined eco-icon" style="font-size:20px; color:#999; display:block; margin-bottom:12px;">format_paint</span>
-      <a href="../ecosystem-solutions/transformers-painting.html" style="position:absolute;inset:0;z-index:5;"></a><span class="eco-label" style="font-size:12px; font-weight:400; letter-spacing:-0.05em; color:#000;">变压器喷漆</span>
+  <!-- Ecosystem List (6-col with images, items 5–10) -->
+  <div class="grid grid-cols-6 gap-[2px] eco-list">
+    <div class="sol-fade rounded-[0.25rem] bg-[#F6F6F6] overflow-hidden cursor-pointer" style="position:relative; transition-delay:0s;">
+      <a href="../ecosystem-solutions/stage-performance.html" style="position:absolute;inset:0;z-index:5;"></a>
+      <div style="height:120px; overflow:hidden; position:relative;"><img class="eco-img" src="../../prop/ecosystem-solutions-new/stage-performance.jpg" alt="" style="width:100%; height:100%; object-fit:cover;"><div class="eco-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,0.12);"></div></div>
+      <div style="padding:16px;">
+        <span class="material-symbols-outlined" style="font-size:20px; color:#999; display:block; margin-bottom:8px;">theater_comedy</span>
+        <span style="font-size:12px; font-weight:400; letter-spacing:-0.05em; color:#000;">舞台表演</span>
+      </div>
     </div>
-    <div class="sol-fade eco-item rounded-[0.25rem] bg-[#F6F6F6] border-t-2 border-transparent cursor-pointer" style="padding:20px; transition-delay:0.04s;">
-      <span class="material-symbols-outlined eco-icon" style="font-size:20px; color:#999; display:block; margin-bottom:12px;">engineering</span>
-      <a href="../ecosystem-solutions/rebar-binding.html" style="position:absolute;inset:0;z-index:5;"></a><span class="eco-label" style="font-size:12px; font-weight:400; letter-spacing:-0.05em; color:#000;">钢筋绑扎机器人</span>
+    <div class="sol-fade rounded-[0.25rem] bg-[#F6F6F6] overflow-hidden cursor-pointer" style="position:relative; transition-delay:0.04s;">
+      <a href="../ecosystem-solutions/massage-moxibustion.html" style="position:absolute;inset:0;z-index:5;"></a>
+      <div style="height:120px; overflow:hidden; position:relative;"><img class="eco-img" src="../../prop/ecosystem-solutions-new/massage-moxibustion.jpg" alt="" style="width:100%; height:100%; object-fit:cover;"><div class="eco-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,0.12);"></div></div>
+      <div style="padding:16px;">
+        <span class="material-symbols-outlined" style="font-size:20px; color:#999; display:block; margin-bottom:8px;">spa</span>
+        <span style="font-size:12px; font-weight:400; letter-spacing:-0.05em; color:#000;">按摩艾灸</span>
+      </div>
     </div>
-    <div class="sol-fade eco-item rounded-[0.25rem] bg-[#F6F6F6] border-t-2 border-transparent cursor-pointer" style="padding:20px; transition-delay:0.08s;">
-      <span class="material-symbols-outlined eco-icon" style="font-size:20px; color:#999; display:block; margin-bottom:12px;">phone_android</span>
-      <a href="../ecosystem-solutions/phone-defect.html" style="position:absolute;inset:0;z-index:5;"></a><span class="eco-label" style="font-size:12px; font-weight:400; letter-spacing:-0.05em; color:#000;">手机缺陷检测</span>
+    <div class="sol-fade rounded-[0.25rem] bg-[#F6F6F6] overflow-hidden cursor-pointer" style="position:relative; transition-delay:0.08s;">
+      <a href="../ecosystem-solutions/dexterous-hand-adaptation.html" style="position:absolute;inset:0;z-index:5;"></a>
+      <div style="height:120px; overflow:hidden; position:relative;"><img class="eco-img" src="../../prop/ecosystem-solutions-new/dexterous-hand-adaptation.jpg" alt="" style="width:100%; height:100%; object-fit:cover;"><div class="eco-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,0.12);"></div></div>
+      <div style="padding:16px;">
+        <span class="material-symbols-outlined" style="font-size:20px; color:#999; display:block; margin-bottom:8px;">back_hand</span>
+        <span style="font-size:12px; font-weight:400; letter-spacing:-0.05em; color:#000;">灵巧手适配</span>
+      </div>
     </div>
-    <div class="sol-fade eco-item rounded-[0.25rem] bg-[#F6F6F6] border-t-2 border-transparent cursor-pointer" style="padding:20px; transition-delay:0.12s;">
-      <span class="material-symbols-outlined eco-icon" style="font-size:20px; color:#999; display:block; margin-bottom:12px;">sports_martial_arts</span>
-      <a href="../ecosystem-solutions/bimanual-dance.html" style="position:absolute;inset:0;z-index:5;"></a><span class="eco-label" style="font-size:12px; font-weight:400; letter-spacing:-0.05em; color:#000;">双臂机器人舞蹈</span>
+    <div class="sol-fade rounded-[0.25rem] bg-[#F6F6F6] overflow-hidden cursor-pointer" style="position:relative; transition-delay:0.12s;">
+      <a href="../ecosystem-solutions/motion-capture-teleoperation.html" style="position:absolute;inset:0;z-index:5;"></a>
+      <div style="height:120px; overflow:hidden; position:relative;"><img class="eco-img" src="../../prop/ecosystem-solutions-new/motion-capture-teleoperation.jpg" alt="" style="width:100%; height:100%; object-fit:cover;"><div class="eco-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,0.12);"></div></div>
+      <div style="padding:16px;">
+        <span class="material-symbols-outlined" style="font-size:20px; color:#999; display:block; margin-bottom:8px;">sports_esports</span>
+        <span style="font-size:12px; font-weight:400; letter-spacing:-0.05em; color:#000;">动捕遥操</span>
+      </div>
     </div>
-    <div class="sol-fade eco-item rounded-[0.25rem] bg-[#F6F6F6] border-t-2 border-transparent cursor-pointer" style="padding:20px; transition-delay:0.16s;">
-      <span class="material-symbols-outlined eco-icon" style="font-size:20px; color:#999; display:block; margin-bottom:12px;">vacuum</span>
-      <a href="../ecosystem-solutions/suction-loading.html" style="position:absolute;inset:0;z-index:5;"></a><span class="eco-label" style="font-size:12px; font-weight:400; letter-spacing:-0.05em; color:#000;">吸盘上下料</span>
+    <div class="sol-fade rounded-[0.25rem] bg-[#F6F6F6] overflow-hidden cursor-pointer" style="position:relative; transition-delay:0.16s;">
+      <a href="../ecosystem-solutions/unmanned-vending.html" style="position:absolute;inset:0;z-index:5;"></a>
+      <div style="height:120px; overflow:hidden; position:relative;"><img class="eco-img" src="../../prop/ecosystem-solutions-new/unmanned-vending.jpg" alt="" style="width:100%; height:100%; object-fit:cover;"><div class="eco-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,0.12);"></div></div>
+      <div style="padding:16px;">
+        <span class="material-symbols-outlined" style="font-size:20px; color:#999; display:block; margin-bottom:8px;">point_of_sale</span>
+        <span style="font-size:12px; font-weight:400; letter-spacing:-0.05em; color:#000;">无人售卖</span>
+      </div>
     </div>
-    <div class="sol-fade eco-item rounded-[0.25rem] bg-[#F6F6F6] border-t-2 border-transparent cursor-pointer" style="padding:20px; transition-delay:0.06s;">
-      <span class="material-symbols-outlined eco-icon" style="font-size:20px; color:#999; display:block; margin-bottom:12px;">biotech</span>
-      <a href="../ecosystem-solutions/sample-management.html" style="position:absolute;inset:0;z-index:5;"></a><span class="eco-label" style="font-size:12px; font-weight:400; letter-spacing:-0.05em; color:#000;">医疗样本管理</span>
-    </div>
-    <div class="sol-fade eco-item rounded-[0.25rem] bg-[#F6F6F6] border-t-2 border-transparent cursor-pointer" style="padding:20px; transition-delay:0.1s;">
-      <span class="material-symbols-outlined eco-icon" style="font-size:20px; color:#999; display:block; margin-bottom:12px;">inventory_2</span>
-      <a href="../ecosystem-solutions/smart-inventory.html" style="position:absolute;inset:0;z-index:5;"></a><span class="eco-label" style="font-size:12px; font-weight:400; letter-spacing:-0.05em; color:#000;">智能仓储盘点</span>
-    </div>
-    <div class="sol-fade eco-item rounded-[0.25rem] bg-[#F6F6F6] border-t-2 border-transparent cursor-pointer" style="padding:20px; transition-delay:0.14s;">
-      <span class="material-symbols-outlined eco-icon" style="font-size:20px; color:#999; display:block; margin-bottom:12px;">elderly</span>
-      <a href="../ecosystem-solutions/elderly-care.html" style="position:absolute;inset:0;z-index:5;"></a><span class="eco-label" style="font-size:12px; font-weight:400; letter-spacing:-0.05em; color:#000;">助残养老</span>
-    </div>
-    <div class="sol-fade eco-item rounded-[0.25rem] bg-[#F6F6F6] border-t-2 border-transparent cursor-pointer" style="padding:20px; transition-delay:0.18s;">
-      <span class="material-symbols-outlined eco-icon" style="font-size:20px; color:#999; display:block; margin-bottom:12px;">restaurant</span>
-      <a href="../ecosystem-solutions/new-catering.html" style="position:absolute;inset:0;z-index:5;"></a><span class="eco-label" style="font-size:12px; font-weight:400; letter-spacing:-0.05em; color:#000;">新餐饮</span>
-    </div>
-    <div class="sol-fade eco-item rounded-[0.25rem] bg-[#F6F6F6] border-t-2 border-transparent cursor-pointer" style="padding:20px; transition-delay:0.22s;">
-      <span class="material-symbols-outlined eco-icon" style="font-size:20px; color:#999; display:block; margin-bottom:12px;">home</span>
-      <a href="../ecosystem-solutions/smart-home.html" style="position:absolute;inset:0;z-index:5;"></a><span class="eco-label" style="font-size:12px; font-weight:400; letter-spacing:-0.05em; color:#000;">智能家居</span>
+    <div class="sol-fade rounded-[0.25rem] bg-[#F6F6F6] overflow-hidden cursor-pointer" style="position:relative; transition-delay:0.2s;">
+      <a href="../ecosystem-solutions/medicine-retrieval.html" style="position:absolute;inset:0;z-index:5;"></a>
+      <div style="height:120px; overflow:hidden; position:relative;"><img class="eco-img" src="../../prop/ecosystem-solutions-new/medicine-retrieval.jpg" alt="" style="width:100%; height:100%; object-fit:cover;"><div class="eco-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,0.12);"></div></div>
+      <div style="padding:16px;">
+        <span class="material-symbols-outlined" style="font-size:20px; color:#999; display:block; margin-bottom:8px;">medication</span>
+        <span style="font-size:12px; font-weight:400; letter-spacing:-0.05em; color:#000;">药品拿取</span>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- SECTION 03: ODM SERVICES -->
-<section id="odm" class="w-full bg-[#F6F6F6] relative odm-section" style="font-family:'Inter',sans-serif; padding:32px;">
+<section id="odm" class="w-full bg-white relative odm-section" style="font-family:'Inter',sans-serif; padding:32px;">
   <h2 id="s3-title" style="font-size:36px; font-weight:400; line-height:1; color:#000; letter-spacing:-0.05em; display:inline-block; overflow:hidden; white-space:nowrap; width:0; margin-bottom:24px;">ODM 定制化解决方案</h2>
 
   <!-- ODM Stats -->
@@ -555,35 +591,35 @@
       <span style="font-size:12px; font-weight:400; letter-spacing:-0.05em; color:#3B82F6;">01</span>
       <h3 style="font-size:20px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000;">机械臂 ODM</h3>
     </div>
-    <div class="odm-card rounded-[0.25rem] overflow-hidden odm-arm-card" style="display:flex;">
+    <div class="odm-card rounded-lg overflow-hidden odm-arm-card" style="display:flex; background:#FFFFFF;">
       <div class="flex items-center justify-center overflow-hidden odm-arm-img" style="width:42%; min-height:320px; padding:32px; flex-shrink:0;">
         <img class="w-full h-full object-contain odm-img" src="../../prop/custom-solutions-arms-second.png" alt="">
       </div>
       <div style="flex:1; display:flex; flex-direction:column;">
         <div style="padding:32px 32px 24px;">
-          <p style="font-size:15px; font-weight:400; line-height:1.8; letter-spacing:-0.05em; color:#666; margin-bottom:12px;">基于自研核心关节模组与全栈运动控制技术，沉淀深厚量产经验与海量用户反馈，为全球客户提供端到端的机械臂深度定制方案</p>
-          <p style="font-size:15px; font-weight:400; line-height:1.8; letter-spacing:-0.05em; color:#666;">支持 2-8 轴灵活配置，涵盖多种自由度构型、臂展及负载参数。精准适配工业生产、科学研究及人机协作等高精度场景，以敏捷的响应速度实现从设计到交付的全流程定制</p>
+          <p style="font-size:15px; font-weight:400; line-height:1.8; letter-spacing:-0.05em; color:#555; margin-bottom:12px;">基于自研核心关节模组与全栈运动控制技术，沉淀深厚量产经验与海量用户反馈，为全球客户提供端到端的机械臂深度定制方案</p>
+          <p style="font-size:15px; font-weight:400; line-height:1.8; letter-spacing:-0.05em; color:#555;">支持 2-8 轴灵活配置，涵盖多种自由度构型、臂展及负载参数。精准适配工业生产、科学研究及人机协作等高精度场景，以敏捷的响应速度实现从设计到交付的全流程定制</p>
         </div>
         <div style="padding:24px 32px 32px; flex:1;">
           <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:#3B82F6; display:block; margin-bottom:16px;">典型案例</span>
           <div class="odm-arm-cases" style="display:flex; gap:16px;">
-            <div class="odm-case rounded-[0.25rem] bg-[#F6F6F6]" style="flex:1; padding:20px; position:relative; overflow:hidden;">
+            <div class="odm-case rounded-lg bg-white" style="flex:1; padding:20px; position:relative; overflow:hidden;">
               <div class="odm-case-bar" style="position:absolute; top:0; left:0; height:2px; background:linear-gradient(to right, #3B82F6, #93C5FD);"></div>
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                 <span style="font-size:12px; font-weight:500; letter-spacing:-0.02em; color:#3B82F6;">案例 01</span>
                 <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:#999;">7 自由度 · 3 kg</span>
               </div>
-              <span style="font-size:15px; font-weight:400; letter-spacing:-0.05em; color:#000; display:block; margin-bottom:8px;">规模化量产与极速交付</span>
-              <p style="font-size:15px; font-weight:400; line-height:1.7; letter-spacing:-0.05em; color:#666;">面向某头部具身智能企业，我们凭借柔性化成熟产线实现快速批量交付，在严苛的工期内完美达成客户对高精度与高稳定性的双重需求</p>
+              <span style="font-size:15px; font-weight:400; letter-spacing:-0.05em; color:#111; display:block; margin-bottom:8px;">规模化量产与极速交付</span>
+              <p style="font-size:15px; font-weight:400; line-height:1.7; letter-spacing:-0.05em; color:#555;">面向某头部具身智能企业，我们凭借柔性化成熟产线实现快速批量交付，在严苛的工期内完美达成客户对高精度与高稳定性的双重需求</p>
             </div>
-            <div class="odm-case rounded-[0.25rem] bg-[#F6F6F6]" style="flex:1; padding:20px; position:relative; overflow:hidden;">
+            <div class="odm-case rounded-lg bg-white" style="flex:1; padding:20px; position:relative; overflow:hidden;">
               <div class="odm-case-bar" style="position:absolute; top:0; left:0; height:2px; background:linear-gradient(to right, #3B82F6, #93C5FD);"></div>
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                 <span style="font-size:12px; font-weight:500; letter-spacing:-0.02em; color:#3B82F6;">案例 02</span>
                 <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:#999;">7 自由度 · 5 kg</span>
               </div>
-              <span style="font-size:15px; font-weight:400; letter-spacing:-0.05em; color:#000; display:block; margin-bottom:8px;">复杂服务场景深度适配</span>
-              <p style="font-size:15px; font-weight:400; line-height:1.7; letter-spacing:-0.05em; color:#666;">面向某新兴机器人制造商，我们充分发挥行业经验，针对用户特定场景开发定制化机械臂，并极速完成原型开发与小批量试制交付，助力客户快速开展部署测试</p>
+              <span style="font-size:15px; font-weight:400; letter-spacing:-0.05em; color:#111; display:block; margin-bottom:8px;">复杂服务场景深度适配</span>
+              <p style="font-size:15px; font-weight:400; line-height:1.7; letter-spacing:-0.05em; color:#555;">面向某新兴机器人制造商，我们充分发挥行业经验，针对用户特定场景开发定制化机械臂，并极速完成原型开发与小批量试制交付，助力客户快速开展部署测试</p>
             </div>
           </div>
         </div>
@@ -597,37 +633,37 @@
       <span style="font-size:12px; font-weight:400; letter-spacing:-0.05em; color:#3B82F6;">02</span>
       <h3 style="font-size:20px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000;">机器人整机 ODM</h3>
     </div>
-    <div class="odm-card rounded-[0.25rem] overflow-hidden odm-robot-card" style="display:flex;">
+    <div class="odm-card rounded-lg overflow-hidden odm-robot-card" style="display:flex; background:#FFFFFF;">
       <div style="flex:1; display:flex; flex-direction:column; padding:32px;">
-        <p style="font-size:15px; font-weight:400; line-height:1.8; letter-spacing:-0.05em; color:#666; margin-bottom:8px;">模块化机器人开发体系，赋能定制化需求，实现全场景规模化部署</p>
-        <p style="font-size:15px; font-weight:400; line-height:1.8; letter-spacing:-0.05em; color:#666; margin-bottom:28px;">整机架构依托底盘、腿部、躯干及机械臂四大核心模块，通过标准化接口设计极大化集成效率，在确保系统稳健性的同时，显著优化量产与制造周期</p>
+        <p style="font-size:15px; font-weight:400; line-height:1.8; letter-spacing:-0.05em; color:#555; margin-bottom:8px;">模块化机器人开发体系，赋能定制化需求，实现全场景规模化部署</p>
+        <p style="font-size:15px; font-weight:400; line-height:1.8; letter-spacing:-0.05em; color:#555; margin-bottom:28px;">整机架构依托底盘、腿部、躯干及机械臂四大核心模块，通过标准化接口设计极大化集成效率，在确保系统稳健性的同时，显著优化量产与制造周期</p>
         <div class="odm-mod-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:0; margin-bottom:28px;">
           <div class="mod-cell" style="padding:14px 16px; border-radius:0.25rem 0 0 0;">
             <span style="font-size:13px; font-weight:500; color:#3B82F6; display:block; margin-bottom:4px;">底盘</span>
-            <span style="font-size:13px; font-weight:400; color:#666; line-height:1.5;">全地形移动底盘，具备卓越的多地形适配性与可靠的移动能力</span>
+            <span style="font-size:13px; font-weight:400; color:#555; line-height:1.5;">全地形移动底盘，具备卓越的多地形适配性与可靠的移动能力</span>
           </div>
           <div class="mod-cell" style="padding:14px 16px; border-radius:0 0.25rem 0 0;">
             <span style="font-size:13px; font-weight:500; color:#3B82F6; display:block; margin-bottom:4px;">躯干</span>
-            <span style="font-size:13px; font-weight:400; color:#666; line-height:1.5;">智慧交互中枢，集高性能计算、多模态感知与人机交互于一体的核心</span>
+            <span style="font-size:13px; font-weight:400; color:#555; line-height:1.5;">智慧交互中枢，集高性能计算、多模态感知与人机交互于一体的核心</span>
           </div>
           <div class="mod-cell" style="padding:14px 16px;">
             <span style="font-size:13px; font-weight:500; color:#3B82F6; display:block; margin-bottom:4px;">机械臂</span>
-            <span style="font-size:13px; font-weight:400; color:#666; line-height:1.5;">自研关节驱动系统，基于底层自研技术，实现高精度、多自由度协同控制</span>
+            <span style="font-size:13px; font-weight:400; color:#555; line-height:1.5;">自研关节驱动系统，基于底层自研技术，实现高精度、多自由度协同控制</span>
           </div>
           <div class="mod-cell" style="padding:14px 16px;">
             <span style="font-size:13px; font-weight:500; color:#3B82F6; display:block; margin-bottom:4px;">相机</span>
-            <span style="font-size:13px; font-weight:400; color:#666; line-height:1.5;">工业级视觉方案，采用 GMSL 技术，实现超低时延观测与工业级稳定性</span>
+            <span style="font-size:13px; font-weight:400; color:#555; line-height:1.5;">工业级视觉方案，采用 GMSL 技术，实现超低时延观测与工业级稳定性</span>
           </div>
           <div class="mod-cell" style="padding:14px 16px; border-radius:0 0 0 0.25rem;">
             <span style="font-size:13px; font-weight:500; color:#3B82F6; display:block; margin-bottom:4px;">末端执行器</span>
-            <span style="font-size:13px; font-weight:400; color:#666; line-height:1.5;">全兼容末端方案，无缝衔接全球主流夹爪与灵巧手，适配复杂任务</span>
+            <span style="font-size:13px; font-weight:400; color:#555; line-height:1.5;">全兼容末端方案，无缝衔接全球主流夹爪与灵巧手，适配复杂任务</span>
           </div>
           <div style="padding:14px 16px; border-radius:0 0 0.25rem 0;">
           </div>
         </div>
-        <div class="odm-result" style="padding:16px 20px; background:#F6F6F6; border-radius:0.25rem;">
+        <div class="odm-result" style="padding:16px 20px; background:transparent; border-radius:0.5rem;">
           <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:#3B82F6; display:block; margin-bottom:6px;">结果</span>
-          <p style="font-size:15px; font-weight:400; line-height:1.7; letter-spacing:-0.05em; color:#666;">更快响应定制需求，更短交付周期，更低定制与维护成本</p>
+          <p style="font-size:15px; font-weight:400; line-height:1.7; letter-spacing:-0.05em; color:#555;">更快响应定制需求，更短交付周期，更低定制与维护成本</p>
         </div>
       </div>
       <div class="flex items-center justify-center overflow-hidden odm-robot-img" style="width:42%; min-height:320px; padding:32px; flex-shrink:0;">
@@ -643,32 +679,32 @@
       <h3 style="font-size:20px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#000;">ODM 流程</h3>
     </div>
     <div class="grid grid-cols-6 gap-4 pipe-grid" style="position:relative;">
-      <div class="pipe-card pipe-step-1 rounded-[0.25rem] bg-white border border-[#DFDFDF]" style="padding:24px; margin-top:0;">
+      <div class="pipe-card pipe-step-1 rounded-lg bg-[#F6F6F6] border border-transparent" style="padding:24px; margin-top:0;">
         <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; color:#3B82F6; display:block; margin-bottom:20px;">步骤 01</span>
-        <h4 style="font-size:15px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:8px;">任务定义</h4>
-        <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999;">深度分析系统需求，明确作业环境参数</p>
+        <h4 style="font-size:15px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#111; margin-bottom:8px;">任务定义</h4>
+        <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#888;">深度分析系统需求，明确作业环境参数</p>
       </div>
-      <div class="pipe-card pipe-step-2 rounded-[0.25rem] bg-white border border-[#DFDFDF]" style="padding:24px; margin-top:24px;">
+      <div class="pipe-card pipe-step-2 rounded-lg bg-[#F6F6F6] border border-transparent" style="padding:24px; margin-top:24px;">
         <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; color:#3B82F6; display:block; margin-bottom:20px;">步骤 02</span>
-        <h4 style="font-size:15px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:8px;">规格确认</h4>
-        <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999;">验证运动学约束，核准负载规格参数</p>
+        <h4 style="font-size:15px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#111; margin-bottom:8px;">规格确认</h4>
+        <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#888;">验证运动学约束，核准负载规格参数</p>
       </div>
-      <div class="pipe-card pipe-step-3 rounded-[0.25rem] bg-white border border-[#DFDFDF]" style="padding:24px; margin-top:-12px;">
+      <div class="pipe-card pipe-step-3 rounded-lg bg-[#F6F6F6] border border-transparent" style="padding:24px; margin-top:-12px;">
         <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; color:#3B82F6; display:block; margin-bottom:20px;">步骤 03</span>
-        <h4 style="font-size:15px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:8px;">硬件配置</h4>
-        <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999;">实现定制执行器与传感器阵列的机械集成</p>
+        <h4 style="font-size:15px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#111; margin-bottom:8px;">硬件配置</h4>
+        <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#888;">实现定制执行器与传感器阵列的机械集成</p>
       </div>
-      <div class="pipe-card pipe-step-4 rounded-[0.25rem] bg-white border border-[#DFDFDF]" style="padding:24px; margin-top:12px;">
+      <div class="pipe-card pipe-step-4 rounded-lg bg-[#F6F6F6] border border-transparent" style="padding:24px; margin-top:12px;">
         <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; color:#3B82F6; display:block; margin-bottom:20px;">步骤 04</span>
-        <h4 style="font-size:15px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:8px;">软件栈部署</h4>
-        <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999;">部署实时操作系统与控制算法</p>
+        <h4 style="font-size:15px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#111; margin-bottom:8px;">软件栈部署</h4>
+        <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#888;">部署实时操作系统与控制算法</p>
       </div>
-      <div class="pipe-card pipe-step-5 rounded-[0.25rem] bg-white border border-[#DFDFDF]" style="padding:24px; margin-top:-24px;">
+      <div class="pipe-card pipe-step-5 rounded-lg bg-[#F6F6F6] border border-transparent" style="padding:24px; margin-top:-24px;">
         <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; color:#3B82F6; display:block; margin-bottom:20px;">步骤 05</span>
-        <h4 style="font-size:15px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#000; margin-bottom:8px;">测试验证</h4>
-        <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#999;">进行压力测试与行为安全审计</p>
+        <h4 style="font-size:15px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#111; margin-bottom:8px;">测试验证</h4>
+        <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#888;">进行压力测试与行为安全审计</p>
       </div>
-      <div class="pipe-card pipe-step-6 rounded-[0.25rem] bg-[#3B82F6]" style="padding:24px; margin-top:40px;">
+      <div class="pipe-card pipe-step-6 rounded-lg bg-[#3B82F6] border border-transparent" style="padding:24px; margin-top:40px;">
         <span style="font-size:12px; font-weight:500; letter-spacing:0.08em; color:rgba(255,255,255,0.5); display:block; margin-bottom:20px;">步骤 06</span>
         <h4 style="font-size:15px; font-weight:400; line-height:1.2; letter-spacing:-0.05em; color:#fff; margin-bottom:8px;">交付上线</h4>
         <p style="font-size:12px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:rgba(255,255,255,0.7);">实现全球化部署，并与现有基础设施无缝集成</p>

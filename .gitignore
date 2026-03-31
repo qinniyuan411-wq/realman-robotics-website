@@ -5,8 +5,10 @@ __pycache__
 .DS_Store
 Thumbs.db
 
-# Large files excluded from GitHub
-# (none currently)
+# Large videos excluded from GitHub (>100MB)
+prop/ecosystem-solutions-video-new/stage-performance.mp4
+prop/ecosystem-solutions-video-new/massage-moxibustion.mp4
+prop/ecosystem-solutions-video-new/motion-capture-teleoperation.mp4
 
 # Full-size originals — keep local only
 prop-full-size/
