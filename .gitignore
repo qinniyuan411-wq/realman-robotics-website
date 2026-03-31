@@ -5,9 +5,8 @@ __pycache__
 .DS_Store
 Thumbs.db
 
-# Large videos excluded from GitHub (>100MB)
-prop/industry-solutions-video-new/autonomous-delivery.mp4
-prop/industry-solutions-video-new/home-assistant.mp4
+# Large files excluded from GitHub
+# (none currently)
 
 # Full-size originals — keep local only
 prop-full-size/
