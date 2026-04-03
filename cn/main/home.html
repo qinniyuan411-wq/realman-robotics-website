@@ -47,18 +47,18 @@
       height: 100vh;
       background-color: #F6F6F6;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       padding-left: 20px;
-      padding-top: 32px;
+      padding-top: 18vh;
       position: relative;
       overflow: hidden;
     }
 
     .hero-image {
       position: absolute;
-      right: 2vw;
+      right: -10vw;
       bottom: 0;
-      height: 90vh;
+      height: 50vh;
       width: auto;
       object-fit: contain;
       pointer-events: none;
@@ -74,14 +74,15 @@
     }
 
     @media (min-width: 768px) {
-      .hero { padding-left: 32px; }
+      .hero { padding-left: 32px; padding-top: 20vh; }
       .hero-text { font-size: 60px; }
-      .hero-image { height: 75vh; }
+      .hero-image { height: 60vh; right: -2vw; }
     }
 
     @media (min-width: 1024px) {
+      .hero { align-items: center; padding-top: 32px; }
       .hero-text { font-size: 90px; }
-      .hero-image { height: 90vh; }
+      .hero-image { height: 90vh; right: 2vw; }
     }
 
     .hero-text .highlight {
