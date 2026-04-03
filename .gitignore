@@ -12,5 +12,11 @@ Thumbs.db
 prop/route.md
 prop/translation/
 
+# Self-hosted CDN assets (CN version only)
+prop/tailwind.js
+prop/inter-font.css
+prop/material-symbols.css
+prop/fonts/
+
 # Full-size originals — keep local only
 prop-full-size/
