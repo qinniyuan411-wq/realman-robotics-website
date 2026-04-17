@@ -13,9 +13,9 @@
     theme: {
       extend: {
         fontFamily: {
-          "headline": ["Inter", "sans-serif"],
-          "body": ["Inter", "sans-serif"],
-          "label": ["Inter", "sans-serif"],
+          "headline": ["HarmonyOS Sans SC", "Roboto", "sans-serif"],
+          "body": ["HarmonyOS Sans SC", "Roboto", "sans-serif"],
+          "label": ["HarmonyOS Sans SC", "Roboto", "sans-serif"],
         },
         borderRadius: {
           "DEFAULT": "0.25rem",
@@ -30,7 +30,7 @@
   <style>
     .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { width: 100%; height: 100%; overflow-x: hidden; font-family: 'Inter', sans-serif; }
+    html, body { width: 100%; height: 100%; overflow-x: hidden; font-family: 'HarmonyOS Sans SC', 'Roboto', sans-serif; }
     html { scroll-behavior: smooth; }
     .ds-fade { opacity:0; transform:translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .ds-fade.ds-visible { opacity:1; transform:translateY(0); }
@@ -57,7 +57,35 @@
     @media (min-width: 768px) { .ds-title { padding: 32px 32px 0 32px !important; font-size: 36px !important; margin-top: 60px !important; } }
     .ds-title-no-mt { margin-top: 0 !important; }
 
-    /* --- S1: 数据资源矩阵 --- */
+    /* --- S0: 数据采集中心 --- */
+    .dcc-img-area { flex:1; position:relative; min-height:0; margin-top:16px; }
+    .dcc-bg {
+      display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(5,1fr);
+      gap:0; position:absolute; inset:0;
+    }
+    .dcc-bg > div { overflow:hidden; }
+    .dcc-bg img { width:100%; height:100%; object-fit:cover; }
+    .dcc-text { position:absolute; bottom:0; left:0; right:0; z-index:2; padding:0 16px 24px; }
+    .dcc-text h3 { font-size:32px; font-weight:300; letter-spacing:-0.05em; color:#fff; line-height:1.1; }
+    .dcc-stat-row { display:flex; gap:0; flex-wrap:wrap; }
+    .dcc-stat-item { padding:0 24px; border-left:1px solid rgba(59,130,246,0.35); }
+    .dcc-stat-item:first-child { padding-left:0; border-left:none; }
+    .stat-num { font-size:28px; font-weight:300; letter-spacing:-0.05em; line-height:1; color:#fff; }
+    .stat-unit { font-size:14px; font-weight:300; letter-spacing:0; color:rgba(255,255,255,0.4); }
+    .stat-label { font-size:11px; font-weight:400; letter-spacing:-0.03em; margin-top:8px; color:rgba(255,255,255,0.5); }
+    @media (min-width:768px) {
+      .dcc-img-area { margin-top:20px; }
+      .dcc-text { padding:0 32px 40px; }
+      .dcc-text h3 { font-size:48px; }
+      .stat-num { font-size:44px; }
+      .stat-label { font-size:12px; }
+      .dcc-stat-item { padding:0 40px; }
+    }
+    @media (min-width:1024px) {
+      .dcc-bg { grid-template-columns:repeat(5,1fr); grid-template-rows:repeat(3,1fr); }
+    }
+
+    /* --- S1: 真机数据资源矩阵 --- */
     .dao-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
     .dao-wrap { padding: 0 16px 20px !important; }
     .dao-card h3 { font-size: 28px !important; }
@@ -194,7 +222,7 @@
   .git-input, .git-select {
     width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);
     border-radius:0.25rem; padding:14px 16px; font-size:15px; font-weight:400;
-    letter-spacing:-0.05em; color:#fff; outline:none; font-family:Inter,sans-serif;
+    letter-spacing:-0.05em; color:#fff; outline:none; font-family: 'HarmonyOS Sans SC', 'Roboto', sans-serif;
     transition:border-color 0.3s, background 0.3s;
   }
   .git-input::placeholder { color:rgba(255,255,255,0.3); }
@@ -314,9 +342,9 @@
   </div>
 </div>
 
-<!-- Section 1: 数据资源矩阵 -->
-<section id="data-access" class="w-full lg:h-screen bg-[#FFFFFF] relative flex flex-col" style="font-family:'Inter',sans-serif;">
-  <h2 id="s1-title" class="ds-title" style="padding:32px 32px 0 32px; margin-top:60px; font-size:36px; font-weight:400; line-height:1; color:#000; letter-spacing:-0.05em; flex-shrink:0; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">数据资源矩阵</h2>
+<!-- Section 1: 真机数据资源矩阵 (HERO) -->
+<section id="data-access" class="w-full lg:h-screen bg-[#FFFFFF] relative flex flex-col" style="font-family: 'HarmonyOS Sans SC', 'Roboto', sans-serif;">
+  <h2 id="s1-title" class="ds-title" style="padding:32px 32px 0 32px; margin-top:60px; font-size:36px; font-weight:400; line-height:1; color:#000; letter-spacing:-0.05em; flex-shrink:0; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">真机数据资源矩阵</h2>
   <div class="flex-1 flex items-center dao-wrap" style="padding:0 32px 32px; min-height:0;">
     <div class="w-full grid grid-cols-3 gap-8 dao-grid">
 
@@ -466,7 +494,7 @@
 </section>
 
 <!-- Section 2: 数据集架构 -->
-<section id="dataset-architecture" class="w-full relative da-section" style="font-family:'Inter',sans-serif; padding:32px; background:url('../../prop/background-1.jpg') center/cover no-repeat;">
+<section id="dataset-architecture" class="w-full relative da-section" style="font-family: 'HarmonyOS Sans SC', 'Roboto', sans-serif; padding:32px; background:url('../../prop/background-1.jpg') center/cover no-repeat;">
   <div class="da-title-wrap" style="display:flex; align-items:flex-start; gap:48px;">
     <h2 id="s2-title" style="font-size:36px; font-weight:400; line-height:1; color:#F6F6F6; letter-spacing:-0.05em; flex-shrink:0; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">数据集架构</h2>
   </div>
@@ -511,7 +539,7 @@
 </section>
 
 <!-- Section 3: 核心优势 -->
-<section id="why-realsource" class="w-full lg:h-screen bg-[#F6F6F6] relative flex flex-col" style="font-family:'Inter',sans-serif;">
+<section id="why-realsource" class="w-full lg:h-screen bg-[#F6F6F6] relative flex flex-col" style="font-family: 'HarmonyOS Sans SC', 'Roboto', sans-serif;">
   <h2 id="s3-title" style="padding:32px 32px 0 32px; font-size:36px; font-weight:400; line-height:1; color:#000; letter-spacing:-0.05em; flex-shrink:0; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">核心优势</h2>
   <div class="flex-1 flex items-end rs-wrap" style="padding:32px 32px 32px; min-height:0;">
     <div class="w-full rs-grid" style="display:grid; grid-template-columns:1fr 1.2fr 1fr 1fr; grid-template-rows:1fr 1fr; gap:6px; height:calc(100% - 0px);">
@@ -580,7 +608,7 @@
 </section>
 
 <!-- Section 4: 行业标准与生态适配 -->
-<section id="standards" class="w-full bg-[#F6F6F6] relative si-section" style="font-family:'Inter',sans-serif; padding:32px 32px 32px;">
+<section id="standards" class="w-full bg-[#F6F6F6] relative si-section" style="font-family: 'HarmonyOS Sans SC', 'Roboto', sans-serif; padding:32px 32px 32px;">
   <h2 id="s4-title" style="font-size:36px; font-weight:400; line-height:1; color:#000; letter-spacing:-0.05em; display:inline-block; overflow:hidden; white-space:nowrap; width:0; margin-bottom:32px;">行业标准与生态适配</h2>
   <div class="ds-fade rounded-[0.25rem] bg-white si-strip" style="padding:0; display:flex; transition-delay:0s;">
     <div style="flex:1; padding:32px 28px; display:flex; align-items:flex-start; gap:16px;">
@@ -609,8 +637,49 @@
   </div>
 </section>
 
-<!-- Section 5: 定制化数据全链路服务 -->
-<section id="custom-pipeline" class="w-full relative" style="font-family:'Inter',sans-serif; background:#FFFFFF;">
+<!-- Section 5: 人形机器人真机数据训练中心 -->
+<section id="data-collection-center" class="w-full h-screen bg-[#F6F6F6] relative flex flex-col" style="font-family: 'HarmonyOS Sans SC', 'Roboto', sans-serif;">
+  <h2 id="dcc-title" class="ds-title ds-title-no-mt" style="padding:32px 32px 0 32px; margin-top:0; font-size:36px; font-weight:400; line-height:1; color:#000; letter-spacing:-0.05em; flex-shrink:0; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">人形机器人真机数据训练中心</h2>
+  <div class="dcc-img-area">
+    <div class="dcc-bg">
+      <div><img src="../../prop/data-collection-center/dcc-02.jpg" alt="数据采集中心全景 — 机器人集群"></div>
+      <div><img src="../../prop/data-collection-center/dcc-03.jpg" alt="数据采集中心全景 — 工作站"></div>
+      <div><img src="../../prop/data-collection-center/dcc-01.jpg" alt="遥操作 — 花卉抓取"></div>
+      <div><img src="../../prop/data-collection-center/dcc-04.jpg" alt="遥操作 — 近距操控"></div>
+      <div><img src="../../prop/data-collection-center/dcc-05.jpg" alt="遥操作 — VR 双臂协作"></div>
+      <div><img src="../../prop/data-collection-center/dcc-06.jpg" alt="遥操作 — 水果采摘"></div>
+      <div><img src="../../prop/data-collection-center/dcc-08.jpg" alt="遥操作 — 物品操作特写"></div>
+      <div><img src="../../prop/data-collection-center/dcc-09.jpg" alt="遥操作 — 家庭厨房场景"></div>
+      <div><img src="../../prop/data-collection-center/dcc-12.jpg" alt="遥操作 — 家务整理"></div>
+      <div><img src="../../prop/data-collection-center/dcc-07.jpg" alt="场景 — 智慧零售"></div>
+      <div><img src="../../prop/data-collection-center/dcc-14.jpg" alt="场景 — 物品抓取"></div>
+      <div><img src="../../prop/data-collection-center/dcc-15.jpg" alt="场景 — 桌面操作"></div>
+      <div><img src="../../prop/data-collection-center/dcc-13.jpg" alt="场景 — 烹饪"></div>
+      <div><img src="../../prop/data-collection-center/dcc-10.jpg" alt="场景 — 卫浴环境"></div>
+      <div><img src="../../prop/data-collection-center/dcc-11.jpg" alt="场景 — 厨房操作"></div>
+    </div>
+    <div style="position:absolute; inset:0; background:linear-gradient(to bottom, transparent 35%, rgba(0,0,0,0.85) 100%); z-index:1;"></div>
+    <div class="dcc-text">
+      <div style="display:flex; align-items:flex-end; gap:16px; flex-wrap:wrap;">
+        <h3>数据引擎</h3>
+        <a href="../data-collection-center/data-collection-center.html" style="display:flex; align-items:center; gap:6px; cursor:pointer; text-decoration:none; margin-bottom:4px;">
+          <span style="font-size:15px; font-weight:400; letter-spacing:-0.05em; color:#F6F6F6;">了解详情</span>
+          <span class="material-symbols-outlined" style="font-size:20px; color:#F6F6F6; opacity:0.5;">arrow_outward</span>
+        </a>
+      </div>
+      <p style="font-size:14px; font-weight:300; letter-spacing:-0.03em; color:rgba(255,255,255,0.45); margin-top:8px; margin-bottom:32px;">具身时代的"石油"</p>
+      <div class="dcc-stat-row">
+        <div class="dcc-stat-item"><span class="stat-num">108 <span class="stat-unit">套</span></span><p class="stat-label">具身操作本体</p></div>
+        <div class="dcc-stat-item"><span class="stat-num">108 <span class="stat-unit">套</span></span><p class="stat-label">具身数采设备</p></div>
+        <div class="dcc-stat-item"><span class="stat-num">百万 <span class="stat-unit">条 / 年</span></span><p class="stat-label">多模态数据</p></div>
+        <div class="dcc-stat-item"><span class="stat-num">100 <span class="stat-unit">种</span></span><p class="stat-label">行业应用赋能</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 6: 定制化数据全链路服务 -->
+<section id="custom-pipeline" class="w-full relative" style="font-family: 'HarmonyOS Sans SC', 'Roboto', sans-serif; background:#FFFFFF;">
   <div class="cdp-outer" style="display:flex; align-items:flex-start; gap:0; padding:0 32px;">
     <!-- Left: Sticky title -->
     <div class="cdp-left" style="position:sticky; top:0; width:33%; flex-shrink:0; height:100vh; display:flex; flex-direction:column; justify-content:center; padding-right:48px;">
@@ -705,7 +774,8 @@ function initTypewriter(id, text) {
   obs.observe(el);
 }
 
-initTypewriter('s1-title', '数据资源矩阵');
+initTypewriter('dcc-title', '人形机器人真机数据训练中心');
+initTypewriter('s1-title', '真机数据资源矩阵');
 initTypewriter('s2-title', '数据集架构');
 initTypewriter('s3-title', '核心优势');
 initTypewriter('s4-title', '行业标准与生态适配');
@@ -734,7 +804,7 @@ initTypewriter('s5-title', '定制化数据全链路服务');
   .git-input, .git-select {
     width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);
     border-radius:0.25rem; padding:14px 16px; font-size:15px; font-weight:400;
-    letter-spacing:-0.05em; color:#fff; outline:none; font-family:Inter,sans-serif;
+    letter-spacing:-0.05em; color:#fff; outline:none; font-family: 'HarmonyOS Sans SC', 'Roboto', sans-serif;
     transition:border-color 0.3s, background 0.3s;
   }
   .git-input::placeholder { color:rgba(255,255,255,0.3); }
@@ -761,7 +831,7 @@ initTypewriter('s5-title', '定制化数据全链路服务');
     .cta-grid a[href^="mailto:"], .cta-grid a[href^="tel:"] { font-size: 20px !important; }
   }
 </style>
-<section id="get-in-touch" class="w-full relative" style="font-family:Inter,sans-serif; min-height:calc(100vh - 56px); background:#000; display:flex; flex-direction:column;">
+<section id="get-in-touch" class="w-full relative" style="font-family: 'HarmonyOS Sans SC', 'Roboto', sans-serif; min-height:calc(100vh - 56px); background:#000; display:flex; flex-direction:column;">
   <div class="cta-wrap" style="padding:32px; flex:1; display:flex; flex-direction:column; max-width:1280px;">
     <h2 id="git-title" style="font-size:36px; font-weight:400; line-height:1; color:#fff; letter-spacing:-0.05em; margin-bottom:12px; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">联系我们</h2>
     <p style="font-size:14px; font-weight:400; letter-spacing:-0.05em; color:rgba(255,255,255,0.4); margin-bottom:36px;">如有任何疑问或合作意向，欢迎随时与我们联系</p>
@@ -850,7 +920,7 @@ initTypewriter('s5-title', '定制化数据全链路服务');
         <div style="margin-bottom:28px;">
           <textarea class="git-input" placeholder="详细需求 (选填)" rows="4" style="resize:vertical; min-height:80px;"></textarea>
         </div>
-        <button type="submit" style="display:inline-flex; align-items:center; gap:8px; padding:14px 32px; background:#3B82F6; color:#fff; border:none; border-radius:0.25rem; font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; font-family:Inter,sans-serif; cursor:pointer; transition:background 0.3s; width:100%; justify-content:center;" onmouseover="this.style.background='#2563EB'" onmouseout="this.style.background='#3B82F6'">
+        <button type="submit" style="display:inline-flex; align-items:center; gap:8px; padding:14px 32px; background:#3B82F6; color:#fff; border:none; border-radius:0.25rem; font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; font-family: 'HarmonyOS Sans SC', 'Roboto', sans-serif; cursor:pointer; transition:background 0.3s; width:100%; justify-content:center;" onmouseover="this.style.background='#2563EB'" onmouseout="this.style.background='#3B82F6'">
           立即提交
           <span class="material-symbols-outlined" style="font-size:16px;">arrow_outward</span>
         </button>

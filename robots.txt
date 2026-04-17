@@ -3,6 +3,7 @@ Allow: /main/
 Allow: /products/
 Allow: /industry-solutions/
 Allow: /ecosystem-solutions/
+Allow: /data-collection-center/
 Disallow: /prop/
 
 Sitemap: https://www.realman-robotics.cn/sitemap.xml

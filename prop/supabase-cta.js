@@ -1,6 +1,11 @@
 (function () {
-  var SUPABASE_URL = 'https://dwtfijvpelpavdslvyry.supabase.co';
-  var SUPABASE_KEY = 'sb_publishable_p0hMaphSABTlKZiLXtDcBQ_ZU_Nvel0';
+  var isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+  var SUPABASE_URL = isLocal
+    ? 'http://127.0.0.1:54321'
+    : 'https://dwtfijvpelpavdslvyry.supabase.co';
+  var SUPABASE_KEY = isLocal
+    ? 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH'
+    : 'sb_publishable_p0hMaphSABTlKZiLXtDcBQ_ZU_Nvel0';
 
   var form = document.getElementById('contact-form');
   if (!form) return;

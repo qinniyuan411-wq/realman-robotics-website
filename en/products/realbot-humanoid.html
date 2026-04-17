@@ -13,9 +13,9 @@
             theme: {
                 extend: {
         fontFamily: {
-          "headline": ["Inter", "sans-serif"],
-          "body": ["Inter", "sans-serif"],
-          "label": ["Inter", "sans-serif"],
+          "headline": ["Roboto", "HarmonyOS Sans SC", "sans-serif"],
+          "body": ["Roboto", "HarmonyOS Sans SC", "sans-serif"],
+          "label": ["Roboto", "HarmonyOS Sans SC", "sans-serif"],
         },
         borderRadius: {
           "DEFAULT": "0.25rem",
@@ -30,7 +30,7 @@
 <style>
     .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { width: 100%; height: 100%; overflow-x: hidden; font-family: 'Inter', sans-serif; background: #FFFFFF; color: #000; }
+    html, body { width: 100%; height: 100%; overflow-x: hidden; font-family: 'Roboto', 'HarmonyOS Sans SC', sans-serif; background: #FFFFFF; color: #000; }
 
     .gallery-item { cursor: pointer; overflow: hidden; border-radius: 0.25rem; }
     .gallery-item img { transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
@@ -216,33 +216,39 @@
 
   <!-- Photo Gallery -->
   <div class="prod-gallery-wrap" style="padding:32px;">
-    <!-- Mobile: 2-col with aspect-ratio -->
+    <!-- Mobile: 2-col + 1-col mixed -->
     <div class="grid grid-cols-2 gap-2 md:hidden">
+      <div class="gallery-item" style="grid-column:span 2; aspect-ratio:4/3; background:transparent;">
+        <img src="../../prop/products-images/轮式人形机器人/RealBOT/2.145.png" alt="RealBOT 2.145 Product Render" style="width:100%; height:100%; object-fit:contain;">
+      </div>
       <div class="gallery-item" style="aspect-ratio:3/4; background:transparent;">
         <img src="../../prop/products-images/轮式人形机器人/RealBOT/轮式人形03-2.png" alt="RealBOT Front View" style="width:100%; height:100%; object-fit:cover; object-position:center 15%;">
       </div>
       <div class="gallery-item" style="aspect-ratio:3/4; background:transparent;">
         <img src="../../prop/products-images/轮式人形机器人/RealBOT/轮式人形03-1.png" alt="RealBOT 3/4 Angle" style="width:100%; height:100%; object-fit:cover; object-position:center 25%;">
-    </div>
+      </div>
       <div class="gallery-item" style="aspect-ratio:3/4; background:transparent;">
         <img src="../../prop/products-images/轮式人形机器人/RealBOT/轮式人形03-4.png" alt="RealBOT Side Profile" style="width:100%; height:100%; object-fit:cover; object-position:center 20%;">
-        </div>
+      </div>
       <div class="gallery-item" style="aspect-ratio:3/4; background:transparent;">
         <img src="../../prop/products-images/轮式人形机器人/RealBOT/轮式人形03-3.png" alt="RealBOT Front Alternate" style="width:100%; height:100%; object-fit:cover; object-position:center 30%;">
       </div>
     </div>
-    <!-- Desktop: 2-col with fixed 420px row heights -->
-    <div class="hidden md:grid grid-cols-2 gap-2" style="grid-template-rows:420px 420px;">
-      <div class="gallery-item" style="background:transparent;">
+    <!-- Desktop: 6-col grid, row1 = 3x(span2), row2 = 2x(span2) offset -->
+    <div class="hidden md:grid gap-2" style="grid-template-columns:repeat(6,1fr); grid-template-rows:420px 420px;">
+      <div class="gallery-item" style="grid-column:span 2; background:transparent;">
+        <img src="../../prop/products-images/轮式人形机器人/RealBOT/2.145.png" alt="RealBOT 2.145 Product Render" style="width:100%; height:100%; object-fit:contain;">
+      </div>
+      <div class="gallery-item" style="grid-column:span 2; background:transparent;">
         <img src="../../prop/products-images/轮式人形机器人/RealBOT/轮式人形03-2.png" alt="RealBOT Front View" style="width:100%; height:100%; object-fit:cover; object-position:center 15%;">
-        </div>
-      <div class="gallery-item" style="background:transparent;">
+      </div>
+      <div class="gallery-item" style="grid-column:span 2; background:transparent;">
         <img src="../../prop/products-images/轮式人形机器人/RealBOT/轮式人形03-1.png" alt="RealBOT 3/4 Angle" style="width:100%; height:100%; object-fit:cover; object-position:center 25%;">
       </div>
-      <div class="gallery-item" style="background:transparent;">
+      <div class="gallery-item" style="grid-column:2 / span 2; background:transparent;">
         <img src="../../prop/products-images/轮式人形机器人/RealBOT/轮式人形03-4.png" alt="RealBOT Side Profile" style="width:100%; height:100%; object-fit:cover; object-position:center 20%;">
-    </div>
-      <div class="gallery-item" style="background:transparent;">
+      </div>
+      <div class="gallery-item" style="grid-column:4 / span 2; background:transparent;">
         <img src="../../prop/products-images/轮式人形机器人/RealBOT/轮式人形03-3.png" alt="RealBOT Front Alternate" style="width:100%; height:100%; object-fit:cover; object-position:center 30%;">
       </div>
     </div>
@@ -415,57 +421,48 @@
 
           <div class="grid grid-cols-2" style="border-bottom:1px solid #DFDFDF;">
             <div style="padding:14px 24px; background:#FFFFFF;">
-              <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:rgba(0,0,0,0.5);">LiDAR Reflectivity</span>
+              <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:rgba(0,0,0,0.5);">Wide-Angle Camera Positions</span>
             </div>
             <div style="padding:14px 24px; text-align:right; border-left:1px solid #DFDFDF; background:#FFFFFF;">
+              <span style="font-size:12px; font-weight:500; letter-spacing:-0.02em; color:#000;">Chest / Back / Base</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2" style="border-bottom:1px solid #DFDFDF;">
+            <div style="padding:14px 24px; background:#F6F6F6;">
+              <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:rgba(0,0,0,0.5);">LiDAR Reflectivity</span>
+            </div>
+            <div style="padding:14px 24px; text-align:right; border-left:1px solid #DFDFDF; background:#F6F6F6;">
               <span style="font-size:12px; font-weight:500; letter-spacing:-0.02em; color:#000;">90% @ 40 m</span>
             </div>
           </div>
 
           <div class="grid grid-cols-2" style="border-bottom:1px solid #DFDFDF;">
-            <div style="padding:14px 24px; background:#F6F6F6;">
+            <div style="padding:14px 24px; background:#FFFFFF;">
               <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:rgba(0,0,0,0.5);">Voice Module</span>
             </div>
-            <div style="padding:14px 24px; text-align:right; border-left:1px solid #DFDFDF; background:#F6F6F6;">
+            <div style="padding:14px 24px; text-align:right; border-left:1px solid #DFDFDF; background:#FFFFFF;">
               <span style="font-size:12px; font-weight:500; letter-spacing:-0.02em; color:#000;">6-Mic (Optional)</span>
             </div>
-</div>
-
-          <div class="grid grid-cols-2" style="border-bottom:1px solid #DFDFDF;">
-            <div style="padding:14px 24px; background:#FFFFFF;">
-              <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:rgba(0,0,0,0.5);">Battery Capacity</span>
-  </div>
-            <div style="padding:14px 24px; text-align:right; border-left:1px solid #DFDFDF; background:#FFFFFF;">
-              <span style="font-size:12px; font-weight:500; letter-spacing:-0.02em; color:#000;">40 Ah (BMS)</span>
-  </div>
-  </div>
+          </div>
 
           <div class="grid grid-cols-2" style="border-bottom:1px solid #DFDFDF;">
             <div style="padding:14px 24px; background:#F6F6F6;">
-              <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:rgba(0,0,0,0.5);">Charging Time</span>
-  </div>
+              <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:rgba(0,0,0,0.5);">Battery Capacity</span>
+            </div>
             <div style="padding:14px 24px; text-align:right; border-left:1px solid #DFDFDF; background:#F6F6F6;">
-              <span style="font-size:12px; font-weight:500; letter-spacing:-0.02em; color:#000;">≈ 2 hours</span>
-  </div>
-  </div>
-
-          <div class="grid grid-cols-2" style="border-bottom:1px solid #DFDFDF;">
-            <div style="padding:14px 24px; background:#FFFFFF;">
-              <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:rgba(0,0,0,0.5);">Camera Positions</span>
-  </div>
-            <div style="padding:14px 24px; text-align:right; border-left:1px solid #DFDFDF; background:#FFFFFF;">
-              <span style="font-size:12px; font-weight:500; letter-spacing:-0.02em; color:#000;">Chest / Back / Base</span>
-  </div>
+              <span style="font-size:12px; font-weight:500; letter-spacing:-0.02em; color:#000;">40 Ah (BMS)</span>
+            </div>
           </div>
 
           <div class="grid grid-cols-2">
-            <div style="padding:14px 24px; background:#F6F6F6; border-radius:0 0 0 0.25rem;">
-              <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:rgba(0,0,0,0.5);">&nbsp;</span>
+            <div style="padding:14px 24px; background:#FFFFFF; border-radius:0 0 0 0.25rem;">
+              <span style="font-size:12px; font-weight:400; letter-spacing:-0.02em; color:rgba(0,0,0,0.5);">Charging Time</span>
             </div>
-            <div style="padding:14px 24px; text-align:right; border-left:1px solid #DFDFDF; background:#F6F6F6; border-radius:0 0 0.25rem 0;">
-              <span style="font-size:12px; font-weight:500; letter-spacing:-0.02em; color:#000;">&nbsp;</span>
-</div>
-</div>
+            <div style="padding:14px 24px; text-align:right; border-left:1px solid #DFDFDF; background:#FFFFFF; border-radius:0 0 0.25rem 0;">
+              <span style="font-size:12px; font-weight:500; letter-spacing:-0.02em; color:#000;">≈ 2 hours</span>
+            </div>
+          </div>
 
 </div>
 </div>
@@ -482,7 +479,7 @@
   .git-input, .git-select {
     width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);
     border-radius:0.25rem; padding:14px 16px; font-size:15px; font-weight:400;
-    letter-spacing:-0.05em; color:#fff; outline:none; font-family:Inter,sans-serif;
+    letter-spacing:-0.05em; color:#fff; outline:none; font-family: 'Roboto', 'HarmonyOS Sans SC', sans-serif;
     transition:border-color 0.3s, background 0.3s;
   }
   .git-input::placeholder { color:rgba(255,255,255,0.3); }
@@ -495,7 +492,7 @@
   }
   .git-select option { background:#111; color:#fff; }
 </style>
-<section id="get-in-touch" class="w-full relative" style="font-family:Inter,sans-serif; min-height:calc(100vh - 56px); background:#000; display:flex; flex-direction:column;">
+<section id="get-in-touch" class="w-full relative" style="font-family: 'Roboto', 'HarmonyOS Sans SC', sans-serif; min-height:calc(100vh - 56px); background:#000; display:flex; flex-direction:column;">
   <div class="cta-wrap-prod" style="padding:32px 32px; flex:1; display:flex; flex-direction:column; max-width:1280px;">
     <h2 id="git-title" style="font-size:36px; font-weight:400; line-height:1; color:#fff; letter-spacing:-0.05em; margin-bottom:12px; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">Get in Touch</h2>
     <p style="font-size:15px; font-weight:400; letter-spacing:-0.05em; color:rgba(255,255,255,0.4); margin-bottom:48px;">Have a question or want to collaborate? We'd love to hear from you.</p>
@@ -533,7 +530,7 @@
         <div style="margin-bottom:28px;">
           <textarea class="git-input" placeholder="Additional Details (optional)" rows="4" style="resize:vertical; min-height:80px;"></textarea>
         </div>
-        <button type="submit" style="display:inline-flex; align-items:center; gap:8px; padding:14px 32px; background:#3B82F6; color:#fff; border:none; border-radius:0.25rem; font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; font-family:Inter,sans-serif; cursor:pointer; transition:background 0.3s; width:100%; justify-content:center;" onmouseover="this.style.background='#2563EB'" onmouseout="this.style.background='#3B82F6'">
+        <button type="submit" style="display:inline-flex; align-items:center; gap:8px; padding:14px 32px; background:#3B82F6; color:#fff; border:none; border-radius:0.25rem; font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; font-family: 'Roboto', 'HarmonyOS Sans SC', sans-serif; cursor:pointer; transition:background 0.3s; width:100%; justify-content:center;" onmouseover="this.style.background='#2563EB'" onmouseout="this.style.background='#3B82F6'">
           Submit Inquiry
           <span class="material-symbols-outlined" style="font-size:16px;">arrow_outward</span>
         </button>

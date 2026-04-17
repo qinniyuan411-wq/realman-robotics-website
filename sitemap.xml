@@ -162,6 +162,22 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.realman-robotics.com/ecosystem-solutions/unmanned-vending.html"/>
   </url>
   <url>
+    <loc>https://www.realman-robotics.cn/data-collection-center/data-collection-center.html</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.realman-robotics.cn/data-collection-center/data-collection-center.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.realman-robotics.com/data-collection-center/data-collection-center.html"/>
+  </url>
+  <url>
+    <loc>https://www.realman-robotics.com/data-collection-center/data-collection-center.html</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.realman-robotics.cn/data-collection-center/data-collection-center.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.realman-robotics.com/data-collection-center/data-collection-center.html"/>
+  </url>
+  <url>
     <loc>https://www.realman-robotics.cn/industry-solutions/autonomous-delivery.html</loc>
     <lastmod>2026-03-31</lastmod>
     <changefreq>monthly</changefreq>

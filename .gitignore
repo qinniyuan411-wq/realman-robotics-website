@@ -14,3 +14,6 @@ prop/translation/
 
 # Full-size originals — keep local only
 prop-full-size/
+
+# Supabase local development
+supabase/.temp/

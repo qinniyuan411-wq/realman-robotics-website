@@ -1,49 +1,59 @@
+/* Roboto — Latin / English */
 @font-face {
-  font-family: 'Inter';
+  font-family: 'Roboto';
   font-style: normal;
   font-weight: 300;
   font-display: swap;
-  src: url(fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuOKfMZg.ttf) format('truetype');
+  src: url(fonts/Roboto-300.woff2) format('woff2');
 }
 @font-face {
-  font-family: 'Inter';
+  font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfMZg.ttf) format('truetype');
+  src: url(fonts/Roboto-400.woff2) format('woff2');
 }
 @font-face {
-  font-family: 'Inter';
+  font-family: 'Roboto';
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url(fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuI6fMZg.ttf) format('truetype');
+  src: url(fonts/Roboto-500.woff2) format('woff2');
 }
 @font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url(fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuGKYMZg.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Inter';
+  font-family: 'Roboto';
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url(fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYMZg.ttf) format('truetype');
+  src: url(fonts/Roboto-700.woff2) format('woff2');
+}
+
+/* HarmonyOS Sans SC — CJK / Chinese */
+@font-face {
+  font-family: 'HarmonyOS Sans SC';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(fonts/HarmonyOS_Sans_SC_Light.woff2) format('woff2');
 }
 @font-face {
-  font-family: 'Inter';
+  font-family: 'HarmonyOS Sans SC';
   font-style: normal;
-  font-weight: 800;
+  font-weight: 400;
   font-display: swap;
-  src: url(fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuDyYMZg.ttf) format('truetype');
+  src: url(fonts/HarmonyOS_Sans_SC_Regular.woff2) format('woff2');
 }
 @font-face {
-  font-family: 'Inter';
+  font-family: 'HarmonyOS Sans SC';
   font-style: normal;
-  font-weight: 900;
+  font-weight: 500;
   font-display: swap;
-  src: url(fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuBWYMZg.ttf) format('truetype');
+  src: url(fonts/HarmonyOS_Sans_SC_Medium.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'HarmonyOS Sans SC';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(fonts/HarmonyOS_Sans_SC_Bold.woff2) format('woff2');
 }

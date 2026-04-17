@@ -13,9 +13,9 @@
     theme: {
       extend: {
         fontFamily: {
-          "headline": ["Inter", "sans-serif"],
-          "body": ["Inter", "sans-serif"],
-          "label": ["Inter", "sans-serif"],
+          "headline": ["HarmonyOS Sans SC", "Roboto", "sans-serif"],
+          "body": ["HarmonyOS Sans SC", "Roboto", "sans-serif"],
+          "label": ["HarmonyOS Sans SC", "Roboto", "sans-serif"],
         },
         borderRadius: {
           "DEFAULT": "0.25rem",
@@ -39,7 +39,7 @@
       width: 100%;
       height: 100%;
       overflow-x: hidden;
-      font-family: 'Inter', sans-serif;
+      font-family: 'HarmonyOS Sans SC', 'Roboto', sans-serif;
     }
 
     .hero {
@@ -65,7 +65,7 @@
     }
 
     .hero-text {
-      font-family: 'Inter', sans-serif;
+      font-family: 'HarmonyOS Sans SC', 'Roboto', sans-serif;
       font-size: 36px;
       font-weight: 400;
       line-height: 1.2;
@@ -96,9 +96,9 @@
       animation: swingIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
 
-    .hero-text div:nth-child(1) { animation-delay: 0.2s; }
-    .hero-text div:nth-child(2) { animation-delay: 0.45s; }
-    .hero-text div:nth-child(3) { animation-delay: 0.7s; }
+    .hero-text div:nth-child(1) { animation-delay: 0.2s; font-size: 0.6em; font-weight: 300; }
+    .hero-text div:nth-child(2) { animation-delay: 0.45s; font-size: 1em; font-weight: 500; }
+    .hero-text div:nth-child(3) { animation-delay: 0.7s; font-size: 1em; font-weight: 500; }
 
     @keyframes swingIn {
       0% {
@@ -401,7 +401,7 @@
 </section>
 
 <!-- Section 2: Hardware -->
-<section class="w-full min-h-screen lg:h-screen bg-[#F6F6F6] relative flex flex-col" style="font-family:'Inter',sans-serif;">
+<section class="w-full min-h-screen lg:h-screen bg-[#F6F6F6] relative flex flex-col" style="font-family: 'HarmonyOS Sans SC', 'Roboto', sans-serif;">
   <h2 id="hw-title" style="padding:20px 20px 0; font-size:28px; font-weight:400; line-height:1; color:#000; letter-spacing:-0.05em; flex-shrink:0; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">核心硬件</h2>
 
   <div class="hw-grid-wrap flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 p-5 md:p-[32px]" style="min-height:0; grid-auto-rows:minmax(200px,1fr);">
@@ -457,7 +457,7 @@
 </section>
 
 <!-- Section 3: 遥操作 Network -->
-<section class="teleop-section w-full relative flex bg-[#F6F6F6]" style="font-family:'Inter',sans-serif;">
+<section class="teleop-section w-full relative flex bg-[#F6F6F6]" style="font-family: 'HarmonyOS Sans SC', 'Roboto', sans-serif;">
 
   <!-- Left -->
   <div class="teleop-left flex flex-col justify-center overflow-hidden relative" style="padding:32px;">
@@ -466,12 +466,12 @@
       </svg>
     </div>
     <h2 id="tn-title" style="font-size:36px; font-weight:400; line-height:1; color:#000; letter-spacing:-0.05em; display:inline-block; overflow:hidden; white-space:nowrap; width:0; margin-bottom:24px; position:relative; z-index:1;">远程作业网络</h2>
-    <p style="font-size:14px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#666; max-width:480px; position:relative; z-index:1; margin-bottom:24px;">睿尔曼高效连接操作端、云端调度系统与机器人作业现场，构建起一套统一协同的全球运营网络</p>
+    <p style="font-size:14px; font-weight:400; line-height:1.6; letter-spacing:-0.05em; color:#666; max-width:320px; position:relative; z-index:1; margin-bottom:24px;">睿尔曼高效连接操作端、云端调度系统与机器人作业现场，构建起一套统一协同的全球运营网络</p>
     <a href="teleoperation-network.html" style="display:flex; align-items:center; gap:6px; position:relative; z-index:1; cursor:pointer; text-decoration:none;" class="group">
       <span style="font-size:15px; font-weight:400; letter-spacing:-0.05em; color:#3B82F6;">了解详情</span>
       <span class="material-symbols-outlined" style="font-size:20px; color:#3B82F6; opacity:0.5;">arrow_outward</span>
     </a>
-    <img src="../../prop/teleop.png" alt="遥操作" class="hidden md:block" style="position:absolute; right:32px; bottom:0; max-width:80%; max-height:80%; object-fit:contain; pointer-events:none; z-index:1;">
+    <img src="../../prop/teleop.png" alt="遥操作" class="hidden md:block" style="position:absolute; right:32px; bottom:0; max-width:70%; max-height:70%; object-fit:contain; pointer-events:none; z-index:0;">
   </div>
 
   <!-- Right: Fixed 3 rows -->
@@ -499,7 +499,7 @@
 </section>
 
 <!-- Section 4: Data Services -->
-<section class="w-full relative" style="font-family:'Inter',sans-serif; background:url('../../prop/background.jpg') center/cover no-repeat; min-height:320px; display:flex; flex-direction:column;">
+<section class="w-full relative" style="font-family: 'HarmonyOS Sans SC', 'Roboto', sans-serif; background:url('../../prop/background.jpg') center/cover no-repeat; min-height:320px; display:flex; flex-direction:column;">
   <div class="ds-header" style="padding:32px 32px 0 32px; display:flex; align-items:baseline; justify-content:space-between;">
     <h2 id="ds-title" style="font-size:36px; font-weight:400; line-height:1; color:#F6F6F6; letter-spacing:-0.05em; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">数据服务</h2>
     <a href="data-services.html" style="display:flex; align-items:center; gap:6px; cursor:pointer; flex-shrink:0; text-decoration:none;">
@@ -643,7 +643,7 @@ animateCounter('ds-num3', 100, 1, 2200, v => String(v));
   .git-input, .git-select {
     width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);
     border-radius:0.25rem; padding:14px 16px; font-size:15px; font-weight:400;
-    letter-spacing:-0.05em; color:#fff; outline:none; font-family:Inter,sans-serif;
+    letter-spacing:-0.05em; color:#fff; outline:none; font-family: 'HarmonyOS Sans SC', 'Roboto', sans-serif;
     transition:border-color 0.3s, background 0.3s;
   }
   .git-input::placeholder { color:rgba(255,255,255,0.3); }
@@ -656,7 +656,7 @@ animateCounter('ds-num3', 100, 1, 2200, v => String(v));
   }
   .git-select option { background:#111; color:#fff; }
 </style>
-<section id="get-in-touch" class="w-full relative" style="font-family:Inter,sans-serif; min-height:calc(100vh - 56px); background:#000; display:flex; flex-direction:column;">
+<section id="get-in-touch" class="w-full relative" style="font-family: 'HarmonyOS Sans SC', 'Roboto', sans-serif; min-height:calc(100vh - 56px); background:#000; display:flex; flex-direction:column;">
   <div class="cta-wrap" style="padding:32px; flex:1; display:flex; flex-direction:column; max-width:1280px;">
     <h2 id="git-title" style="font-size:36px; font-weight:400; line-height:1; color:#fff; letter-spacing:-0.05em; margin-bottom:12px; display:inline-block; overflow:hidden; white-space:nowrap; width:0;">联系我们</h2>
     <p style="font-size:14px; font-weight:400; letter-spacing:-0.05em; color:rgba(255,255,255,0.4); margin-bottom:36px;">如有任何疑问或合作意向，欢迎随时与我们联系</p>
@@ -745,7 +745,7 @@ animateCounter('ds-num3', 100, 1, 2200, v => String(v));
         <div style="margin-bottom:28px;">
           <textarea class="git-input" placeholder="详细需求 (选填)" rows="4" style="resize:vertical; min-height:80px;"></textarea>
         </div>
-        <button type="submit" style="display:inline-flex; align-items:center; gap:8px; padding:14px 32px; background:#3B82F6; color:#fff; border:none; border-radius:0.25rem; font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; font-family:Inter,sans-serif; cursor:pointer; transition:background 0.3s; width:100%; justify-content:center;" onmouseover="this.style.background='#2563EB'" onmouseout="this.style.background='#3B82F6'">
+        <button type="submit" style="display:inline-flex; align-items:center; gap:8px; padding:14px 32px; background:#3B82F6; color:#fff; border:none; border-radius:0.25rem; font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; font-family: 'HarmonyOS Sans SC', 'Roboto', sans-serif; cursor:pointer; transition:background 0.3s; width:100%; justify-content:center;" onmouseover="this.style.background='#2563EB'" onmouseout="this.style.background='#3B82F6'">
           立即提交
           <span class="material-symbols-outlined" style="font-size:16px;">arrow_outward</span>
         </button>
