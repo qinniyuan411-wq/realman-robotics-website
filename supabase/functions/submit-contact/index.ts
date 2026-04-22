@@ -1,14 +1,14 @@
 // Edge Function: submit-contact
 // 后端代理表单提交。前端不再持有 Supabase 写入凭证，所有写库操作经此函数 + service_role 完成。
 // 安全控制：
-//   1. CORS / Origin 白名单
-//   2. Cloudflare Turnstile 人机验证
+//   1. CORS / Origin 白名单（fail-closed：未配置或不在白名单一律 403）
+//   2. Cloudflare Turnstile 人机验证（强制真实 siteverify，无任何测试密钥短路）
 //   3. 字段强校验（长度、正则、白名单）
 //   4. 内容危险标签过滤
-//   5. 内存级 IP 限流（60 秒一次 / IP）
+//   5. 基于 cf-connecting-ip 的内存级限流（60 秒一次 / IP）
 //
 // 部署：  supabase functions deploy submit-contact --no-verify-jwt
-// 配置：  supabase secrets set TURNSTILE_SECRET=xxx ALLOWED_ORIGINS="https://qinnitest.you,https://realman-robotics.com"
+// 配置：  supabase secrets set TURNSTILE_SECRET=xxx ALLOWED_ORIGINS="https://qinnitest.you,https://www.qinnitest.you"
 
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
 
@@ -20,9 +20,9 @@ const ALLOWED_ORIGINS = (Deno.env.get('ALLOWED_ORIGINS') ?? '')
   .map(s => s.trim())
   .filter(Boolean);
 
-// 生产环境 Turnstile 测试密钥（用于本地集成测试，永远 PASS）。
-// 生产环境必须设置真实 TURNSTILE_SECRET 覆盖。
-const TURNSTILE_TEST_PASS = '1x0000000000000000000000000000000AA';
+// 注：原先内置过 Cloudflare 官方测试密钥短路（一律 PASS），已于 2026-04-22
+// 安全整改第二轮 H-03 中移除。任何环境都必须配置真实 TURNSTILE_SECRET，
+// 否则 verifyTurnstile 直接返回 false。
 
 const COOLDOWN_MS = 60 * 1000;
 const ipBuckets = new Map<string, number>();
@@ -44,9 +44,14 @@ const SUB_REGION_RE = /^[a-z]{2,32}$/;
 const DANGEROUS_RE = /<\s*\/?\s*(script|iframe|object|embed|link|meta|style|svg|on\w+)/i;
 
 function corsHeaders(origin: string | null): Record<string, string> {
-  const allowOrigin = origin && ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0] ?? '';
+  // M-09 修复：Origin 不在白名单时不发 Access-Control-Allow-Origin 头，
+  // 避免回退到 ALLOWED_ORIGINS[0] 造成的非预期跨域行为。
+  const isAllowed = !!origin && ALLOWED_ORIGINS.includes(origin);
+  if (!isAllowed) {
+    return { 'Vary': 'Origin' };
+  }
   return {
-    'Access-Control-Allow-Origin': allowOrigin,
+    'Access-Control-Allow-Origin': origin!,
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     'Access-Control-Max-Age': '86400',
@@ -66,9 +71,14 @@ function jsonResponse(status: number, body: unknown, origin: string | null): Res
 }
 
 function clientIp(req: Request): string {
+  // H-02 修复：优先使用上游可信头 cf-connecting-ip。
+  // X-Forwarded-For 可由客户端伪造（每次换值即可绕过限流），
+  // 仅在 cf-connecting-ip 不存在时降级使用。
+  const cf = req.headers.get('cf-connecting-ip');
+  if (cf) return cf.trim();
   const xff = req.headers.get('x-forwarded-for') ?? '';
   const first = xff.split(',')[0].trim();
-  return first || req.headers.get('cf-connecting-ip') || 'unknown';
+  return first || 'unknown';
 }
 
 function stripTags(s: unknown): string {
@@ -77,12 +87,13 @@ function stripTags(s: unknown): string {
 }
 
 async function verifyTurnstile(token: string, ip: string): Promise<boolean> {
+  // H-03 修复：移除测试密钥短路逻辑。任何环境都必须做真实 siteverify 调用。
+  // 本地集成测试请改用 Cloudflare 官方测试 site key + secret 组合，
+  // siteverify 端点仍会响应 success:true，无需短路。
   if (!TURNSTILE_SECRET) {
     console.warn('TURNSTILE_SECRET not set; rejecting all requests');
     return false;
   }
-  // 测试密钥短路（仅用于本地或 staging）
-  if (TURNSTILE_SECRET === TURNSTILE_TEST_PASS) return true;
   try {
     const form = new FormData();
     form.append('secret', TURNSTILE_SECRET);
@@ -187,7 +198,9 @@ Deno.serve(async (req) => {
     return jsonResponse(405, { error: 'method_not_allowed' }, origin);
   }
 
-  if (ALLOWED_ORIGINS.length > 0 && (!origin || !ALLOWED_ORIGINS.includes(origin))) {
+  // H-01 修复：fail-closed —— 白名单为空或 Origin 不在白名单一律拒绝。
+  // 原逻辑在 ALLOWED_ORIGINS 未配置时短路放行，存在 CSRF 风险。
+  if (ALLOWED_ORIGINS.length === 0 || !origin || !ALLOWED_ORIGINS.includes(origin)) {
     return jsonResponse(403, { error: 'origin_not_allowed' }, origin);
   }
 

@@ -7,8 +7,8 @@
 
   var SUBMIT_COOLDOWN_MS = 60 * 1000;
   var STORAGE_KEY = 'rm_cta_last_submit_cn';
-  // Cloudflare Turnstile site key（公开可见，区别于 secret key）
-  // TODO: 注册 Turnstile 后替换为真实 site key
+  // Cloudflare Turnstile site key（公开值，可前端可见；secret key 仅在 Edge Function env vars）
+  // 已是生产真实 key，对应 hostnames：qinnitest.you / localhost / 127.0.0.1
   var TURNSTILE_SITE_KEY = '0x4AAAAAADA6F3o-puTE8mWb';
 
   var MAX_LEN = { name: 100, email: 255, company: 200, details: 2000, subRegion: 64, subRegionLabel: 64 };

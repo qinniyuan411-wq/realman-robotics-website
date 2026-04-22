@@ -33,15 +33,33 @@ REVOKE ALL ON public.contact_submissions_en FROM anon, authenticated;
 GRANT ALL ON public.contact_submissions_cn TO service_role;
 GRANT ALL ON public.contact_submissions_en TO service_role;
 
--- 5) 验证：列出当前表上的所有策略（应该为空）
+-- 5) C-03 修复（2026-04-22 安全整改第二轮）：撤销默认权限授予 anon/authenticated。
+--    Supabase 项目初始化时默认会给 anon/authenticated 在 public schema 下未来新建的
+--    表/序列/函数自动授予 ALL —— 这意味着任何后续新建的表都会自动暴露给匿名用户。
+--    这里改为"默认拒绝"：未来若要授权，必须显式 GRANT。
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public REVOKE ALL ON TABLES    FROM anon, authenticated;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public REVOKE ALL ON SEQUENCES FROM anon, authenticated;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public REVOKE ALL ON FUNCTIONS FROM anon, authenticated;
+-- service_role 仍然保留完整默认权限（Supabase 平台用它做后台操作）。
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON TABLES    TO service_role;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON SEQUENCES TO service_role;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON FUNCTIONS TO service_role;
+
+-- 7) 验证 1：列出当前表上的所有策略（应该为空）
 SELECT schemaname, tablename, policyname, roles
 FROM pg_policies
 WHERE schemaname = 'public'
   AND tablename IN ('contact_submissions_cn', 'contact_submissions_en');
 
--- 6) 验证：列出表权限授予情况
+-- 8) 验证 2：列出表权限授予情况（仅应看到 service_role 与 postgres）
 SELECT grantee, table_name, privilege_type
 FROM information_schema.role_table_grants
 WHERE table_schema = 'public'
   AND table_name IN ('contact_submissions_cn', 'contact_submissions_en')
 ORDER BY table_name, grantee;
+
+-- 9) 验证 3：列出 public schema 下的默认权限（anon/authenticated 应该完全消失）
+SELECT defaclrole::regrole AS owner, defaclnamespace::regnamespace AS schema,
+       defaclobjtype, defaclacl
+FROM pg_default_acl
+WHERE defaclnamespace = 'public'::regnamespace;
