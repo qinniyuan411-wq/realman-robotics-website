@@ -5,15 +5,14 @@ __pycache__
 .DS_Store
 Thumbs.db
 
-# Large files excluded from GitHub
-# (none currently)
-
-# Sensitive / internal docs
-prop/route.md
-prop/translation/
-
-# Full-size originals — keep local only
+# Internal-only assets and docs (kept local, never deployed)
+prop/internal/
+prop/_*
 prop-full-size/
 
 # Supabase local development
 supabase/.temp/
+supabase/.branches/
+.env
+.env.local
+.env.*.local
