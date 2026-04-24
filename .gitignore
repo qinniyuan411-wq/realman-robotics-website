@@ -10,6 +10,19 @@ prop/internal/
 prop/_*
 prop-full-size/
 
+# NEW-H02（2026-04-23 第三轮整改）：安全审计相关 MD 不入仓
+# 这些文档可能包含 API endpoint、密钥前缀、攻击 PoC、内部架构细节
+# 仅在本地或私有交付包中保留，公开仓库不应暴露
+*audit*.md
+*Audit*.md
+*整改*.md
+*Reply*.md
+*Remediation*.md
+*security-audit*.md
+官网*.md
+README-internal.md
+.commitmsg.tmp
+
 # Supabase local development
 supabase/.temp/
 supabase/.branches/

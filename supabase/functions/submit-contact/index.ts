@@ -10,7 +10,9 @@
 // 部署：  supabase functions deploy submit-contact --no-verify-jwt
 // 配置：  supabase secrets set TURNSTILE_SECRET=xxx ALLOWED_ORIGINS="https://qinnitest.you,https://www.qinnitest.you"
 
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
+// NEW-M02 修复（2026-04-23 第三轮）：从 esm.sh CDN 运行时加载切换为 Deno Deploy 原生 npm: 协议。
+// npm: 协议由 Deno 官方 registry 解析，无第三方 CDN 介入，版本严格锁在 2.45.4。
+import { createClient } from 'npm:@supabase/supabase-js@2.45.4';
 
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!;
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
@@ -41,7 +43,13 @@ const MAX_LEN = {
 const EMAIL_RE = /^[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$/;
 const NAME_RE = /^[\p{L}\p{M}\s.\-·']{2,100}$/u;
 const SUB_REGION_RE = /^[a-z]{2,32}$/;
-const DANGEROUS_RE = /<\s*\/?\s*(script|iframe|object|embed|link|meta|style|svg|on\w+)/i;
+// NEW-M03 修复（2026-04-23 第三轮）：增强 DANGEROUS_RE 拦截范围。
+// 1) 补 img/video/audio/source/details/marquee/form/input/textarea/select/button/applet/base/body/frame/frameset/noscript 等可承载事件或可触发请求的标签
+// 2) 加入独立的 on* 事件属性匹配（不只匹配标签开头），覆盖标签中部插入的 onload= 等情况
+// 3) 加入 data:text/html / data:application URI 检测，封堵以 data: 开头的脚本载荷
+// 4) 加入 javascript: / vbscript: 伪协议
+// 注：stripTags() 已先于本正则做剥离，本正则属第二道防线，故采用宽松匹配宁错杀勿漏判。
+const DANGEROUS_RE = /<\s*\/?\s*(script|iframe|object|embed|link|meta|style|svg|img|video|audio|source|details|marquee|form|input|textarea|select|button|applet|base|body|frame|frameset|noscript|template|isindex|portal)\b|\bon[a-z]{2,32}\s*=|(?:^|[\s"'])(?:javascript|vbscript|data)\s*:\s*(?:text\/html|application\/|[^\s])/i;
 
 function corsHeaders(origin: string | null): Record<string, string> {
   // M-09 修复：Origin 不在白名单时不发 Access-Control-Allow-Origin 头，

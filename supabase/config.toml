@@ -1,3 +1,25 @@
+# =============================================================================
+# !!! 重要警告：本文件仅用于本地开发（supabase start / supabase db reset）!!!
+# =============================================================================
+# 生产环境配置（项目 dwtfijvpelpavdslvyry.supabase.co）通过 Supabase Dashboard 管理：
+#   - 网络限制（[db.network_restrictions]）：Dashboard → Settings → Database → Network Restrictions
+#       已配置：仅允许 Supabase 平台内部 IP，0.0.0.0/0 已禁用
+#   - SSL 强制（[db.ssl]）：Dashboard → Settings → Database → SSL Configuration
+#       已配置：强制 SSL（require_ssl = true）
+#   - 密码策略（[auth.password]）：未启用 Supabase Auth，本字段对生产无意义
+#   - 邮件确认/MFA：未启用 Supabase Auth，本字段对生产无意义
+#   - JWT/Site URL：生产环境无浏览器登录场景，仅 Edge Function 使用 service_role
+#
+# 因此本文件中如下配置项的取值仅适用于本地 supabase start 调试，
+# 不代表生产环境实际配置，禁止依据本文件评估生产安全风险：
+#   [auth.password] minimum_length / required_characters
+#   [auth.email] enable_confirmations / secure_password_change
+#   [auth.mfa.*]
+#   [api] db schemas
+#
+# NEW-M05（2026-04-23 第三轮整改）：本警告即为补充注释。
+# =============================================================================
+
 # For detailed configuration reference documentation, visit:
 # https://supabase.com/docs/guides/local-development/cli/config
 # A string used to distinguish different Supabase projects on the same host. Defaults to the
