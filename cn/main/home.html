@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
@@ -9,11 +9,6 @@
   <link rel="preload" as="image" href="../../prop/robot.webp" fetchpriority="high">
   <link href="../../prop/inter-font.css" rel="stylesheet">
   <link href="../../prop/material-symbols.css" rel="stylesheet">
-  <script>
-    // Lazy-load 中文 HarmonyOS Sans SC 字体（约 17MB），首屏先用系统字体兜底，
-    // DOMContentLoaded 后再注入字体表，配合 font-display:swap 平滑替换。
-    (function(){var inject=function(){var l=document.createElement('link');l.rel='stylesheet';l.href='/prop/harmonyos-fonts.css';document.head.appendChild(l);};if(document.readyState==='complete'||document.readyState==='interactive'){setTimeout(inject,0);}else{document.addEventListener('DOMContentLoaded',function(){setTimeout(inject,0);});}})();
-  </script>
   <script>
   tailwind.config = {
     theme: {
