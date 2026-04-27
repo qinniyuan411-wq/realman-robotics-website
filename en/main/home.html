@@ -5,10 +5,29 @@
     <meta name="description" content="REALMAN Robotics — a global system-level infrastructure platform for the embodied intelligence era, offering ultra-lightweight robotic arms, joint modules, humanoid robots, and teleoperation networks.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RealMan | Home</title>
-  <link href="../../prop/tailwind.css" rel="stylesheet">
+  <script src="../../prop/tailwind.js" integrity="sha384-1DcZPGeODWbGGjS/i/n4ULX/pEc0DPcKK2WhyuWEmBXRfzOwoVTDQBN9C3C5jJHK" crossorigin="anonymous"></script>
   <link rel="preload" as="image" href="../../prop/robot.webp" fetchpriority="high">
   <link href="../../prop/inter-font.css" rel="stylesheet">
   <link href="../../prop/material-symbols.css" rel="stylesheet">
+  <script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          "headline": ["Roboto", "HarmonyOS Sans SC", "sans-serif"],
+          "body": ["Roboto", "HarmonyOS Sans SC", "sans-serif"],
+          "label": ["Roboto", "HarmonyOS Sans SC", "sans-serif"],
+        },
+        borderRadius: {
+          "DEFAULT": "0.25rem",
+          "lg": "0.25rem",
+          "xl": "0.25rem",
+          "full": "9999px",
+        },
+      },
+    },
+  }
+  </script>
   <style>
     .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
     * {
@@ -368,7 +387,7 @@
 
 <!-- Hero Section -->
 <section class="hero" id="hero-section">
-  <div id="hero-vanta" style="position:absolute;inset:0;z-index:0;"></div>
+  <div id="hero-vanta" style="position:absolute;inset:0;z-index:0;background-color:#f6f6f6;"></div>
 
   <!-- Light orbs -->
   <div class="orb orb-blue" style="z-index:0;"></div>
@@ -514,8 +533,6 @@
   </div>
 </section>
 
-<script src="../../prop/three.min.js" integrity="sha384-9EQoUIJYrv09/oYhSxnw1VpLcfPw3BM9dE7+D/3wGUPeLLa7F9Z6OAoD+i/M6FK9" crossorigin="anonymous"></script>
-<script src="../../prop/vanta.halo.min.js" integrity="sha384-zOFYVg3gX989+hcqonUYjXHtSgNUdYKgaUavGYbubMH8doJtQswn0F9rK986CZyg" crossorigin="anonymous"></script>
 <script>
 (function(){
   var svg = document.getElementById('dotted-map-svg');
@@ -531,20 +548,62 @@
 
 })();
 
-VANTA.HALO({
-  el: "#hero-vanta",
-  mouseControls: true,
-  touchControls: true,
-  gyroControls: false,
-  minHeight: 200.00,
-  minWidth: 200.00,
-  baseColor: 0x3b82f6,
-  backgroundColor: 0xf6f6f6,
-  amplitudeFactor: 0.80,
-  xOffset: 0.25,
-  yOffset: -0.10,
-  size: 1.00
-})
+/* Lazy-load Three.js + Vanta.halo off the critical path (LCP optimisation).
+ * three.min.js (~580KB) + vanta.halo.min.js (~38KB) used to block the parser
+ * before first paint; now they are injected in requestIdleCallback so the
+ * hero text/image paint first, and Vanta fades in shortly after. SRI integrity
+ * is preserved by setting the script.integrity attribute manually. */
+(function(){
+  function loadScript(src, integrity) {
+    return new Promise(function(resolve, reject){
+      var s = document.createElement('script');
+      s.src = src;
+      s.integrity = integrity;
+      s.crossOrigin = 'anonymous';
+      s.onload = resolve;
+      s.onerror = function(){ reject(new Error('failed to load ' + src)); };
+      document.head.appendChild(s);
+    });
+  }
+  function initVanta(){
+    if (!(window.VANTA && window.VANTA.HALO)) return;
+    window.VANTA.HALO({
+      el: "#hero-vanta",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      baseColor: 0x3b82f6,
+      backgroundColor: 0xf6f6f6,
+      amplitudeFactor: 0.80,
+      xOffset: 0.25,
+      yOffset: -0.10,
+      size: 1.00
+    });
+  }
+  function loadChain(){
+    loadScript("../../prop/three.min.js",
+               "sha384-9EQoUIJYrv09/oYhSxnw1VpLcfPw3BM9dE7+D/3wGUPeLLa7F9Z6OAoD+i/M6FK9")
+      .then(function(){
+        return loadScript("../../prop/vanta.halo.min.js",
+                          "sha384-zOFYVg3gX989+hcqonUYjXHtSgNUdYKgaUavGYbubMH8doJtQswn0F9rK986CZyg");
+      })
+      .then(initVanta)
+      .catch(function(e){ console.warn('[hero] Vanta lazy-load skipped:', e && e.message); });
+  }
+  if (document.readyState === 'complete') {
+    ('requestIdleCallback' in window)
+      ? requestIdleCallback(loadChain, { timeout: 1500 })
+      : setTimeout(loadChain, 800);
+  } else {
+    window.addEventListener('load', function(){
+      ('requestIdleCallback' in window)
+        ? requestIdleCallback(loadChain, { timeout: 1500 })
+        : setTimeout(loadChain, 800);
+    });
+  }
+})();
 
 function initTypewriter(id, text) {
   const el = document.getElementById(id);
