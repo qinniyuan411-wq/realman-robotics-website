@@ -1,52 +1,42 @@
-# SRI 哈希重算脚本（NEW-H01 + L-01 维护工具）
+# SRI 哈希重算脚本（NEW-H01 + L-01 + C-7 维护工具）
 # 用途：每次修改 prop/ 下的自托管脚本后，运行此脚本自动更新所有 HTML 中的 integrity 属性
-# 用法：在仓库根目录运行 `pwsh -File scripts/update-sri-hashes.ps1`
+# 用法：在仓库根目录运行 `powershell -NoProfile -File scripts\update-sri-hashes.ps1`
 
 $ErrorActionPreference = 'Stop'
 Set-Location -Path (Split-Path -Parent $PSScriptRoot)
 
-$scripts = @{
-    'prop\supabase-cta.js'      = 'supabase-cta\.js'
-    'prop\supabase-cta-cn.js'   = 'supabase-cta-cn\.js'
-    'prop\tailwind.js'          = 'tailwind\.js'
-    'prop\three.min.js'         = 'three\.min\.js'
-    'prop\vanta.halo.min.js'    = 'vanta\.halo\.min\.js'
-}
+$scriptList = @(
+    @{ Path = 'prop\supabase-cta.js';    Base = 'supabase-cta\.js' }
+    @{ Path = 'prop\supabase-cta-cn.js'; Base = 'supabase-cta-cn\.js' }
+    @{ Path = 'prop\tailwind.js';        Base = 'tailwind\.js' }
+    @{ Path = 'prop\three.min.js';       Base = 'three\.min\.js' }
+    @{ Path = 'prop\vanta.halo.min.js';  Base = 'vanta\.halo\.min\.js' }
+)
 
-# 1. 先算所有目标脚本的 SHA384
-$hashes = @{}
-foreach ($file in $scripts.Keys) {
-    if (-not (Test-Path $file)) {
-        Write-Warning "Missing: $file (skipped)"
-        continue
-    }
-    $bytes = [IO.File]::ReadAllBytes($file)
+foreach ($s in $scriptList) {
+    if (-not (Test-Path $s.Path)) { Write-Warning "Missing: $($s.Path) (skipped)"; $s.Hash = $null; continue }
+    $bytes = [IO.File]::ReadAllBytes($s.Path)
     $sha   = [Security.Cryptography.SHA384]::Create()
     $b64   = [Convert]::ToBase64String($sha.ComputeHash($bytes))
-    $hashes[$file] = "sha384-$b64"
-    Write-Host ("{0,-32} {1}" -f $file, $hashes[$file])
+    $s.Hash = "sha384-$b64"
+    Write-Host ("{0,-32} {1}" -f $s.Path, $s.Hash)
 }
 
-# 2. 遍历所有 HTML，更新匹配 <script src="...basename"> 的 integrity 属性
 $htmlFiles = Get-ChildItem -Path cn,en -Recurse -Filter *.html
 $totalChanged = 0
+$utf8NoBom = New-Object Text.UTF8Encoding $false
 
 foreach ($html in $htmlFiles) {
     $content = [IO.File]::ReadAllText($html.FullName, [Text.Encoding]::UTF8)
     $orig = $content
-
-    foreach ($file in $scripts.Keys) {
-        $basenamePattern = $scripts[$file]
-        $hash = $hashes[$file]
-        # 匹配 <script src="...basename"  ...> ；如果已有 integrity，先移除再加
-        # 处理两种情况：(a) 无 integrity；(b) 有旧的 integrity 值需要更新
-        $pattern = "(<script\s+src=`"[^`"]*\b$basenamePattern`")(\s+integrity=`"sha384-[^`"]*`")?(\s+crossorigin=`"anonymous`")?"
-        $replacement = "`$1 integrity=`"$hash`" crossorigin=`"anonymous`""
+    foreach ($s in $scriptList) {
+        if (-not $s.Hash) { continue }
+        $pattern     = '(<script\s+src="[^"]*\b' + $s.Base + '")(\s+integrity="sha384-[^"]*")?(\s+crossorigin="anonymous")?'
+        $replacement = '$1 integrity="' + $s.Hash + '" crossorigin="anonymous"'
         $content = [regex]::Replace($content, $pattern, $replacement)
     }
-
     if ($content -ne $orig) {
-        [IO.File]::WriteAllText($html.FullName, $content, (New-Object Text.UTF8Encoding $false))
+        [IO.File]::WriteAllText($html.FullName, $content, $utf8NoBom)
         $totalChanged++
     }
 }

@@ -18,9 +18,12 @@
   // 省份 / 直辖市 / 自治区 / 特别行政区：使用宽松字母+连字符模式（≤32字符），避免硬编码近 40 个值
   var SUB_REGION_RE = /^[a-z]{2,32}$/;
 
+  // C-6 修复（2026-04-27 第四轮）：客户端正则与服务端 Edge Function 严格对齐。
+  // 服务端见 supabase/functions/submit-contact/index.ts EMAIL_RE / NAME_RE / DANGEROUS_RE。
+  // 客户端做体验性预校验，服务端做权威校验；两端规则保持完全一致以避免「客户端通过、服务端拒绝」错觉。
   var EMAIL_RE = /^[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$/;
   var NAME_RE = /^[\p{L}\p{M}\s.\-·']{2,100}$/u;
-  var SCRIPT_TAG_RE = /<\s*\/?\s*(script|iframe|object|embed|link|meta|style|svg|on\w+)/i;
+  var DANGEROUS_RE = /<\s*\/?\s*(script|iframe|object|embed|link|meta|style|svg|img|video|audio|source|details|marquee|form|input|textarea|select|button|applet|base|body|frame|frameset|noscript|template|isindex|portal)\b|\bon[a-z]{2,32}\s*=|(?:^|[\s"'])(?:javascript|vbscript|data)\s*:\s*(?:text\/html|application\/|[^\s])/i;
 
   function stripTags(s) {
     if (!s) return '';
@@ -83,6 +86,18 @@
       document.head.appendChild(s);
     }
   }
+
+  // C-5 隐私合规（2026-04-27 第四轮）：表单提交前展示隐私告知与同意链接，
+  // 满足 PIPL 第 14、17、23 条对告知义务的要求。链接指向 /cn/main/privacy.html。
+  (function injectPrivacyNotice () {
+    var submitBtn = form.querySelector('button[type="submit"]');
+    if (!submitBtn || document.getElementById('cta-privacy-notice')) return;
+    var note = document.createElement('div');
+    note.id = 'cta-privacy-notice';
+    note.style.cssText = 'margin:0 0 16px 0; font-size:11px; line-height:1.7; color:rgba(255,255,255,0.45); letter-spacing:-0.01em;';
+    note.innerHTML = '提交即表示您已阅读并同意我们的 <a href="/cn/main/privacy.html" target="_blank" rel="noopener noreferrer" style="color:#3B82F6; text-decoration:underline;">《隐私政策》</a>。我们仅收集姓名、工作邮箱、公司名称、地区、咨询类型与详细需求，用于响应您本次咨询，<strong>不会</strong>用于其他用途或转售。';
+    submitBtn.parentNode.insertBefore(note, submitBtn);
+  })();
 
   var nameI = form.querySelectorAll('input.git-input')[0];
   var emailI = form.querySelectorAll('input.git-input')[1];
@@ -155,7 +170,7 @@
     if (detailsVal.length > MAX_LEN.details) {
       return fail('详细内容过长（最多 2000 字符）。');
     }
-    if (SCRIPT_TAG_RE.test(nameVal) || SCRIPT_TAG_RE.test(companyVal) || SCRIPT_TAG_RE.test(detailsVal) || SCRIPT_TAG_RE.test(subRegionLabel)) {
+    if (DANGEROUS_RE.test(nameVal) || DANGEROUS_RE.test(companyVal) || DANGEROUS_RE.test(detailsVal) || DANGEROUS_RE.test(subRegionLabel)) {
       return fail('提交内容包含禁止字符。');
     }
     if (ALLOWED_REGIONS.indexOf(regionVal) === -1) {

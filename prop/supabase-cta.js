@@ -16,9 +16,12 @@
   var ALLOWED_REGIONS = ['asia-pacific', 'europe', 'north-america', 'south-america', 'middle-east-africa'];
   var ALLOWED_INQUIRY = ['partnership', 'sales', 'technical', 'media', 'careers', 'other'];
 
+  // C-6 修复（2026-04-27 第四轮）：客户端正则与服务端 Edge Function 严格对齐。
+  // 服务端见 supabase/functions/submit-contact/index.ts EMAIL_RE / NAME_RE / DANGEROUS_RE。
+  // 客户端做体验性预校验，服务端做权威校验；两端规则保持完全一致以避免「客户端通过、服务端拒绝」错觉。
   var EMAIL_RE = /^[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$/;
-  var NAME_RE = /^[\p{L}\p{M}\s.\-']{2,100}$/u;
-  var SCRIPT_TAG_RE = /<\s*\/?\s*(script|iframe|object|embed|link|meta|style|svg|on\w+)/i;
+  var NAME_RE = /^[\p{L}\p{M}\s.\-·']{2,100}$/u;
+  var DANGEROUS_RE = /<\s*\/?\s*(script|iframe|object|embed|link|meta|style|svg|img|video|audio|source|details|marquee|form|input|textarea|select|button|applet|base|body|frame|frameset|noscript|template|isindex|portal)\b|\bon[a-z]{2,32}\s*=|(?:^|[\s"'])(?:javascript|vbscript|data)\s*:\s*(?:text\/html|application\/|[^\s])/i;
 
   function stripTags(s) {
     if (!s) return '';
@@ -81,6 +84,19 @@
     }
   }
 
+  // C-5 privacy compliance (2026-04-27 round 4): show privacy notice + consent link
+  // before submit, in line with GDPR/PIPL transparency obligations. Link points to
+  // /en/main/privacy.html.
+  (function injectPrivacyNotice () {
+    var submitBtn = form.querySelector('button[type="submit"]');
+    if (!submitBtn || document.getElementById('cta-privacy-notice')) return;
+    var note = document.createElement('div');
+    note.id = 'cta-privacy-notice';
+    note.style.cssText = 'margin:0 0 16px 0; font-size:11px; line-height:1.7; color:rgba(255,255,255,0.45); letter-spacing:-0.01em;';
+    note.innerHTML = 'By submitting, you acknowledge our <a href="/en/main/privacy.html" target="_blank" rel="noopener noreferrer" style="color:#3B82F6; text-decoration:underline;">Privacy Policy</a>. We collect only your name, business email, company, region, inquiry type and message, used solely to respond to your enquiry — never sold or repurposed.';
+    submitBtn.parentNode.insertBefore(note, submitBtn);
+  })();
+
   // 限制 input/textarea 长度（前端硬约束）
   var nameI = form.querySelectorAll('input.git-input')[0];
   var emailI = form.querySelectorAll('input.git-input')[1];
@@ -139,7 +155,7 @@
     if (detailsVal.length > MAX_LEN.details) {
       return fail('Message is too long (max 2000 characters).');
     }
-    if (SCRIPT_TAG_RE.test(nameVal) || SCRIPT_TAG_RE.test(companyVal) || SCRIPT_TAG_RE.test(detailsVal)) {
+    if (DANGEROUS_RE.test(nameVal) || DANGEROUS_RE.test(companyVal) || DANGEROUS_RE.test(detailsVal)) {
       return fail('Submission contains forbidden content.');
     }
     if (ALLOWED_REGIONS.indexOf(regionVal) === -1) {
