@@ -26,6 +26,10 @@ prop-full-size/
 README-internal.md
 .commitmsg.tmp
 
+# Local evidence artefacts (Playwright screenshots, Lighthouse JSON outputs)
+evidence/
+lh-*.json
+
 # Subset-font intermediate / backup files (only the deployed *.woff2 is tracked)
 prop/fonts/*.full.woff2
 prop/fonts/*.subset.woff2
