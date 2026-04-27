@@ -564,6 +564,10 @@
     });
   }
   function loadChain(){
+    /* Mobile early-exit (viewport < 768px): WebGL hero animation costs
+     * ~600KB JS + 200-300ms TBT for negligible visual gain on a small
+     * screen. Mobile keeps the static #f6f6f6 background fallback. */
+    if (window.matchMedia && window.matchMedia('(max-width: 767px)').matches) return;
     loadScript("../../prop/three.min.js",
                "sha384-9EQoUIJYrv09/oYhSxnw1VpLcfPw3BM9dE7+D/3wGUPeLLa7F9Z6OAoD+i/M6FK9")
       .then(function(){
