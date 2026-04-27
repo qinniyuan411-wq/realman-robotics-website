@@ -33,6 +33,8 @@ lh-*.json
 # Subset-font intermediate / backup files (only the deployed *.woff2 is tracked)
 prop/fonts/*.full.woff2
 prop/fonts/*.subset.woff2
+prop/fonts/*.full.ttf
+prop/fonts/kJF1Bv*.ttf
 
 # Supabase local development
 supabase/.temp/
