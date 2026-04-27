@@ -1,0 +1,251 @@
+[
+  {
+    "engine": "chromium",
+    "page": "cn-home",
+    "url": "https://www.qinnitest.you/cn/main/home.html",
+    "loadOk": true,
+    "consoleErrors": [
+      "Permissions policy violation: xr-spatial-tracking is not allowed in this document.",
+      "Permissions policy violation: xr-spatial-tracking is not allowed in this document.",
+      "Failed to load resource: the server responded with a status of 401 ()",
+      "This document requires 'TrustedHTML' assignment. The action has been blocked.",
+      "This document requires 'TrustedHTML' assignment. The action has been blocked.",
+      "This document requires 'TrustedScript' assignment. The action has been blocked.",
+      "This document requires 'TrustedScript' assignment. The action has been blocked.",
+      "This document requires 'TrustedScriptURL' assignment. The action has been blocked.",
+      "This document requires 'TrustedScriptURL' assignment. The action has been blocked.",
+      "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-WVwAVIDJtpg7RktV9kOquL' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-eJGI0Ik4oYe/PKLDOt4wcN76wYs8h+Ew05pMzdY6xG8='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked.",
+      "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-WVwAVIDJtpg7RktV9kOquL' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-eJGI0Ik4oYe/PKLDOt4wcN76wYs8h+Ew05pMzdY6xG8='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked.",
+      "This document requires 'TrustedScript' assignment. The action has been blocked.",
+      "This document requires 'TrustedScript' assignment. The action has been blocked.",
+      "%c%d font-size:0;color:transparent NaN",
+      "%c%d font-size:0;color:transparent NaN",
+      "%c%d font-size:0;color:transparent NaN",
+      "%c%d font-size:0;color:transparent NaN",
+      "Permissions policy violation: xr-spatial-tracking is not allowed in this document.",
+      "Permissions policy violation: xr-spatial-tracking is not allowed in this document."
+    ],
+    "pageErrors": [],
+    "harmonyApplied": [
+      {
+        "weight": "300",
+        "status": "loaded"
+      },
+      {
+        "weight": "400",
+        "status": "loaded"
+      },
+      {
+        "weight": "500",
+        "status": "loaded"
+      },
+      {
+        "weight": "700",
+        "status": "loaded"
+      }
+    ],
+    "screenshot": "chromium__cn-home.png"
+  },
+  {
+    "engine": "chromium",
+    "page": "en-home",
+    "url": "https://www.qinnitest.you/en/main/home.html",
+    "loadOk": true,
+    "consoleErrors": [
+      "%c%d font-size:0;color:transparent NaN",
+      "%c%d font-size:0;color:transparent NaN",
+      "This document requires 'TrustedHTML' assignment. The action has been blocked.",
+      "This document requires 'TrustedHTML' assignment. The action has been blocked.",
+      "This document requires 'TrustedScript' assignment. The action has been blocked.",
+      "This document requires 'TrustedScript' assignment. The action has been blocked.",
+      "This document requires 'TrustedScriptURL' assignment. The action has been blocked.",
+      "This document requires 'TrustedScriptURL' assignment. The action has been blocked.",
+      "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-wJwQYmPJMDSpMLmdaY0dUq' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-eJGI0Ik4oYe/PKLDOt4wcN76wYs8h+Ew05pMzdY6xG8='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked.",
+      "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-wJwQYmPJMDSpMLmdaY0dUq' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-eJGI0Ik4oYe/PKLDOt4wcN76wYs8h+Ew05pMzdY6xG8='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked.",
+      "This document requires 'TrustedScript' assignment. The action has been blocked.",
+      "This document requires 'TrustedScript' assignment. The action has been blocked.",
+      "Permissions policy violation: xr-spatial-tracking is not allowed in this document.",
+      "Permissions policy violation: xr-spatial-tracking is not allowed in this document.",
+      "Failed to load resource: the server responded with a status of 401 ()",
+      "Permissions policy violation: xr-spatial-tracking is not allowed in this document.",
+      "Permissions policy violation: xr-spatial-tracking is not allowed in this document.",
+      "Failed to load resource: the server responded with a status of 401 ()"
+    ],
+    "pageErrors": [
+      "tailwind is not defined",
+      "tailwind is not defined"
+    ],
+    "harmonyApplied": [
+      {
+        "weight": "300",
+        "status": "unloaded"
+      },
+      {
+        "weight": "400",
+        "status": "unloaded"
+      },
+      {
+        "weight": "500",
+        "status": "unloaded"
+      },
+      {
+        "weight": "700",
+        "status": "unloaded"
+      }
+    ],
+    "screenshot": "chromium__en-home.png"
+  },
+  {
+    "engine": "firefox",
+    "page": "cn-home",
+    "url": "https://www.qinnitest.you/cn/main/home.html",
+    "loadOk": true,
+    "consoleErrors": [
+      "[JavaScript Error: \"Content-Security-Policy: The page’s settings blocked an inline script (script-src-elem) from being executed because it violates the following directive: “script-src 'nonce-w15vtbOicQCg3c3pmdAkeQ' 'unsafe-eval'”. Consider using a hash ('sha256-eJGI0Ik4oYe/PKLDOt4wcN76wYs8h+Ew05pMzdY6xG8=') or a nonce.\" {file: \"about:srcdoc\" line: 1}]",
+      "[JavaScript Error: \"Content-Security-Policy: The page’s settings blocked an inline script (script-src-elem) from being executed because it violates the following directive: “script-src 'nonce-w15vtbOicQCg3c3pmdAkeQ' 'unsafe-eval'”. Consider using a hash ('sha256-eJGI0Ik4oYe/PKLDOt4wcN76wYs8h+Ew05pMzdY6xG8=') or a nonce.\" {file: \"about:srcdoc\" line: 1}]",
+      "0",
+      "0"
+    ],
+    "pageErrors": [],
+    "harmonyApplied": [
+      {
+        "weight": "300",
+        "status": "loaded"
+      },
+      {
+        "weight": "400",
+        "status": "loaded"
+      },
+      {
+        "weight": "500",
+        "status": "loaded"
+      },
+      {
+        "weight": "700",
+        "status": "loaded"
+      }
+    ],
+    "screenshot": "firefox__cn-home.png"
+  },
+  {
+    "engine": "firefox",
+    "page": "en-home",
+    "url": "https://www.qinnitest.you/en/main/home.html",
+    "loadOk": true,
+    "consoleErrors": [
+      "0",
+      "0",
+      "[JavaScript Error: \"Content-Security-Policy: The page’s settings blocked an inline script (script-src-elem) from being executed because it violates the following directive: “script-src 'nonce-nS9qKXlg58E7B31Gt1YbWi' 'unsafe-eval'”. Consider using a hash ('sha256-eJGI0Ik4oYe/PKLDOt4wcN76wYs8h+Ew05pMzdY6xG8=') or a nonce.\" {file: \"about:srcdoc\" line: 1}]",
+      "[JavaScript Error: \"Content-Security-Policy: The page’s settings blocked an inline script (script-src-elem) from being executed because it violates the following directive: “script-src 'nonce-nS9qKXlg58E7B31Gt1YbWi' 'unsafe-eval'”. Consider using a hash ('sha256-eJGI0Ik4oYe/PKLDOt4wcN76wYs8h+Ew05pMzdY6xG8=') or a nonce.\" {file: \"about:srcdoc\" line: 1}]"
+    ],
+    "pageErrors": [
+      "tailwind is not defined"
+    ],
+    "harmonyApplied": [
+      {
+        "weight": "300",
+        "status": "unloaded"
+      },
+      {
+        "weight": "400",
+        "status": "unloaded"
+      },
+      {
+        "weight": "500",
+        "status": "unloaded"
+      },
+      {
+        "weight": "700",
+        "status": "unloaded"
+      }
+    ],
+    "screenshot": "firefox__en-home.png"
+  },
+  {
+    "engine": "webkit",
+    "page": "cn-home",
+    "url": "https://www.qinnitest.you/cn/main/home.html",
+    "loadOk": true,
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 401 ()",
+      "This requires a TrustedHTML value else it violates the following Content Security Policy directive: \"require-trusted-types-for 'script'\"",
+      "This requires a TrustedHTML value else it violates the following Content Security Policy directive: \"require-trusted-types-for 'script'\"",
+      "This requires a TrustedScript value else it violates the following Content Security Policy directive: \"require-trusted-types-for 'script'\"",
+      "This requires a TrustedScript value else it violates the following Content Security Policy directive: \"require-trusted-types-for 'script'\"",
+      "This requires a TrustedScriptURL value else it violates the following Content Security Policy directive: \"require-trusted-types-for 'script'\"",
+      "This requires a TrustedScriptURL value else it violates the following Content Security Policy directive: \"require-trusted-types-for 'script'\"",
+      "Refused to execute a script because its hash, its nonce, or 'unsafe-inline' does not appear in the script-src directive of the Content Security Policy.",
+      "Refused to execute a script because its hash, its nonce, or 'unsafe-inline' does not appear in the script-src directive of the Content Security Policy.",
+      "This requires a TrustedScript value else it violates the following Content Security Policy directive: \"require-trusted-types-for 'script'\"",
+      "This requires a TrustedScript value else it violates the following Content Security Policy directive: \"require-trusted-types-for 'script'\"",
+      "%c%d font-size:0;color:transparent dXab: FraL",
+      "%c%d font-size:0;color:transparent dXab: FraL"
+    ],
+    "pageErrors": [
+      "/challenges.cloudflare.com\" from accessing a frame with origin \"https://www.qinnitest.you\". Protocols, domains, and ports must match."
+    ],
+    "harmonyApplied": [
+      {
+        "weight": "300",
+        "status": "loaded"
+      },
+      {
+        "weight": "400",
+        "status": "loaded"
+      },
+      {
+        "weight": "500",
+        "status": "loaded"
+      },
+      {
+        "weight": "700",
+        "status": "loaded"
+      }
+    ],
+    "screenshot": "webkit__cn-home.png"
+  },
+  {
+    "engine": "webkit",
+    "page": "en-home",
+    "url": "https://www.qinnitest.you/en/main/home.html",
+    "loadOk": true,
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 401 ()",
+      "This requires a TrustedHTML value else it violates the following Content Security Policy directive: \"require-trusted-types-for 'script'\"",
+      "This requires a TrustedHTML value else it violates the following Content Security Policy directive: \"require-trusted-types-for 'script'\"",
+      "This requires a TrustedScript value else it violates the following Content Security Policy directive: \"require-trusted-types-for 'script'\"",
+      "This requires a TrustedScript value else it violates the following Content Security Policy directive: \"require-trusted-types-for 'script'\"",
+      "This requires a TrustedScriptURL value else it violates the following Content Security Policy directive: \"require-trusted-types-for 'script'\"",
+      "This requires a TrustedScriptURL value else it violates the following Content Security Policy directive: \"require-trusted-types-for 'script'\"",
+      "Refused to execute a script because its hash, its nonce, or 'unsafe-inline' does not appear in the script-src directive of the Content Security Policy.",
+      "Refused to execute a script because its hash, its nonce, or 'unsafe-inline' does not appear in the script-src directive of the Content Security Policy.",
+      "This requires a TrustedScript value else it violates the following Content Security Policy directive: \"require-trusted-types-for 'script'\"",
+      "This requires a TrustedScript value else it violates the following Content Security Policy directive: \"require-trusted-types-for 'script'\"",
+      "%c%d font-size:0;color:transparent dXab: FraL",
+      "%c%d font-size:0;color:transparent dXab: FraL"
+    ],
+    "pageErrors": [
+      "Can't find variable: tailwind",
+      "/challenges.cloudflare.com\" from accessing a frame with origin \"https://www.qinnitest.you\". Protocols, domains, and ports must match."
+    ],
+    "harmonyApplied": [
+      {
+        "weight": "300",
+        "status": "unloaded"
+      },
+      {
+        "weight": "400",
+        "status": "unloaded"
+      },
+      {
+        "weight": "500",
+        "status": "unloaded"
+      },
+      {
+        "weight": "700",
+        "status": "unloaded"
+      }
+    ],
+    "screenshot": "webkit__en-home.png"
+  }
+]
