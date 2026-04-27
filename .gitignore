@@ -26,6 +26,10 @@ prop-full-size/
 README-internal.md
 .commitmsg.tmp
 
+# Subset-font intermediate / backup files (only the deployed *.woff2 is tracked)
+prop/fonts/*.full.woff2
+prop/fonts/*.subset.woff2
+
 # Supabase local development
 supabase/.temp/
 supabase/.branches/

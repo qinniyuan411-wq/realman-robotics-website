@@ -1,7 +1,9 @@
-/* Roboto — Latin / English (loaded immediately for first paint)
- * Note: HarmonyOS Sans SC fonts moved to harmonyos-fonts.css and are
- * lazy-loaded after DOMContentLoaded to keep first-paint payload small.
- * Lazy injection logic lives inline in each HTML <head>. */
+/* Roboto — Latin / English  +  HarmonyOS Sans SC — CJK (subset, ~544KB total)
+ * HarmonyOS Sans SC was originally 4×4.4MB (17MB total). Files were subset to
+ * the 949 unique CJK glyphs actually used across the site via fontTools, then
+ * re-encoded as woff2 (~140KB each). Brand VI requirement preserved while
+ * keeping LCP ≤ 3s on 4G mobile. Original full files retained as *.full.woff2
+ * for re-subsetting if new glyphs are introduced. */
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
@@ -29,4 +31,32 @@
   font-weight: 700;
   font-display: swap;
   src: url(fonts/Roboto-700.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'HarmonyOS Sans SC';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(fonts/HarmonyOS_Sans_SC_Light.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'HarmonyOS Sans SC';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/HarmonyOS_Sans_SC_Regular.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'HarmonyOS Sans SC';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(fonts/HarmonyOS_Sans_SC_Medium.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'HarmonyOS Sans SC';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(fonts/HarmonyOS_Sans_SC_Bold.woff2) format('woff2');
 }
