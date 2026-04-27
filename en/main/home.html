@@ -8,7 +8,8 @@
   <script src="../../prop/tailwind.js" integrity="sha384-1DcZPGeODWbGGjS/i/n4ULX/pEc0DPcKK2WhyuWEmBXRfzOwoVTDQBN9C3C5jJHK" crossorigin="anonymous"></script>
   <link rel="preload" as="image" href="../../prop/robot.webp" fetchpriority="high">
   <link href="../../prop/inter-font.css" rel="stylesheet">
-  <link href="../../prop/material-symbols.css" rel="stylesheet">
+  <link rel="preload" href="../../prop/material-symbols.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="../../prop/material-symbols.css" rel="stylesheet"></noscript>
   <script>
   tailwind.config = {
     theme: {
@@ -409,7 +410,7 @@
 
     <!-- Card 01: Robotic Arms -->
     <a href="core-products.html#robotic-arms" class="hw-card lg:row-span-2 border border-[#DFDFDF] rounded-[0.25rem] bg-[#F6F6F6] p-6 md:p-[32px] flex flex-col justify-end relative overflow-hidden" style="text-decoration:none; min-height:220px;">
-      <img src="../../prop/robotic-arms.jpg" alt="Robotic Arms" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none;">
+      <img src="../../prop/robotic-arms.jpg" alt="Robotic Arms" loading="lazy" decoding="async" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none;">
       <div style="position:relative; z-index:1;">
         <span class="hw-label" style="font-size:12px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#3B82F6; margin-bottom:8px; display:block;">01 //</span>
         <div class="flex items-end gap-2">
@@ -421,7 +422,7 @@
 
     <!-- Card 02: Joint Modules -->
     <a href="core-products.html#joint-modules" class="hw-card lg:row-span-2 border border-[#DFDFDF] rounded-[0.25rem] bg-[#F6F6F6] p-6 md:p-[32px] flex flex-col justify-end relative overflow-hidden" style="text-decoration:none; min-height:220px;">
-      <img src="../../prop/joint-modules.jpg" alt="Joint Modules" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none;">
+      <img src="../../prop/joint-modules.jpg" alt="Joint Modules" loading="lazy" decoding="async" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none;">
       <div style="position:relative; z-index:1;">
         <span class="hw-label" style="font-size:12px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#3B82F6; margin-bottom:8px; display:block;">02 //</span>
         <div class="flex items-end gap-2">
@@ -433,7 +434,7 @@
 
     <!-- Card 03: Wheeled Robots -->
     <a href="core-products.html#wheeled-robots" class="hw-card border border-[#DFDFDF] rounded-[0.25rem] bg-[#F6F6F6] p-6 md:p-[32px] flex flex-col justify-end relative overflow-hidden" style="text-decoration:none; min-height:180px;">
-      <img src="../../prop/wheeled-robots.jpg" alt="Wheeled Robots" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none; filter:saturate(0);">
+      <img src="../../prop/wheeled-robots.jpg" alt="Wheeled Robots" loading="lazy" decoding="async" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none; filter:saturate(0);">
       <div style="position:relative; z-index:1;">
         <span class="hw-label" style="font-size:12px; font-weight:400; line-height:1; letter-spacing:-0.05em; color:#3B82F6; margin-bottom:8px; display:block;">03 //</span>
         <div class="flex items-end gap-2">
