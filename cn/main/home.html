@@ -6,8 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>睿尔曼智能 | 首页</title>
   <script src="../../prop/tailwind.js" integrity="sha384-1DcZPGeODWbGGjS/i/n4ULX/pEc0DPcKK2WhyuWEmBXRfzOwoVTDQBN9C3C5jJHK" crossorigin="anonymous"></script>
+  <link rel="preload" as="image" href="../../prop/robot.webp" fetchpriority="high">
   <link href="../../prop/inter-font.css" rel="stylesheet">
   <link href="../../prop/material-symbols.css" rel="stylesheet">
+  <script>
+    // Lazy-load 中文 HarmonyOS Sans SC 字体（约 17MB），首屏先用系统字体兜底，
+    // DOMContentLoaded 后再注入字体表，配合 font-display:swap 平滑替换。
+    (function(){var inject=function(){var l=document.createElement('link');l.rel='stylesheet';l.href='/prop/harmonyos-fonts.css';document.head.appendChild(l);};if(document.readyState==='complete'||document.readyState==='interactive'){setTimeout(inject,0);}else{document.addEventListener('DOMContentLoaded',function(){setTimeout(inject,0);});}})();
+  </script>
   <script>
   tailwind.config = {
     theme: {
@@ -397,7 +403,7 @@
     <div>全球化系统级</div>
     <div class="highlight">基础设施平台公司</div>
   </div>
-  <img class="hero-image" src="../../prop/robot.png" alt="Robot" style="z-index:1;">
+  <img class="hero-image" src="../../prop/robot.webp" alt="Robot" fetchpriority="high" decoding="async" width="1200" height="970" style="z-index:1;">
 </section>
 
 <!-- Section 2: Hardware -->
@@ -471,7 +477,7 @@
       <span style="font-size:15px; font-weight:400; letter-spacing:-0.05em; color:#3B82F6;">了解详情</span>
       <span class="material-symbols-outlined" style="font-size:20px; color:#3B82F6; opacity:0.5;">arrow_outward</span>
     </a>
-    <img src="../../prop/teleop.png" alt="遥操作" class="hidden md:block" style="position:absolute; right:32px; bottom:0; max-width:70%; max-height:70%; object-fit:contain; pointer-events:none; z-index:0;">
+    <img src="../../prop/teleop.webp" alt="遥操作" class="hidden md:block" loading="lazy" decoding="async" width="3166" height="2211" style="position:absolute; right:32px; bottom:0; max-width:70%; max-height:70%; object-fit:contain; pointer-events:none; z-index:0;">
   </div>
 
   <!-- Right: Fixed 3 rows -->

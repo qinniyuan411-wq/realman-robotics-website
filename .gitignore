@@ -4,6 +4,9 @@ _*.py
 __pycache__
 .DS_Store
 Thumbs.db
+node_modules/
+package.json
+package-lock.json
 
 # Internal-only assets and docs (kept local, never deployed)
 prop/internal/

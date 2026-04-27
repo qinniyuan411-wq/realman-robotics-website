@@ -6,7 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RealMan | Home</title>
   <script src="../../prop/tailwind.js" integrity="sha384-1DcZPGeODWbGGjS/i/n4ULX/pEc0DPcKK2WhyuWEmBXRfzOwoVTDQBN9C3C5jJHK" crossorigin="anonymous"></script>
+  <link rel="preload" as="image" href="../../prop/robot.webp" fetchpriority="high">
   <link href="../../prop/inter-font.css" rel="stylesheet">
+  <script>
+    // Lazy-load HarmonyOS Sans SC fonts (~17MB) so first paint uses system fallbacks.
+    (function(){var inject=function(){var l=document.createElement('link');l.rel='stylesheet';l.href='/prop/harmonyos-fonts.css';document.head.appendChild(l);};if(document.readyState==='complete'||document.readyState==='interactive'){setTimeout(inject,0);}else{document.addEventListener('DOMContentLoaded',function(){setTimeout(inject,0);});}})();
+  </script>
   <link href="../../prop/material-symbols.css" rel="stylesheet">
   <script>
   tailwind.config = {
@@ -397,7 +402,7 @@
     <div>Infrastructure for</div>
     <div class="highlight">Embodied Intelligence</div>
   </div>
-  <img class="hero-image" src="../../prop/robot.png" alt="Robot" style="z-index:1;">
+  <img class="hero-image" src="../../prop/robot.webp" alt="Robot" fetchpriority="high" decoding="async" width="1200" height="970" style="z-index:1;">
 </section>
 
 <!-- Section 2: Hardware -->
@@ -471,7 +476,7 @@
       <span style="font-size:15px; font-weight:400; letter-spacing:-0.05em; color:#3B82F6;">Explore More</span>
       <span class="material-symbols-outlined" style="font-size:20px; color:#3B82F6; opacity:0.5;">arrow_outward</span>
     </a>
-    <img src="../../prop/teleop.png" alt="Teleoperation" class="hidden md:block" style="position:absolute; right:32px; bottom:0; max-width:70%; max-height:70%; object-fit:contain; pointer-events:none; z-index:0;">
+    <img src="../../prop/teleop.webp" alt="Teleoperation" class="hidden md:block" loading="lazy" decoding="async" width="3166" height="2211" style="position:absolute; right:32px; bottom:0; max-width:70%; max-height:70%; object-fit:contain; pointer-events:none; z-index:0;">
   </div>
 
   <!-- Right: Fixed 3 rows -->
