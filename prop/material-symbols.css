@@ -1,0 +1,34 @@
+/* Material Symbols Outlined - site-specific subset.
+ *
+ * Original Google-served bundle: 14 @font-face declarations x 7 weights x 2
+ * Latin ranges, totaling ~16MB of woff/ttf data. CSS hard-codes
+ * font-variation-settings: 'wght' 400, so only weight-400 was ever rendered.
+ * We replace the entire bundle with a single woff2 file containing only the
+ * 68 icon ligatures actually used across cn/**\/*.html + en/**\/*.html.
+ * Regenerate via: python scripts/subset-material-icons.py
+ *
+ * Result: 1 @font-face / ~232 KB woff2, a 98.5% reduction off the critical
+ * request chain, with zero visual change to any icon already in production.
+ */
+@font-face {
+  font-family: 'Material Symbols Outlined';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/MaterialSymbolsOutlined-subset.woff2) format('woff2');
+}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+}
